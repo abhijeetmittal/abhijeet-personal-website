@@ -1,0 +1,1205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#191e26">
+<meta name="description" content="Design a fully agentic AI employee with a job, context, tools, workflows, guardrails, automation, tests, and a 30-day rollout plan.">
+<title>AI Employee Builder | The 1000cr Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#eceef1;--paper2:#e4e7eb;--card:#ffffff;--ink:#191e26;--muted:#5f6772;
+  --line:rgba(25,30,38,.16);--teal:#3551c4;--teal2:#d7dcf4;--rust:#5f6772;
+  --rust2:#d7dbe2;--night:#161b24;--green:#2f6a4f;--amber:#a96f1f;--red:#a34235;
+  --tealsoft:rgba(53,81,196,.22);--rustsoft:rgba(95,103,114,.2);
+  --input:#ffffff;--top:rgba(22,27,36,.96);--top-ink:#eceef1;--rail:#e4e7eb;
+  --grid-l:rgba(25,30,38,.055);--grid-s:rgba(25,30,38,.028);
+  --r-lg:22px;--r-md:13px;--r-sm:11px;--pill:99px;--dur:.45s;
+  --sans:"Hanken Grotesk",Arial,sans-serif;--serif:"Newsreader",Georgia,serif;
+  --display:"Newsreader",Georgia,serif;
+  --mono:"JetBrains Mono",monospace;--ease:cubic-bezier(.2,.75,.25,1);
+}
+body[data-theme="night"]{
+  --paper:#0f1714;--paper2:#0b110f;--card:#151f1b;--ink:#efe9db;--muted:#93a098;
+  --line:rgba(239,233,219,.14);--teal:#82c7b5;--teal2:#27433b;--rust:#dd9667;--rust2:#4a352a;
+  --tealsoft:rgba(130,199,181,.14);--rustsoft:rgba(221,150,103,.14);
+  --night:#0a0f0d;--red:#e08573;--input:#101a16;--top:rgba(8,13,11,.94);--top-ink:#efe9db;--rail:#0b110f;
+  --grid-l:rgba(239,233,219,.06);--grid-s:rgba(239,233,219,.03);
+  --dur:.55s;--ease:cubic-bezier(.22,.8,.26,1);color-scheme:dark}
+body[data-theme="dossier"]{
+  --paper:#eceef1;--paper2:#e4e7eb;--card:#ffffff;--ink:#191e26;--muted:#6e6a60;
+  --line:rgba(25,25,21,.26);--teal:#31624c;--teal2:#d7e2dc;--rust:#ad4626;--rust2:#ecd2c5;
+  --tealsoft:rgba(49,98,76,.1);--rustsoft:rgba(173,70,38,.1);
+  --night:#191e26;--red:#ad3a26;--input:#ffffff;--top:#191e26;--top-ink:#eceef1;--rail:#e4e7eb;
+  --grid-l:rgba(25,25,21,.07);--grid-s:rgba(25,25,21,.035);
+  --r-lg:6px;--r-md:4px;--r-sm:3px;--pill:5px;--dur:.22s;--ease:cubic-bezier(.3,.9,.4,1)}
+body{transition:background .5s ease,color .5s ease}
+body[data-theme="night"] .stage h2 em,body[data-theme="night"] .builder-em{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12'%3E%3Cpath d='M2 8 q 15 6 30 1 t 30 1 t 30 1 t 26 0' fill='none' stroke='%23dd9667' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E")}
+body[data-theme="dossier"] .stage h2 em{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12'%3E%3Cpath d='M2 8 q 15 6 30 1 t 30 1 t 30 1 t 26 0' fill='none' stroke='%23ad4626' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E")}
+@keyframes dcRise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes dcFade{from{opacity:0}to{opacity:1}}
+.stage.active .stage-head{animation:dcRise var(--dur) var(--ease) both}
+.stage.active .panel{animation:dcRise var(--dur) var(--ease) .08s both}
+.stage.active .stage-foot,.stage.active .tabs{animation:dcFade .5s var(--ease) .15s both}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.noise{position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.025;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px clamp(18px,4vw,48px);border-bottom:1px solid rgba(245,241,232,.12);background:var(--top);color:var(--top-ink);backdrop-filter:blur(16px);transition:background .5s ease}
+.brand{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase}
+.top-actions{display:flex;gap:8px}
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);min-height:calc(100vh - 58px)}
+.rail{position:sticky;top:58px;height:calc(100vh - 58px);padding:28px 22px;border-right:1px solid var(--line);background:var(--rail);overflow:auto;transition:background .5s ease}
+.rail-kicker,.kicker{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.rail h1{margin:10px 0 12px;font-family:var(--serif);font-size:2.4rem;font-weight:400;line-height:.98;letter-spacing:-.01em}
+.rail h1 em{color:var(--rust)}
+.rail-sketch{margin:6px 0 18px}
+.rail-sketch svg{width:100%;height:auto}
+.rail-copy{margin:0 0 25px;color:var(--muted);font-size:.84rem}
+.steps{display:grid;gap:7px}
+.step-link{display:grid;grid-template-columns:30px 1fr;gap:9px;align-items:center;width:100%;padding:11px;border:1px solid transparent;border-radius:var(--r-md);transition:transform .2s var(--ease);background:transparent;color:var(--muted);text-align:left}
+.step-link:hover{background:var(--card);transform:translateX(3px)}
+.step-link.active{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.step-link.done{color:var(--green)}
+.step-no{display:grid;place-items:center;width:28px;height:28px;border:1px solid currentColor;border-radius:50%;font-family:var(--mono);font-size:.62rem}
+.step-name{font-size:.79rem;font-weight:600}
+.rail-score{margin-top:24px;padding:16px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--card);transition:background .5s ease}
+.score-row{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:.62rem;text-transform:uppercase;color:var(--muted)}
+.meter{height:7px;margin-top:10px;border-radius:99px;background:rgba(25,30,38,.1);overflow:hidden}
+.meter span{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--teal),var(--rust));transition:width .7s var(--ease)}
+.rail-note{margin-top:11px;font-size:.72rem;color:var(--muted)}
+.main{min-width:0;padding:clamp(30px,5vw,68px);
+ background:
+  linear-gradient(var(--grid-l) 1px,transparent 1px),
+  linear-gradient(90deg,var(--grid-l) 1px,transparent 1px),
+  linear-gradient(var(--grid-s) 1px,transparent 1px),
+  linear-gradient(90deg,var(--grid-s) 1px,transparent 1px);
+ background-size:296px 296px,296px 296px,74px 74px,74px 74px}
+.stage{display:none;max-width:1050px;margin:0 auto}
+.stage.active{display:block;animation:rise 260ms var(--ease)}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.stage-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;margin-bottom:34px}
+.stage h2{max-width:700px;margin:8px 0 20px;font-family:var(--serif);font-size:clamp(2.3rem,4.5vw,4.2rem);font-weight:400;line-height:.98;letter-spacing:-.01em}
+.stage h2 em{color:var(--rust);padding-bottom:.14em;-webkit-box-decoration-break:clone;box-decoration-break:clone;
+ background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12'%3E%3Cpath d='M2 8 q 15 6 30 1 t 30 1 t 30 1 t 26 0' fill='none' stroke='%23a95138' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x left bottom;background-size:auto .11em}
+.stage-doodle{display:grid;justify-items:center;gap:8px}
+.stage-doodle svg{width:74px;height:74px}
+.stage-intro{max-width:680px;margin:0;color:var(--muted)}
+.step-pill{padding:8px 13px;border:1px solid var(--line);border-radius:var(--pill);color:var(--muted);font-family:var(--mono);font-size:.62rem;white-space:nowrap}
+.panel{padding:clamp(20px,3vw,32px);border:1px solid var(--line);border-radius:var(--r-lg);background:var(--card);box-shadow:0 22px 60px rgba(25,30,38,.055);transition:background .5s ease}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.field{margin-bottom:20px}
+.field:last-child{margin-bottom:0}
+.field>label,.label{display:block;margin-bottom:7px;font-family:var(--mono);font-size:.63rem;letter-spacing:.11em;text-transform:uppercase;color:var(--teal)}
+.hint{margin:6px 0 0;color:var(--muted);font-size:.75rem}
+input,textarea,select{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--input);color:var(--ink);outline:none;transition:border 160ms,box-shadow 160ms}
+textarea{min-height:105px;resize:vertical}
+input:focus,textarea:focus,select:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(53,81,196,.11)}
+.templates{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px}
+.template{padding:14px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--paper);color:var(--ink);text-align:left;transition:all 180ms var(--ease)}
+.template:hover{border-color:var(--rust);transform:translateY(-3px);box-shadow:0 12px 26px rgba(25,30,38,.1)}
+.template b{display:block;margin-bottom:5px;font-family:var(--serif);font-size:1.08rem;font-weight:400}
+.template span{font-size:.7rem;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip input{position:absolute;opacity:0;pointer-events:none}
+.chip span{display:inline-flex;padding:9px 13px;border:1px solid var(--line);border-radius:var(--pill);background:var(--input);color:var(--muted);font-size:.78rem;transition:all 170ms}
+.chip input:checked+span{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.choice-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:stretch}
+.choice{position:relative;display:block;cursor:pointer}
+.choice input{position:absolute;opacity:0}
+.choice-card{display:flex;flex-direction:column;gap:6px;height:100%;padding:16px 13px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--input);transition:all 180ms}
+.choice input:checked+.choice-card{border-color:var(--teal);box-shadow:inset 0 0 0 1px var(--teal);background:var(--tealsoft)}
+.choice input:focus-visible+.choice-card{box-shadow:0 0 0 3px rgba(53,81,196,.25)}
+.choice-card b{display:block;font-family:var(--serif);font-size:1.15rem;font-weight:400;line-height:1.15}
+.choice-card small{display:block;color:var(--muted);font-size:.68rem;line-height:1.45}
+.level{font-family:var(--mono);font-size:.58rem;color:var(--rust)}
+.callout{margin-top:18px;padding:17px 19px;border-left:3px solid var(--rust);border-radius:0 var(--r-sm) var(--r-sm) 0;background:var(--rustsoft);font-size:.83rem}
+.workflow-list{display:grid;gap:12px}
+.workflow-row{display:grid;grid-template-columns:34px minmax(0,1fr) 42px;gap:11px;align-items:start;padding:13px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--paper)}
+.workflow-row .drag{font-family:var(--mono);font-size:.7rem;color:var(--teal);padding-top:13px}
+.workflow-row textarea{min-height:52px}
+.icon-btn{width:38px;height:38px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--input);color:var(--rust)}
+.add-btn{margin-top:12px;border:1px dashed var(--teal);background:transparent;color:var(--teal)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 18px;border:1px solid var(--ink);border-radius:var(--pill);background:var(--ink);color:var(--paper);font-size:.82rem;font-weight:600;transition:all 180ms}
+.btn:hover{border-color:var(--rust);background:var(--rust)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--paper2)}
+.topbar .btn.ghost,.topbar a.btn.ghost{color:var(--paper);border-color:rgba(245,241,232,.4)}
+.topbar .btn.ghost:hover{background:rgba(245,241,232,.14)}
+.btn.small{padding:8px 12px;font-family:var(--mono);font-size:.62rem}
+.stage-foot{display:flex;justify-content:space-between;gap:12px;max-width:1050px;margin:24px auto 0}
+.risk-table{display:grid;gap:10px}
+.risk-row{display:grid;grid-template-columns:1.3fr .8fr 1.7fr;gap:12px;align-items:center}
+.approval-card{padding:18px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--paper)}
+.approval-card h3{margin:0 0 8px;font-family:var(--serif);font-size:1.3rem;font-weight:400}
+.approval-card p{margin:0;color:var(--muted);font-size:.78rem}
+.switch{display:flex;gap:8px;align-items:center;margin-top:13px}
+.switch input{width:auto}
+.result-shell{max-width:1180px}
+.result-hero{display:grid;grid-template-columns:1.3fr .7fr;gap:20px;margin-bottom:20px}
+.result-title{position:relative;overflow:hidden;padding:clamp(26px,4vw,44px);border-radius:var(--r-lg);background:var(--night);color:#eceef1;animation:dcRise var(--dur) var(--ease) both}
+.result-title .kicker{color:#79b4af}
+.result-title h2{margin:10px 0 14px;font-size:clamp(2.4rem,5vw,4.4rem)}
+.result-title p{max-width:620px;margin:0;color:#b9c5bf}
+.readiness{display:grid;place-items:center;padding:24px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--card);text-align:center;animation:dcRise var(--dur) var(--ease) .1s both;transition:background .5s ease}
+.readiness strong{font-family:var(--serif);font-weight:400;line-height:1}
+.meta-k{font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
+.meta-v{margin-top:4px;font-family:var(--serif);font-size:1.05rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.readiness span{font-family:var(--mono);font-size:.63rem;text-transform:uppercase;color:var(--muted)}
+.readiness p{margin:10px 0 0;font-size:.75rem;color:var(--muted)}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 12px}
+.tab{padding:9px 13px;border:1px solid var(--line);border-radius:var(--pill);background:var(--card);transition:all .2s var(--ease);color:var(--muted);font-family:var(--mono);font-size:.61rem;text-transform:uppercase}
+.tab.active{background:var(--ink);color:var(--paper)}
+.tab.hot{border-color:var(--rust);color:var(--rust);font-weight:600}
+.tab.hot.active{background:var(--rust);border-color:var(--rust);color:#fff8f2}
+.output-panel{display:none;padding:0;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--card);overflow:hidden;box-shadow:0 22px 60px rgba(25,30,38,.055);animation:dcRise var(--dur) var(--ease) .18s both}
+.output-panel.active{display:block}
+.output-head{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:15px 18px;border-bottom:1px solid var(--line);background:var(--paper2)}
+.output-head b{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;color:var(--teal)}
+.output-body{padding:clamp(26px,4.5vw,56px);max-height:680px;overflow:auto}
+.output-body>div{max-width:740px;margin:0 auto}
+.doc-h1{font-family:var(--mono);font-weight:500;font-size:.82rem;line-height:1.4;margin:6px 0 18px;letter-spacing:.16em;text-transform:uppercase}
+.doc-h2{font-family:var(--mono);font-weight:500;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);margin:28px 0 10px;padding-top:20px;border-top:1px solid var(--line)}
+.doc-row{display:flex;gap:12px;margin:8px 0;font-size:.89rem;align-items:baseline}
+.doc-row .gn{font-family:var(--mono);font-size:.68rem;color:var(--rust)}
+.doc-row .gb{font-family:var(--mono);font-size:.8rem;color:var(--rust)}
+.doc-row .gd{color:var(--teal)}
+.doc-cap{font-family:var(--mono);font-size:.64rem;letter-spacing:.15em;color:var(--teal);margin:22px 0 6px;text-transform:uppercase}
+.doc-p{margin:4px 0;font-size:.93rem;line-height:1.68}
+.export-bar{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.empty{padding:46px 20px;text-align:center;color:var(--muted)}
+.toast{position:fixed;right:22px;bottom:22px;z-index:80;padding:12px 17px;border-radius:var(--r-md);box-shadow:0 14px 40px rgba(0,0,0,.25);background:var(--ink);color:var(--paper);font-size:.78rem;opacity:0;transform:translateY(8px);pointer-events:none;transition:all 180ms}
+.toast.show{opacity:1;transform:none}
+.error{border-color:var(--red)!important;box-shadow:0 0 0 3px rgba(163,66,53,.08)!important}
+@media(max-width:980px){
+ .shell{grid-template-columns:1fr}.rail{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line)}
+ .steps{grid-template-columns:repeat(4,1fr)}.step-link{grid-template-columns:1fr;text-align:center}.step-no{margin:auto}
+ .rail-score{display:none}.main{padding:30px 20px}.choice-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:720px){
+ .topbar{padding:12px 16px}.brand{max-width:180px}.top-actions .ghost{display:none}
+ .rail{padding:20px 16px}.rail h1,.rail-copy{display:none}.steps{display:flex;overflow:auto}
+ .step-link{min-width:110px}.stage-head,.result-hero{grid-template-columns:1fr}.step-pill{display:none}
+ .grid2,.grid3,.templates{grid-template-columns:1fr}.choice-grid{grid-template-columns:1fr}
+ .risk-row{grid-template-columns:1fr}.workflow-row{grid-template-columns:28px minmax(0,1fr) 38px}
+ .stage-foot{position:sticky;bottom:0;padding:12px 0;background:linear-gradient(transparent,var(--paper) 25%)}
+}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+<header class="topbar">
+  <div class="brand">Abhijeet Mittal / The 1000cr Playbook</div>
+  <div class="top-actions">
+    <a class="btn ghost small" href="1000cr-operations-map.html" style="text-decoration:none;color:inherit;border-color:rgba(245,241,232,.35)">The 1000cr map</a>
+    <button class="btn ghost small" id="resetBtn">Start over</button>
+    <button class="btn small" id="generateTop">Build my AI employee</button>
+  </div>
+</header>
+
+<div class="shell">
+  <aside class="rail">
+    <div class="rail-kicker">AI Employee Builder</div>
+    <h1>Hire your first <em>agent.</em></h1>
+    <p class="rail-copy">Turn a recurring job into a supervised, testable, fully automated AI employee.</p>
+    <div class="rail-sketch" aria-hidden="true">
+      <svg viewBox="0 0 240 110" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round">
+        <circle cx="30" cy="34" r="12" stroke="var(--ink)" stroke-width="2.6"/>
+        <path d="M30 46 L29 74 M30 54 L16 66 M30 54 L44 65 M29 74 L18 92 M29 74 L40 92" stroke="var(--ink)" stroke-width="2.6"/>
+        <path d="M52 48 Q70 44 86 47" stroke="var(--ink)" stroke-width="2.4"/>
+        <path d="M86 47 L78 42 M86 47 L79 53" stroke="var(--ink)" stroke-width="2.4"/>
+        <path d="M92 30 L150 29 L151 64 L93 66 Z" stroke="var(--ink)" stroke-width="2.6"/>
+        <text x="121" y="52" font-family="Newsreader, Georgia" font-style="italic" font-size="17" fill="var(--ink)" text-anchor="middle" stroke="none">agent</text>
+        <path d="M156 46 Q174 42 190 45" stroke="var(--ink)" stroke-width="2.4"/>
+        <path d="M190 45 L182 40 M190 45 L183 51" stroke="var(--ink)" stroke-width="2.4"/>
+        <path d="M196 26 L228 25 L229 68 L197 70 Z" stroke="var(--ink)" stroke-width="2.4"/>
+        <path d="M203 38 L222 37 M203 47 L222 46 M203 56 L222 55" stroke="var(--muted)" stroke-width="1.8"/>
+        <path d="M213 76 Q160 104 38 96" stroke="var(--rust)" stroke-width="2.4" stroke-dasharray="1 8"/>
+        <path d="M38 96 L48 90 M38 96 L48 102" stroke="var(--rust)" stroke-width="2.4"/>
+        <text x="124" y="107" font-family="Newsreader, Georgia" font-style="italic" font-size="13" fill="var(--rust)" text-anchor="middle" stroke="none">fix the playbook, not the output</text>
+      </svg>
+    </div>
+    <nav class="steps" id="stepNav"></nav>
+    <div class="rail-score">
+      <div class="score-row"><span>Build readiness</span><strong id="scoreText">0%</strong></div>
+      <div class="meter"><span id="scoreMeter"></span></div>
+      <div class="rail-note" id="scoreNote">Define a job to begin.</div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <form id="builderForm" novalidate>
+      <section class="stage active" data-stage="0">
+        <div class="stage-head">
+          <div>
+            <div class="kicker">01 / The job</div>
+            <h2>Give it a result, <em>not a role.</em></h2>
+            <p class="stage-intro">"Marketing agent" is vague. "Find the top three customer objections every Monday and update the messaging brief" is a job.</p>
+          </div>
+          <div class="stage-doodle" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="var(--rust)" stroke-width="2.8" stroke-linecap="round"><path d="M32 7 C47 8 57 19 56 33 C55 47 45 57 31 56 C17 55 8 45 9 31 C10 18 19 8 32 7"/><path d="M32 19 C40 20 46 25 45 33 C44 41 39 46 31 45 C23 44 18 39 19 31 C20 24 25 19 32 19"/><circle cx="32" cy="32" r="4" fill="var(--rust)" stroke="none"/></svg><div class="step-pill">Output: agent charter</div></div>
+        </div>
+        <div class="panel">
+          <div class="templates">
+            <button type="button" class="template" data-template="research"><b>Category researcher</b><span>Find demand, complaints, gaps</span></button>
+            <button type="button" class="template" data-template="growth"><b>Growth analyst</b><span>Watch spend, flag actions</span></button>
+            <button type="button" class="template" data-template="content"><b>Content operator</b><span>Research, brief, produce</span></button>
+            <button type="button" class="template" data-template="support"><b>Customer success</b><span>Triage, resolve, escalate</span></button>
+          </div>
+          <div class="grid2">
+            <div class="field">
+              <label for="agentName">Employee name</label>
+              <input id="agentName" name="agentName" placeholder="Category Intelligence Analyst" required>
+            </div>
+            <div class="field">
+              <label for="owner">Human manager</label>
+              <input id="owner" name="owner" placeholder="Founder or category manager" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="mission">One-line job description</label>
+            <textarea id="mission" name="mission" placeholder="Every Monday, find the three customer complaints gaining momentum and update our category action brief with evidence." required></textarea>
+            <p class="hint">Use an action, a result, a frequency, and a destination.</p>
+          </div>
+          <div class="grid2">
+            <div class="field">
+              <label for="success">Definition of done</label>
+              <textarea id="success" name="success" placeholder="Three evidence-backed complaints, exact quotes, source links, confidence score, and one action for product, marketing, and support." required></textarea>
+            </div>
+            <div class="field">
+              <label for="kpi">Primary KPI</label>
+              <textarea id="kpi" name="kpi" placeholder="At least 80% of weekly findings are judged useful; zero unsupported claims; report arrives before 9am Monday." required></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stage" data-stage="1">
+        <div class="stage-head">
+          <div>
+            <div class="kicker">02 / The company brain</div>
+            <h2>Give it the context <em>your best employee knows.</em></h2>
+            <p class="stage-intro">The model is rented. Your context is proprietary. This is the layer that turns a generic assistant into your employee.</p>
+          </div>
+          <div class="stage-doodle" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="var(--rust)" stroke-width="2.8" stroke-linecap="round"><path d="M22 52 C12 48 8 38 11 28 C14 17 25 9 37 11 C49 13 57 23 55 35 C53 46 44 53 33 53 L33 58"/><path d="M32 40 C27 39 25 34 27 30 C29 26 34 25 37 28 C40 31 39 36 35 38"/><path d="M37 28 C36 23 31 21 27 23"/></svg><div class="step-pill">Output: context architecture</div></div>
+        </div>
+        <div class="panel">
+          <div class="grid2">
+            <div class="field">
+              <label for="company">Company and product</label>
+              <textarea id="company" name="company" placeholder="What you sell, price point, market, business model, and current stage." required></textarea>
+            </div>
+            <div class="field">
+              <label for="customer">Customer</label>
+              <textarea id="customer" name="customer" placeholder="Who they are, what they want, what they fear, and the language they use." required></textarea>
+            </div>
+          </div>
+          <div class="grid2">
+            <div class="field">
+              <label for="truths">Business truths and constraints</label>
+              <textarea id="truths" name="truths" placeholder="Non-negotiables, approved claims, price floors, brand rules, legal constraints, decisions already made." required></textarea>
+            </div>
+            <div class="field">
+              <label for="examples">Examples of excellent work</label>
+              <textarea id="examples" name="examples" placeholder="Describe or link 2-3 outputs you would approve without edits."></textarea>
+            </div>
+          </div>
+          <div class="field">
+            <span class="label">Context sources available</span>
+            <div class="chips" id="contextChips">
+              <label class="chip"><input type="checkbox" value="Product and brand docs"><span>Product and brand docs</span></label>
+              <label class="chip"><input type="checkbox" value="Customer reviews"><span>Customer reviews</span></label>
+              <label class="chip"><input type="checkbox" value="Support conversations"><span>Support conversations</span></label>
+              <label class="chip"><input type="checkbox" value="Analytics and dashboards"><span>Analytics</span></label>
+              <label class="chip"><input type="checkbox" value="Meeting notes and decision logs"><span>Decision logs</span></label>
+              <label class="chip"><input type="checkbox" value="Past approved outputs"><span>Approved outputs</span></label>
+            </div>
+          </div>
+          <div class="callout">The generated plan separates stable context, which changes rarely, from live context, which the agent refreshes on every run.</div>
+        </div>
+      </section>
+
+      <section class="stage" data-stage="2">
+        <div class="stage-head">
+          <div>
+            <div class="kicker">03 / The workflow</div>
+            <h2>Teach the job as a <em>repeatable skillchain.</em></h2>
+            <p class="stage-intro">An agent needs a loop: observe, decide, act, verify, record. Add the real sequence your employee should follow.</p>
+          </div>
+          <div class="stage-doodle" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="var(--rust)" stroke-width="2.8" stroke-linecap="round"><path d="M46 16 C54 22 56 33 51 41 C46 50 36 54 27 51"/><path d="M27 51 L35 49 M27 51 L31 58"/><path d="M18 48 C10 42 8 31 13 23 C18 14 28 10 37 13"/><path d="M37 13 L29 15 M37 13 L33 6"/></svg><div class="step-pill">Output: execution graph</div></div>
+        </div>
+        <div class="panel">
+          <div class="workflow-list" id="workflowList"></div>
+          <button type="button" class="btn add-btn" id="addWorkflow">+ Add workflow step</button>
+          <div class="grid2" style="margin-top:24px">
+            <div class="field">
+              <label for="trigger">Trigger</label>
+              <select id="trigger" name="trigger">
+                <option value="schedule">Recurring schedule</option>
+                <option value="new_data">New data or event</option>
+                <option value="manual">Human request</option>
+                <option value="threshold">Metric crosses a threshold</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="frequency">Schedule or event detail</label>
+              <input id="frequency" name="frequency" placeholder="Every Monday at 7:00am IST" required>
+            </div>
+          </div>
+          <div class="grid2">
+            <div class="field">
+              <label for="output">Where completed work lands</label>
+              <input id="output" name="output" placeholder="Google Sheet + Slack summary + Notion archive" required>
+            </div>
+            <div class="field">
+              <label for="memory">What the agent must remember</label>
+              <input id="memory" name="memory" placeholder="Past findings, manager corrections, actions taken, outcomes" required>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stage" data-stage="3">
+        <div class="stage-head">
+          <div>
+            <div class="kicker">04 / Tools and automation</div>
+            <h2>Connect the hands, <em>not only the brain.</em></h2>
+            <p class="stage-intro">Reading and writing tools make the employee useful. A trigger and an automation layer make it show up without being asked.</p>
+          </div>
+          <div class="stage-doodle" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="var(--rust)" stroke-width="2.8" stroke-linecap="round"><path d="M20 28 L20 14 M32 28 L32 12 M44 28 L44 16"/><path d="M14 28 L50 27 L49 40 C49 46 43 51 36 51 L28 51 C21 51 15 46 15 40 Z"/><path d="M32 51 L32 58"/></svg><div class="step-pill">Output: tool and automation map</div></div>
+        </div>
+        <div class="panel">
+          <div class="field">
+            <span class="label">Tools the employee can use</span>
+            <div class="chips" id="toolChips">
+              <label class="chip"><input type="checkbox" value="Web research"><span>Web research</span></label>
+              <label class="chip"><input type="checkbox" value="Apify scrapers"><span>Apify</span></label>
+              <label class="chip"><input type="checkbox" value="Google Sheets"><span>Google Sheets</span></label>
+              <label class="chip"><input type="checkbox" value="Notion"><span>Notion</span></label>
+              <label class="chip"><input type="checkbox" value="Slack"><span>Slack</span></label>
+              <label class="chip"><input type="checkbox" value="Gmail"><span>Gmail</span></label>
+              <label class="chip"><input type="checkbox" value="Google Drive"><span>Google Drive</span></label>
+              <label class="chip"><input type="checkbox" value="CRM"><span>CRM</span></label>
+              <label class="chip"><input type="checkbox" value="Analytics platform"><span>Analytics</span></label>
+              <label class="chip"><input type="checkbox" value="Internal API"><span>Internal API</span></label>
+            </div>
+          </div>
+          <div class="grid2">
+            <div class="field">
+              <label for="automation">Automation layer</label>
+              <select id="automation" name="automation">
+                <option value="n8n">n8n, best for control and self-hosting</option>
+                <option value="make">Make, best for a visual no-code build</option>
+                <option value="zapier">Zapier, best for a simple first workflow</option>
+                <option value="code">Code + cron, best for engineering teams</option>
+                <option value="manual">Manual first, automate after 3 clean runs</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="model">Reasoning model</label>
+              <select id="model" name="model">
+                <option value="Claude or ChatGPT">Claude or ChatGPT</option>
+                <option value="Claude">Claude</option>
+                <option value="ChatGPT">ChatGPT</option>
+                <option value="Gemini">Gemini</option>
+                <option value="Model router">Model router by task</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="credentials">Credential and access notes</label>
+            <textarea id="credentials" name="credentials" placeholder="Use read-only keys where possible. Write access only to the destination sheet. No payment, deletion, publishing, or customer messaging rights."></textarea>
+          </div>
+          <div class="callout">The plan will recommend least-privilege access. Full autonomy does not require unlimited permissions.</div>
+        </div>
+      </section>
+
+      <section class="stage" data-stage="4">
+        <div class="stage-head">
+          <div>
+            <div class="kicker">05 / Autonomy and control</div>
+            <h2>Decide what it can do <em>without you.</em></h2>
+            <p class="stage-intro">Real agents act. Good agents also know when to stop, ask, retry, and leave an audit trail.</p>
+          </div>
+          <div class="stage-doodle" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="var(--rust)" stroke-width="2.8" stroke-linecap="round"><path d="M10 46 C9 32 19 20 33 19 C46 18 56 29 56 44"/><path d="M12 38 L17 40 M19 28 L23 32 M32 24 L33 30 M45 28 L41 32 M53 37 L48 40"/><path d="M33 46 L46 33"/><circle cx="33" cy="46" r="4" fill="var(--rust)" stroke="none"/></svg><div class="step-pill">Output: approval policy</div></div>
+        </div>
+        <div class="panel">
+          <div class="field">
+            <span class="label">Autonomy level</span>
+            <div class="choice-grid">
+              <label class="choice"><input type="radio" name="autonomy" value="1"><span class="choice-card"><span class="level">LEVEL 1</span><b>Draft</b><small>Prepares work. Human executes every action.</small></span></label>
+              <label class="choice"><input type="radio" name="autonomy" value="2"><span class="choice-card"><span class="level">LEVEL 2</span><b>Recommend</b><small>Chooses an action. Human approves it.</small></span></label>
+              <label class="choice"><input type="radio" name="autonomy" value="3" checked><span class="choice-card"><span class="level">LEVEL 3</span><b>Act safely</b><small>Executes reversible work inside clear limits.</small></span></label>
+              <label class="choice"><input type="radio" name="autonomy" value="4"><span class="choice-card"><span class="level">LEVEL 4</span><b>Own the loop</b><small>Runs end to end. Escalates exceptions.</small></span></label>
+              <label class="choice"><input type="radio" name="autonomy" value="5"><span class="choice-card"><span class="level">LEVEL 5</span><b>Manage outcomes</b><small>Plans, delegates, acts, and improves the system.</small></span></label>
+            </div>
+          </div>
+          <div class="grid3" style="margin-top:24px">
+            <div class="approval-card">
+              <h3>Low-risk actions</h3>
+              <p>Reading, analysis, drafts, internal updates.</p>
+              <label class="switch"><input type="checkbox" id="autoLow" checked> Execute automatically</label>
+            </div>
+            <div class="approval-card">
+              <h3>Medium-risk actions</h3>
+              <p>Changing records, messaging teams, moving work.</p>
+              <label class="switch"><input type="checkbox" id="autoMedium"> Execute automatically</label>
+            </div>
+            <div class="approval-card">
+              <h3>High-risk actions</h3>
+              <p>Publishing, spending, deleting, legal or customer promises.</p>
+              <label class="switch"><input type="checkbox" id="autoHigh"> Execute automatically</label>
+            </div>
+          </div>
+          <div class="grid2" style="margin-top:22px">
+            <div class="field">
+              <label for="escalate">Escalate when</label>
+              <textarea id="escalate" name="escalate" placeholder="Evidence conflicts, confidence falls below 75%, a claim lacks a source, cost exceeds the limit, or the action affects a customer." required></textarea>
+            </div>
+            <div class="field">
+              <label for="stop">Stop immediately when</label>
+              <textarea id="stop" name="stop" placeholder="A tool fails twice, credentials are rejected, source data looks corrupted, or an irreversible action is requested." required></textarea>
+            </div>
+          </div>
+          <div class="grid2">
+            <div class="field">
+              <label for="budget">Run budget</label>
+              <input id="budget" name="budget" placeholder="Maximum 20 minutes and ₹100 per run">
+            </div>
+            <div class="field">
+              <label for="audit">Audit log destination</label>
+              <input id="audit" name="audit" placeholder="Agent Runs sheet with input, actions, sources, output, cost, errors">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stage" data-stage="5">
+        <div class="stage-head">
+          <div>
+            <div class="kicker">06 / Test and improve</div>
+            <h2>Make it earn <em>autonomy.</em></h2>
+            <p class="stage-intro">An AI employee starts supervised. It earns a wider job through clean runs, measurable quality, and corrections written back into the playbook.</p>
+          </div>
+          <div class="stage-doodle" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="var(--rust)" stroke-width="2.8" stroke-linecap="round"><path d="M26 8 L38 8 M28 8 L28 24 L14 47 C11 52 14 57 19 57 L45 57 C50 57 53 52 50 47 L36 24 L36 8"/><path d="M20 44 L44 43"/><circle cx="28" cy="50" r="2.4" fill="var(--rust)" stroke="none"/><circle cx="37" cy="48" r="2" fill="var(--rust)" stroke="none"/></svg><div class="step-pill">Output: test and 30-day ramp</div></div>
+        </div>
+        <div class="panel">
+          <div class="grid2">
+            <div class="field">
+              <label for="happyTest">Happy-path test</label>
+              <textarea id="happyTest" name="happyTest" placeholder="Use last week's real data. The agent should complete the full workflow and produce an approvable output."></textarea>
+            </div>
+            <div class="field">
+              <label for="edgeTest">Edge-case test</label>
+              <textarea id="edgeTest" name="edgeTest" placeholder="Give it incomplete or conflicting data. It should show uncertainty and escalate rather than invent."></textarea>
+            </div>
+          </div>
+          <div class="grid2">
+            <div class="field">
+              <label for="redTest">Failure test</label>
+              <textarea id="redTest" name="redTest" placeholder="Break one tool or remove access. It should retry within policy, stop, log the failure, and notify the manager."></textarea>
+            </div>
+            <div class="field">
+              <label for="promotion">Promotion rule</label>
+              <textarea id="promotion" name="promotion" placeholder="After 3 clean supervised runs and 90% manager approval, move one autonomy level higher."></textarea>
+            </div>
+          </div>
+          <div class="field">
+            <label for="feedback">How corrections enter the playbook</label>
+            <textarea id="feedback" name="feedback" placeholder="Manager records the error, preferred behavior, and new rule. The rule is reviewed, added to the playbook, versioned, and tested on the failed example." required></textarea>
+          </div>
+          <div class="callout">Never fix only the output. Fix the instruction, tool, context, or guardrail that allowed the error.</div>
+        </div>
+      </section>
+
+      <section class="stage result-shell" data-stage="6">
+        <div id="emptyResult" class="empty panel">
+          Complete the builder, then generate the operating pack.
+        </div>
+        <div id="resultContent" hidden>
+          <div class="result-hero">
+            <div class="result-title">
+              <div class="kicker" style="color:#79b4af">Operating pack &middot; Generated <span id="packDate"></span></div>
+              <h2 id="resultName">AI Employee</h2>
+              <p id="resultMission" style="max-width:640px;opacity:.72"></p>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-top:30px;padding-top:18px;border-top:1px solid rgba(245,241,232,.16)">
+                <div><div class="meta-k">Manager</div><div class="meta-v" id="metaManager"></div></div>
+                <div><div class="meta-k">Trigger</div><div class="meta-v" id="metaTrigger"></div></div>
+                <div><div class="meta-k">Autonomy</div><div class="meta-v" id="metaAutonomy"></div></div>
+                <div><div class="meta-k">Tools</div><div class="meta-v" id="metaTools"></div></div>
+              </div>
+            </div>
+            <div class="readiness">
+              <div>
+                <div style="position:relative;width:150px;height:150px;margin:0 auto">
+                  <svg width="150" height="150" viewBox="0 0 150 150" style="transform:rotate(-90deg)">
+                    <circle cx="75" cy="75" r="64" fill="none" stroke="var(--line)" stroke-width="6"></circle>
+                    <circle id="ringFg" cx="75" cy="75" r="64" fill="none" stroke="var(--teal)" stroke-width="6" stroke-linecap="round" stroke-dasharray="402.12" stroke-dashoffset="402.12" style="transition:stroke-dashoffset 1.2s var(--ease)"></circle>
+                  </svg>
+                  <div style="position:absolute;inset:0;display:grid;place-items:center">
+                    <div>
+                      <strong id="finalScore" style="font-size:2.5rem">0%</strong>
+                      <span style="display:block;margin-top:4px">build readiness</span>
+                    </div>
+                  </div>
+                </div>
+                <p id="finalNote" style="max-width:200px;margin:14px auto 0"></p>
+              </div>
+            </div>
+          </div>
+          <div class="tabs" id="tabs"></div>
+          <div id="outputPanels"></div>
+          <div class="export-bar">
+            <button type="button" class="btn" id="downloadMd">Download complete build pack</button>
+            <button type="button" class="btn ghost" id="downloadJson">Download JSON spec</button>
+            <button type="button" class="btn ghost" id="downloadN8n">Download n8n workflow</button>
+            <button type="button" class="btn ghost" id="copyActive">Copy open section</button>
+          </div>
+          <div class="export-bar" style="margin-top:10px">
+            <span class="label" style="align-self:center;margin:0">Deploy in one click</span>
+            <button type="button" class="btn" id="openClaude">Hire it in Claude &#8594;</button>
+            <button type="button" class="btn ghost" id="openChatGPT">Hire it in ChatGPT &#8594;</button>
+          </div>
+          <p class="hint" style="margin-top:10px">The one-click buttons open a new chat with the full system prompt preloaded. Save it there as a Project (Claude) or custom GPT, then wire the trigger with the automation recipe so it runs without you.</p>
+        </div>
+      </section>
+
+      <div class="stage-foot" id="stageFoot">
+        <button type="button" class="btn ghost" id="backBtn">Back</button>
+        <button type="button" class="btn" id="nextBtn">Next: company brain</button>
+      </div>
+    </form>
+  </main>
+</div>
+
+<footer style="padding:34px clamp(18px,4vw,48px);border-top:1px solid var(--line);background:var(--paper2)">
+  <div style="display:flex;flex-wrap:wrap;gap:10px 28px;align-items:center;justify-content:space-between;max-width:1340px;margin:0 auto">
+    <span class="kicker">The 1000cr Playbook &middot; one build per step</span>
+    <nav style="display:flex;flex-wrap:wrap;gap:18px;font-size:.8rem">
+      <a href="1000cr-operations-map.html" style="color:var(--muted);text-decoration:none">01 &middot; The operating map</a>
+      <a href="first-agent-guide.html" style="color:var(--muted);text-decoration:none">02 &middot; Your first agent (weekend build)</a>
+      <span style="color:var(--rust);font-weight:600">03 &middot; The AI Employee Builder &#8592; you are here</span>
+      <a href="https://www.linkedin.com/in/abhijeetmittal/" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none">Built by Abhijeet Mittal &#8594;</a>
+    </nav>
+  </div>
+</footer>
+<div id="themeBar" style="position:fixed;left:18px;bottom:18px;z-index:70;display:flex;align-items:center;gap:4px;padding:5px;border:1px solid var(--line);border-radius:var(--pill);background:var(--card);box-shadow:0 12px 34px rgba(0,0,0,.14)">
+  <span style="font-family:var(--mono);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:0 8px">Style</span>
+  <button type="button" data-theme-pick="atelier" style="padding:7px 13px;border:0;border-radius:var(--pill);background:transparent;color:var(--muted);font-family:var(--mono);font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .2s var(--ease)">Atelier</button>
+  <button type="button" data-theme-pick="night" style="padding:7px 13px;border:0;border-radius:var(--pill);background:transparent;color:var(--muted);font-family:var(--mono);font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .2s var(--ease)">Night</button>
+  <button type="button" data-theme-pick="dossier" style="padding:7px 13px;border:0;border-radius:var(--pill);background:transparent;color:var(--muted);font-family:var(--mono);font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .2s var(--ease)">Dossier</button>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const stepNames=["Job","Context","Workflow","Tools","Autonomy","Test","Build pack"];
+let current=0;
+let workflow=[
+  "Collect fresh inputs from every approved source.",
+  "Clean, deduplicate, and structure the evidence.",
+  "Reason against the goal, company context, and past decisions.",
+  "Choose the next action and check it against approval rules.",
+  "Execute approved actions with the connected tools.",
+  "Verify the result, log the run, and update memory."
+];
+let pack={};
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+const form=$("#builderForm");
+const nav=$("#stepNav");
+const stages=$$(".stage");
+const toast=$("#toast");
+
+function showToast(message){
+  toast.textContent=message;toast.classList.add("show");
+  setTimeout(()=>toast.classList.remove("show"),1700);
+}
+
+function renderNav(){
+  nav.innerHTML="";
+  stepNames.forEach((name,i)=>{
+    const b=document.createElement("button");
+    b.type="button";b.className="step-link"+(i===current?" active":"")+(i<current?" done":"");
+    b.innerHTML=`<span class="step-no">${i<6?String(i+1).padStart(2,"0"):"✓"}</span><span class="step-name">${name}</span>`;
+    b.onclick=()=>{if(i<=current||i===6&&Object.keys(pack).length){current=i;renderStage()}};
+    nav.appendChild(b);
+  });
+}
+
+function renderStage(){
+  stages.forEach((s,i)=>s.classList.toggle("active",i===current));
+  renderNav();
+  $("#backBtn").style.visibility=current===0||current===6?"hidden":"visible";
+  $("#stageFoot").style.display=current===6?"none":"flex";
+  const labels=["Next: company brain","Next: workflow","Next: tools","Next: autonomy","Next: testing","Generate build pack"];
+  $("#nextBtn").textContent=labels[current]||"Next";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function renderWorkflow(){
+  const host=$("#workflowList");host.innerHTML="";
+  workflow.forEach((text,i)=>{
+    const row=document.createElement("div");row.className="workflow-row";
+    row.innerHTML=`<span class="drag">${String(i+1).padStart(2,"0")}</span><textarea aria-label="Workflow step ${i+1}">${escapeHtml(text)}</textarea><button type="button" class="icon-btn" aria-label="Remove step">×</button>`;
+    row.querySelector("textarea").oninput=e=>{workflow[i]=e.target.value;saveDraft();updateScore()};
+    row.querySelector("button").onclick=()=>{workflow.splice(i,1);renderWorkflow();saveDraft();updateScore()};
+    host.appendChild(row);
+  });
+}
+
+const templates={
+  research:{
+    agentName:"Category Intelligence Analyst",owner:"Founder or category manager",
+    mission:"Every Monday, find the three customer complaints gaining momentum and update our category action brief with evidence.",
+    success:"Three repeated complaints, exact quotes, source links, confidence scores, and one action each for product, marketing, and support.",
+    kpi:"At least 80% of findings are useful in manager review; zero unsupported claims; report arrives before 9am Monday.",
+    company:"A D2C brand selling a focused product line in India. The agent supports category and product decisions.",
+    customer:"25-35 year old Indian customers who research online, compare products, and describe problems in reviews and communities.",
+    truths:"Use customer evidence, not generic market summaries. Separate repeated signals from isolated complaints. Never invent a quote or source.",
+    frequency:"Every Monday at 7:00am IST",output:"Google Sheet + Slack summary + Notion archive",
+    memory:"Past findings, manager corrections, actions taken, and whether each action improved the metric"
+  },
+  growth:{
+    agentName:"Growth Performance Manager",owner:"Growth lead",
+    mission:"Every morning, inspect paid marketing performance, identify material changes, and execute approved optimizations within budget limits.",
+    success:"A concise diagnosis, evidence by campaign and cohort, reversible actions executed, and exceptions sent for approval.",
+    kpi:"No budget breach; 90% of alerts are material; every automated change is logged and reversible.",
+    company:"A D2C company running performance marketing across search and social channels.",
+    customer:"High-intent category buyers at different stages of awareness and purchase intent.",
+    truths:"Protect contribution margin. Never scale on weak conversion data. Do not change total daily budget without approval.",
+    frequency:"Every day at 7:30am IST",output:"Slack action report + Growth Actions sheet",
+    memory:"Campaign changes, creative fatigue, prior recommendations, manager approvals, and seven-day outcomes"
+  },
+  content:{
+    agentName:"Content Operations Producer",owner:"Brand or content lead",
+    mission:"Turn the weekly customer and category signals into approved briefs, draft assets, and a production queue every Tuesday.",
+    success:"Five evidence-backed content briefs, channel-specific drafts, sources, claim checks, and a prioritized production queue.",
+    kpi:"80% of briefs enter production; zero unapproved claims; delivery before Tuesday noon.",
+    company:"A D2C brand publishing education, performance ads, creator briefs, and product content.",
+    customer:"Customers who need trust, proof, and a clear reason to choose the product.",
+    truths:"Use the brand voice and approved claims. Product and health claims require a source. Human taste decides what ships.",
+    frequency:"Every Tuesday at 8:00am IST",output:"Notion production board + Slack review request",
+    memory:"Approved hooks, rejected angles, performance by format, brand corrections, and claim sources"
+  },
+  support:{
+    agentName:"Customer Resolution Specialist",owner:"Customer success lead",
+    mission:"Classify every new support request, resolve approved low-risk cases, and escalate sensitive or unusual cases with full context.",
+    success:"Correct category, helpful response, CRM updated, refund or health-risk cases escalated, and every action logged.",
+    kpi:"95% correct routing; under five-minute first response; zero unauthorized refunds or medical advice.",
+    company:"A D2C company serving customers across email, chat, marketplaces, and social channels.",
+    customer:"Existing customers seeking order help, product guidance, refunds, or complaint resolution.",
+    truths:"Never provide medical advice. Never promise a refund outside policy. Escalate safety, legal, abuse, and high-value cases.",
+    frequency:"When a new support ticket arrives",output:"Customer reply + CRM update + escalation queue",
+    memory:"Customer history, prior tickets, approved macros, policy changes, and manager corrections"
+  }
+};
+
+function applyTemplate(key){
+  Object.entries(templates[key]).forEach(([id,value])=>{const el=$("#"+id);if(el)el.value=value});
+  if(key==="research")["Customer reviews","Support conversations","Meeting notes and decision logs"].forEach(checkChip);
+  if(key==="research")["Web research","Apify scrapers","Google Sheets","Notion","Slack"].forEach(checkTool);
+  updateScore();saveDraft();showToast("Template loaded. Make it yours.");
+}
+function checkChip(value){const el=$(`#contextChips input[value="${value}"]`);if(el)el.checked=true}
+function checkTool(value){const el=$(`#toolChips input[value="${value}"]`);if(el)el.checked=true}
+
+function getValues(){
+  const data=Object.fromEntries(new FormData(form).entries());
+  data.contextSources=$$("#contextChips input:checked").map(x=>x.value);
+  data.tools=$$("#toolChips input:checked").map(x=>x.value);
+  data.workflow=workflow.filter(Boolean);
+  data.autoLow=$("#autoLow").checked;
+  data.autoMedium=$("#autoMedium").checked;
+  data.autoHigh=$("#autoHigh").checked;
+  return data;
+}
+
+const requiredByStage=[
+  ["agentName","owner","mission","success","kpi"],
+  ["company","customer","truths"],
+  ["frequency","output","memory"],
+  [],
+  ["escalate","stop"],
+  ["feedback"]
+];
+function validateStage(index){
+  let ok=true;
+  (requiredByStage[index]||[]).forEach(id=>{
+    const el=$("#"+id);const valid=el&&el.value.trim();
+    if(el)el.classList.toggle("error",!valid);
+    if(!valid)ok=false;
+  });
+  if(index===2&&workflow.filter(x=>x.trim()).length<3){ok=false;showToast("Add at least three workflow steps.");return false}
+  if(!ok)showToast("Complete the highlighted fields.");
+  return ok;
+}
+
+function updateScore(){
+  const d=getValues();
+  const fields=["agentName","owner","mission","success","kpi","company","customer","truths","frequency","output","memory","escalate","stop","feedback"];
+  let points=fields.filter(k=>String(d[k]||"").trim()).length;
+  if(d.contextSources.length)points++;
+  if(d.tools.length)points++;
+  if(d.workflow.length>=4)points++;
+  if(d.happyTest||d.edgeTest||d.redTest)points++;
+  const score=Math.round(points/18*100);
+  animateScore(score);$("#scoreMeter").style.width=score+"%";
+  $("#scoreNote").textContent=score<35?"Define the job and context.":score<70?"The employee has a shape. Add controls.":score<90?"Almost build-ready. Add tests and memory.":"Ready to generate the build pack.";
+  return score;
+}
+
+function saveDraft(){
+  try{localStorage.setItem("aiEmployeeBuilder",JSON.stringify(getValues()))}catch(e){}
+}
+function restoreDraft(){
+  try{
+    const d=JSON.parse(localStorage.getItem("aiEmployeeBuilder")||"null");if(!d)return;
+    Object.entries(d).forEach(([k,v])=>{
+      const el=form.elements[k];
+      if(el&&typeof v==="string"){
+        if(el instanceof RadioNodeList){const radio=$(`input[name="${k}"][value="${v}"]`);if(radio)radio.checked=true}
+        else el.value=v;
+      }
+    });
+    if(Array.isArray(d.workflow))workflow=d.workflow;
+    (d.contextSources||[]).forEach(checkChip);(d.tools||[]).forEach(checkTool);
+    $("#autoLow").checked=d.autoLow!==false;$("#autoMedium").checked=!!d.autoMedium;$("#autoHigh").checked=!!d.autoHigh;
+  }catch(e){}
+}
+
+function autonomyPolicy(d){
+  const level=Number(d.autonomy||3);
+  const names=["","Draft only","Recommend and wait","Act inside guardrails","Own the workflow","Manage the outcome"];
+  const permissions=[];
+  permissions.push(d.autoLow?"Low-risk actions execute automatically.":"Low-risk actions require approval.");
+  permissions.push(d.autoMedium?"Medium-risk actions execute automatically within written limits.":"Medium-risk actions require manager approval.");
+  permissions.push(d.autoHigh?"High-risk actions execute automatically. Review this choice carefully.":"High-risk actions always require manager approval.");
+  return {level,name:names[level],permissions};
+}
+
+function automationRecipe(d){
+  const tool=d.automation||"n8n";
+  const platform={n8n:"n8n",make:"Make",zapier:"Zapier",code:"a scheduled worker or cron job",manual:"a manual checklist for the first three runs"}[tool];
+  return [
+    `1. TRIGGER\nCreate ${platform}. Start condition: ${d.trigger||"schedule"} -> ${d.frequency}.`,
+    `2. LOAD CONTEXT\nFetch the stable company handbook and the latest live data. Stable context: company, customer, rules, approved examples. Live context: current source data, last run, unresolved exceptions, and recent manager corrections.`,
+    `3. COLLECT\nUse: ${(d.tools||[]).join(", ")||"the approved source tools"}. Record source URL or record ID, timestamp, and retrieval status for every input.`,
+    `4. REASON\nSend the evidence, job charter, memory, and current playbook to ${d.model||"the selected model"}. Force structured output with: findings, confidence, proposed actions, citations, exceptions, and next state.`,
+    `5. POLICY CHECK\nRoute every proposed action through the autonomy policy. Auto-run allowed actions. Pause and request approval for everything else.`,
+    `6. ACT\nExecute the approved tool calls one at a time. After each call, verify the expected state before continuing.`,
+    `7. VERIFY\nCheck the definition of done: ${d.success}. If verification fails, retry once only when the failure is reversible and understood.`,
+    `8. WRITE\nDeliver the result to ${d.output}.`,
+    `9. REMEMBER\nAppend the run, decisions, corrections, actions, outcomes, cost, and errors to ${d.audit||"the audit log"}. Update working memory: ${d.memory}.`,
+    `10. NOTIFY\nSend the manager a short completion report. Include what changed, what needs approval, confidence, cost, and the link to the full audit log.`
+  ].join("\n\n");
+}
+
+function buildPack(){
+  const d=getValues();const ap=autonomyPolicy(d);const score=updateScore();
+  const sources=(d.contextSources||[]).length?d.contextSources.join(", "):"Add company docs, customer evidence, decision logs, and approved examples.";
+  const tools=(d.tools||[]).length?d.tools.join(", "):"No tools selected.";
+  const workflowText=d.workflow.map((x,i)=>`${i+1}. ${x}`).join("\n");
+  const charter=`# ${d.agentName}
+
+Manager: ${d.owner}
+Role: ${d.mission}
+
+## Definition of done
+${d.success}
+
+## Primary KPI
+${d.kpi}
+
+## Trigger
+${d.frequency}
+
+## Delivery
+${d.output}
+
+## Autonomy
+Level ${ap.level}: ${ap.name}
+${ap.permissions.map(x=>"- "+x).join("\n")}
+
+## Budget
+${d.budget||"Set a time and cost ceiling before launch."}`;
+
+  const context=`# Company brain
+
+## Stable context
+Company and product:
+${d.company}
+
+Customer:
+${d.customer}
+
+Business truths and constraints:
+${d.truths}
+
+Approved examples:
+${d.examples||"Add 2-3 examples before granting higher autonomy."}
+
+## Connected sources
+${sources}
+
+## Memory architecture
+Working memory for the current run:
+- Current inputs and intermediate findings
+- Open approvals and unresolved exceptions
+
+Episodic memory across runs:
+- ${d.memory}
+- Manager corrections and failed examples
+- Actions taken and measured outcomes
+
+Source of truth:
+- Store stable context in a versioned handbook.
+- Store each run as an append-only record.
+- Never silently rewrite a historical decision. Add a new decision with a date and reason.`;
+
+  const system=`You are ${d.agentName}, an AI employee managed by ${d.owner}.
+
+YOUR JOB
+${d.mission}
+
+DEFINITION OF DONE
+${d.success}
+
+PRIMARY KPI
+${d.kpi}
+
+COMPANY CONTEXT
+${d.company}
+
+CUSTOMER
+${d.customer}
+
+NON-NEGOTIABLE TRUTHS
+${d.truths}
+
+AVAILABLE TOOLS
+${tools}
+
+OPERATING LOOP
+${workflowText}
+
+AUTONOMY POLICY
+You operate at Level ${ap.level}: ${ap.name}.
+${ap.permissions.join("\n")}
+
+Before every action:
+1. Identify the action and its risk.
+2. Confirm that the action is allowed.
+3. Confirm that required evidence and credentials exist.
+4. Execute one action.
+5. Verify the actual result before moving on.
+
+ESCALATE WHEN
+${d.escalate}
+
+STOP IMMEDIATELY WHEN
+${d.stop}
+
+QUALITY RULES
+- Never invent a source, quote, number, event, or completed tool action.
+- Separate facts, inferences, and recommendations.
+- Show uncertainty and confidence.
+- Prefer reversible actions.
+- Stay inside the run budget: ${d.budget||"use the agreed time and cost limit"}.
+- Keep an audit trail at ${d.audit||"the designated run log"}.
+- A tool call is not complete until its result is verified.
+- When a correction arrives, propose a playbook rule that prevents the entire class of error.
+
+FINAL RESPONSE FORMAT
+1. Outcome
+2. Evidence and sources
+3. Actions completed
+4. Actions awaiting approval
+5. Exceptions and uncertainty
+6. KPI result
+7. Cost and runtime
+8. Memory update
+9. Recommended playbook correction`;
+
+  const guardrails=`# Approval and recovery policy
+
+Autonomy: Level ${ap.level}, ${ap.name}
+
+## Allowed without approval
+${[
+ d.autoLow?"Read approved sources, analyze, draft, classify, summarize, and write internal reports.":"None. Even low-risk work needs approval.",
+ d.autoMedium?"Update approved internal records and send internal operational messages within limits.":"Do not change records or send messages without approval.",
+ d.autoHigh?"High-risk execution is enabled. Add explicit per-action limits before deployment.":"Never publish externally, spend money, delete data, change permissions, make legal or health claims, issue refunds, or promise a customer outcome without approval."
+].join("\n\n")}
+
+## Escalation rule
+${d.escalate}
+
+## Hard stop rule
+${d.stop}
+
+## Retry policy
+- Retry a failed read once after checking the error.
+- Retry a write only when the destination proves the first write did not happen.
+- Never retry payments, publishing, deletion, refunds, permission changes, or external messages without checking for duplicate execution.
+- After two failures, stop, log the full state, and notify ${d.owner}.
+
+## Audit record
+Write: run ID, trigger, inputs, source IDs, reasoning summary, proposed actions, approvals, tool results, verification, output link, cost, runtime, errors, and memory changes.
+Destination: ${d.audit||"Create an append-only Agent Runs table."}`;
+
+  const automation=automationRecipe(d);
+  const tests=`# Test suite and 30-day rollout
+
+## Test 1: happy path
+${d.happyTest||"Run the employee on a complete historical example. Compare its work with the manager-approved answer."}
+
+Pass when:
+- Definition of done is fully met.
+- Sources and tool results can be verified.
+- The output needs no material correction.
+
+## Test 2: incomplete or conflicting data
+${d.edgeTest||"Remove one key input and add one conflicting source."}
+
+Pass when:
+- The employee reports the gap.
+- Confidence falls appropriately.
+- It asks for the missing input or escalates.
+- It does not invent a resolution.
+
+## Test 3: tool failure
+${d.redTest||"Break one connection or remove one permission."}
+
+Pass when:
+- It follows retry policy.
+- It does not duplicate a side effect.
+- It stops and logs the failure.
+- The manager receives a useful recovery note.
+
+## Promotion rule
+${d.promotion||"After three clean supervised runs and at least 90% manager approval, widen one permission or move one autonomy level higher."}
+
+## Week 1
+- Run on historical data.
+- Human approves every action.
+- Fix context gaps and output format.
+
+## Week 2
+- Run live on schedule.
+- Auto-execute low-risk actions only.
+- Record every manager correction as a playbook rule.
+
+## Week 3
+- Add one new tool or one wider responsibility.
+- Test an edge case and a tool failure.
+- Compare KPI and cost against a human baseline.
+
+## Week 4
+- Review the last four runs.
+- Remove rules that conflict or create noise.
+- Promote only if the promotion rule is met.
+- Set the next 30-day KPI.
+
+## Feedback loop
+${d.feedback}`;
+
+  const checklist=`# Exact build checklist
+
+## Before connecting tools
+[ ] Approve the one-line job and definition of done.
+[ ] Put stable company context in one versioned document.
+[ ] Add two examples of excellent output and one failed example.
+[ ] Create the audit log and output destination.
+[ ] Define the time, cost, and action limits.
+
+## Build
+[ ] Create the trigger: ${d.frequency}.
+[ ] Connect only these tools: ${tools}.
+[ ] Give read-only access first.
+[ ] Add the system prompt.
+[ ] Force a structured response schema.
+[ ] Add the policy check before every write action.
+[ ] Add verification after every tool call.
+[ ] Add the stop, retry, audit, and notification branches.
+
+## Launch
+[ ] Run the three tests.
+[ ] Complete three supervised live runs.
+[ ] Review false positives, missed cases, cost, and manager edits.
+[ ] Convert every repeated correction into a playbook rule.
+[ ] Promote one permission at a time.
+
+The employee is live only when the workflow runs on its trigger, completes or escalates without prompting, leaves an audit trail, and improves from corrections.`;
+
+  pack={charter,context,system,automation,guardrails,tests,checklist,spec:d,score};
+  $("#resultName").textContent=d.agentName;$("#resultMission").textContent=d.mission;
+  $("#packDate").textContent=new Date().toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+  $("#metaManager").textContent=d.owner||"";
+  $("#metaTrigger").textContent=d.frequency||"";
+  $("#metaAutonomy").textContent="Level "+(d.autonomy||"3");
+  $("#metaTools").textContent=(d.tools&&d.tools.length)?d.tools.length+" connected":"None";
+  $("#finalScore").textContent=score+"%";
+  requestAnimationFrame(()=>{$("#ringFg").style.strokeDashoffset=(402.12*(1-score/100)).toFixed(1)});
+  $("#finalNote").textContent=score>=90?"Ready for a supervised build.":score>=75?"Buildable, but add the missing detail before higher autonomy.":"Return to the builder and close the missing fields.";
+  renderOutputs();$("#emptyResult").hidden=true;$("#resultContent").hidden=false;
+  current=6;renderStage();saveDraft();
+}
+
+function formatDoc(text){
+  const root=document.createElement("div");
+  String(text||"").split("\n").forEach(raw=>{
+    const t=raw.trim();
+    const add=(cls,html)=>{const el=document.createElement("div");el.className=cls;el.innerHTML=html;root.appendChild(el)};
+    if(!t){const sp=document.createElement("div");sp.style.height="10px";root.appendChild(sp);return}
+    if(t.startsWith("# ")){const h=document.createElement("h1");h.className="doc-h1";h.textContent=t.slice(2);root.appendChild(h);return}
+    if(t.startsWith("## ")){const h=document.createElement("h2");h.className="doc-h2";h.textContent=t.slice(3);root.appendChild(h);return}
+    if(/^\[ \]/.test(t)){add("doc-row",`<span class="gb">&#9634;</span><span>${escapeHtml(t.slice(3).trim())}</span>`);return}
+    if(t.startsWith("- ")){add("doc-row",`<span class="gd">&#8250;</span><span>${escapeHtml(t.slice(2))}</span>`);return}
+    const num=t.match(/^(\d+)\.\s+(.*)$/);
+    if(num){add("doc-row",`<span class="gn">${num[1].padStart(2,"0")}</span><span>${escapeHtml(num[2])}</span>`);return}
+    if(t===t.toUpperCase()&&/[A-Z]/.test(t)&&t.length<42&&/^[A-Z0-9 ,'+&\/-]+$/.test(t)){add("doc-cap",escapeHtml(t));return}
+    add("doc-p",escapeHtml(t));
+  });
+  return root;
+}
+let scoreShown=0,scoreRaf=null;
+function animateScore(target){
+  if(scoreRaf)cancelAnimationFrame(scoreRaf);
+  const from=scoreShown;if(from===target)return;
+  const t0=performance.now(),dur=600;
+  const tick=now=>{const k=Math.min(1,(now-t0)/dur);const e=1-Math.pow(1-k,3);
+    scoreShown=Math.round(from+(target-from)*e);
+    $("#scoreText").textContent=scoreShown+"%";
+    if(k<1)scoreRaf=requestAnimationFrame(tick)};
+  scoreRaf=requestAnimationFrame(tick);
+}
+const THEMES=["atelier","night","dossier"];
+function setTheme(t){
+  document.body.dataset.theme=t;
+  try{localStorage.setItem("aiEmployeeBuilderTheme",t)}catch(e){}
+  $$("#themeBar [data-theme-pick]").forEach(b=>{
+    const on=b.dataset.themePick===t;
+    b.style.background=on?"var(--ink)":"transparent";
+    b.style.color=on?"var(--paper)":"var(--muted)";
+  });
+}
+const tabLabels={charter:"Charter",context:"Company brain",automation:"Automation",guardrails:"Guardrails",tests:"Tests + rollout",checklist:"Build checklist",system:"System prompt"};
+function renderOutputs(){
+  const tabs=$("#tabs"),panels=$("#outputPanels");tabs.innerHTML="";panels.innerHTML="";
+  Object.keys(tabLabels).forEach((key,i)=>{
+    const b=document.createElement("button");b.type="button";b.className="tab"+(i===0?" active":"")+(key==="system"?" hot":"");b.textContent=String(i+1).padStart(2,"0")+" \u00b7 "+tabLabels[key]+(key==="system"?" \u2192 paste this":"");b.dataset.key=key;
+    b.onclick=()=>selectTab(key);tabs.appendChild(b);
+    const p=document.createElement("section");p.className="output-panel"+(i===0?" active":"");p.dataset.panel=key;
+    p.innerHTML=`<div class="output-head"><b>${tabLabels[key]}</b><span style="display:flex;gap:12px;align-items:center"><span style="font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">The 1000cr Playbook &middot; Build pack</span><button type="button" class="btn ghost small" data-copy="${key}">Copy</button></span></div><div class="output-body"></div>`;
+    p.querySelector(".output-body").appendChild(formatDoc(pack[key]));p.querySelector("[data-copy]").onclick=()=>copyText(pack[key]);
+    panels.appendChild(p);
+  });
+}
+function selectTab(key){
+  $$(".tab").forEach(x=>x.classList.toggle("active",x.dataset.key===key));
+  $$(".output-panel").forEach(x=>x.classList.toggle("active",x.dataset.panel===key));
+}
+async function copyText(text){await navigator.clipboard.writeText(text);showToast("Copied.");}
+function completeMarkdown(){
+  return `# ${pack.spec.agentName}: complete AI employee build pack
+
+${pack.charter}
+
+${pack.context}
+
+${pack.automation}
+
+${pack.guardrails}
+
+${pack.tests}
+
+${pack.checklist}
+
+${pack.system}`;
+}
+function download(name,text,type){
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();URL.revokeObjectURL(a.href);
+}
+function n8nWorkflow(){
+  const d=pack.spec;const uid=()=>Math.random().toString(36).slice(2,10)+Math.random().toString(36).slice(2,10);
+  const ids={trig:uid(),ctx:uid(),collect:uid(),agent:uid(),policy:uid(),write:uid(),audit:uid(),notify:uid(),approve:uid()};
+  return {
+    name:(d.agentName||"AI Employee")+" (1000cr Playbook)",
+    nodes:[
+      {id:ids.trig,name:"Trigger",type:"n8n-nodes-base.scheduleTrigger",typeVersion:1.2,position:[0,0],
+       parameters:{rule:{interval:[{field:"weeks"}]}},
+       notes:"Set to: "+(d.frequency||"your schedule")},
+      {id:ids.ctx,name:"Load Context",type:"n8n-nodes-base.set",typeVersion:3.4,position:[220,0],
+       parameters:{assignments:{assignments:[
+        {id:uid(),name:"company_brain",value:(d.company||"")+"\n\nCUSTOMER:\n"+(d.customer||"")+"\n\nTRUTHS:\n"+(d.truths||""),type:"string"},
+        {id:uid(),name:"memory",value:d.memory||"",type:"string"}]}},
+       notes:"Stable context. Point this at your versioned handbook when ready."},
+      {id:ids.collect,name:"Collect Sources",type:"n8n-nodes-base.httpRequest",typeVersion:4.2,position:[440,0],
+       parameters:{url:"https://example.com/replace-with-your-source"},
+       notes:"Replace with your real sources: "+((d.tools||[]).join(", ")||"approved tools")},
+      {id:ids.agent,name:"Reason (AI Employee)",type:"@n8n/n8n-nodes-langchain.agent",typeVersion:1.7,position:[660,0],
+       parameters:{promptType:"define",text:"={{ $json }}",options:{systemMessage:pack.system}},
+       notes:"Connect your "+(d.model||"Claude")+" credentials. The full system prompt is embedded."},
+      {id:ids.policy,name:"Policy Check",type:"n8n-nodes-base.if",typeVersion:2.2,position:[880,0],
+       parameters:{conditions:{options:{caseSensitive:true},conditions:[
+        {id:uid(),leftValue:"={{ $json.requiresApproval }}",rightValue:"true",operator:{type:"string",operation:"notEquals"}}]}},
+       notes:"Autonomy level "+(d.autonomy||"3")+". True branch = auto-execute. False branch = ask the manager."},
+      {id:ids.write,name:"Write Output",type:"n8n-nodes-base.googleSheets",typeVersion:4.5,position:[1100,-90],
+       parameters:{operation:"append"},notes:"Destination: "+(d.output||"your sheet")},
+      {id:ids.audit,name:"Audit Log",type:"n8n-nodes-base.googleSheets",typeVersion:4.5,position:[1320,-90],
+       parameters:{operation:"append"},notes:"Append-only run log: "+(d.audit||"Agent Runs sheet")},
+      {id:ids.notify,name:"Notify Manager",type:"n8n-nodes-base.slack",typeVersion:2.2,position:[1540,0],
+       parameters:{text:"Run complete. What changed, what needs approval, confidence, cost, audit link."},
+       notes:"Manager: "+(d.owner||"")},
+      {id:ids.approve,name:"Request Approval",type:"n8n-nodes-base.slack",typeVersion:2.2,position:[1100,120],
+       parameters:{text:"Action needs approval. Evidence and proposed action attached."},
+       notes:"Escalation rule: "+(d.escalate||"")}
+    ],
+    connections:{
+      "Trigger":{main:[[{node:"Load Context",type:"main",index:0}]]},
+      "Load Context":{main:[[{node:"Collect Sources",type:"main",index:0}]]},
+      "Collect Sources":{main:[[{node:"Reason (AI Employee)",type:"main",index:0}]]},
+      "Reason (AI Employee)":{main:[[{node:"Policy Check",type:"main",index:0}]]},
+      "Policy Check":{main:[[{node:"Write Output",type:"main",index:0}],[{node:"Request Approval",type:"main",index:0}]]},
+      "Write Output":{main:[[{node:"Audit Log",type:"main",index:0}]]},
+      "Audit Log":{main:[[{node:"Notify Manager",type:"main",index:0}]]}
+    },
+    settings:{executionOrder:"v1"}
+  };
+}
+function slug(s){return String(s||"ai-employee").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+
+$("#nextBtn").onclick=()=>{
+  if(!validateStage(current))return;
+  if(current<5){current++;renderStage()}else buildPack();
+};
+$("#backBtn").onclick=()=>{if(current>0){current--;renderStage()}};
+$("#generateTop").onclick=()=>{if(current===6&&Object.keys(pack).length)return;for(let i=0;i<6;i++){if(!validateStage(i)){current=i;renderStage();return}}buildPack()};
+$("#addWorkflow").onclick=()=>{workflow.push("");renderWorkflow();saveDraft()};
+$$(".template").forEach(b=>b.onclick=()=>applyTemplate(b.dataset.template));
+form.addEventListener("input",()=>{updateScore();saveDraft()});
+form.addEventListener("change",()=>{updateScore();saveDraft()});
+$("#resetBtn").onclick=()=>{
+  if(!confirm("Start over and clear this AI employee design?"))return;
+  localStorage.removeItem("aiEmployeeBuilder");location.reload();
+};
+$("#downloadMd").onclick=()=>download(slug(pack.spec.agentName)+"-build-pack.md",completeMarkdown(),"text/markdown");
+$("#downloadJson").onclick=()=>download(slug(pack.spec.agentName)+"-spec.json",JSON.stringify(pack.spec,null,2),"application/json");
+$("#downloadN8n").onclick=()=>download(slug(pack.spec.agentName)+"-n8n-workflow.json",JSON.stringify(n8nWorkflow(),null,2),"application/json");
+$("#copyActive").onclick=()=>{const active=$(".tab.active");if(active)copyText(pack[active.dataset.key])};
+$("#openClaude").onclick=async()=>{await copyText(pack.system);window.open("https://claude.ai/new?q="+encodeURIComponent("Use this as your system prompt and act as this AI employee. Confirm you understand the job, then run your first supervised pass on the data I give you.\n\n"+pack.system.slice(0,6000)),"_blank")};
+$("#openChatGPT").onclick=async()=>{await copyText(pack.system);window.open("https://chatgpt.com/?q="+encodeURIComponent("Use this as your system prompt and act as this AI employee. Confirm you understand the job, then run your first supervised pass on the data I give you.\n\n"+pack.system.slice(0,6000)),"_blank")};
+
+$$("#themeBar [data-theme-pick]").forEach(b=>b.onclick=()=>setTheme(b.dataset.themePick));
+let savedTheme="atelier";try{const t=localStorage.getItem("aiEmployeeBuilderTheme");if(THEMES.includes(t))savedTheme=t}catch(e){}
+setTheme(savedTheme);
+restoreDraft();renderWorkflow();renderStage();updateScore();
+</script>
+</body>
+</html>

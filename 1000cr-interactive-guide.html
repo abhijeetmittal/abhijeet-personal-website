@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 1000cr D2C Playbook | How 5-10 People Build What Used to Take 80</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<meta name="description" content="The complete operating map for building a 1000cr D2C brand with a lean AI-native team. 12 functions, 96 tasks, with AI playbooks for each.">
+<meta property="og:title" content="The 1000cr D2C Playbook">
+<meta property="og:description" content="12 functions. 96 tasks. 58 that AI can own. The complete operating map for lean D2C teams.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#eceef1;--card:#ffffff;--text:#191e26;--muted:#5f6772;--hint:#8a909a;--border:#d7dbe2;--border-hover:#aeb6c2;--surface:#e4e7eb;--ai-bg:#e6ecfb;--ai-text:#3551c4;--human-bg:#e4e7eb;--human-text:#5f6772;--accent:#3551c4;--accent-light:#e7ebf2}
+@media(prefers-color-scheme:dark){:root{--bg:#191e26;--card:#252525;--text:#e8e8e8;--muted:#aaa;--hint:#777;--border:#333;--border-hover:#555;--surface:#2a2a2a;--ai-bg:#1a2a3d;--ai-text:#7bb8f0;--human-bg:#2d2518;--human-text:#d4a54a;--accent:#9b8ff0;--accent-light:#2a2640}}
+body{font-family:'Hanken Grotesk',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:800px;margin:0 auto;padding:1.5rem}
+
+/* Hero */
+.hero{text-align:center;padding:3rem 1rem 2rem;border-bottom:1px solid var(--border)}
+.hero-badge{display:inline-block;font-size:11px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;padding:4px 12px;border-radius:20px;background:var(--accent-light);color:var(--accent);margin-bottom:1rem}
+.hero h1{font-size:28px;font-weight:600;line-height:1.3;margin-bottom:0.5rem}
+.hero p{font-size:15px;color:var(--muted);max-width:520px;margin:0 auto}
+.hero-author{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:1.5rem;font-size:13px;color:var(--muted)}
+.hero-author img{width:28px;height:28px;border-radius:50%}
+.hero-author a{color:var(--accent);text-decoration:none;font-weight:500}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:1.5rem 0;border-bottom:1px solid var(--border)}
+.stat{text-align:center;padding:12px 8px;background:var(--surface);border-radius:10px}
+.stat-val{font-size:22px;font-weight:600}
+.stat-label{font-size:11px;color:var(--muted);margin-top:2px}
+@media(max-width:500px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* Legend */
+.legend{display:flex;gap:16px;padding:1rem 0;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:5px}
+.legend-dot{width:8px;height:8px;border-radius:2px}
+
+/* Layer */
+.layer{margin-top:2rem}
+.layer-label{font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--hint);margin-bottom:10px;padding-left:2px}
+
+/* Cards grid */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+
+/* Card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color 0.15s}
+.card:hover{border-color:var(--border-hover)}
+.card-header{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;user-select:none}
+.card-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.card-info{flex:1;min-width:0}
+.card-title{font-size:14px;font-weight:500}
+.card-meta{font-size:11px;color:var(--hint);margin-top:1px}
+.card-chevron{font-size:18px;color:var(--hint);transition:transform 0.2s;flex-shrink:0}
+.card.open .card-chevron{transform:rotate(180deg)}
+
+/* Expanded content */
+.card-body{display:none;border-top:1px solid var(--border);padding:0}
+.card.open .card-body{display:block}
+
+/* Task list inside card */
+.task{display:flex;align-items:start;gap:8px;padding:8px 16px;font-size:12.5px;color:var(--muted);border-bottom:1px solid var(--border)}
+.task:last-child{border-bottom:none}
+.task-dot{width:5px;height:5px;border-radius:50%;margin-top:6px;flex-shrink:0}
+.task-text{flex:1;line-height:1.5}
+.tag{display:inline-block;font-size:9px;font-weight:600;padding:1px 6px;border-radius:3px;margin-left:4px;vertical-align:1px}
+.tag-ai{background:var(--ai-bg);color:var(--ai-text)}
+.tag-human{background:var(--human-bg);color:var(--human-text)}
+
+/* Playbook section */
+.playbook{background:var(--surface);padding:14px 16px;border-top:1px solid var(--border)}
+.playbook-title{font-size:12px;font-weight:600;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px}
+.playbook-row{display:flex;gap:8px;margin-bottom:6px;font-size:12px;line-height:1.5}
+.playbook-label{font-weight:600;color:var(--text);min-width:70px;flex-shrink:0}
+.playbook-val{color:var(--muted)}
+
+/* Footer */
+.footer{text-align:center;padding:3rem 1rem 2rem;border-top:1px solid var(--border);margin-top:3rem}
+.footer p{font-size:13px;color:var(--hint);max-width:440px;margin:0 auto}
+.footer a{color:var(--accent);text-decoration:none;font-weight:500}
+.cta-btn{display:inline-block;margin-top:1rem;padding:10px 24px;background:var(--accent);color:#fff;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;transition:opacity 0.15s}
+.cta-btn:hover{opacity:0.9}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="hero">
+  <div class="hero-badge">Interactive playbook</div>
+  <h1>The 1000cr D2C operating map</h1>
+  <p>Every function a lean, AI-native team must cover to build a 1000cr brand with 5-10 people. Click any function to see the tasks and the AI playbook.</p>
+  <div class="hero-author">
+    <span>By</span>
+    <a href="https://www.linkedin.com/in/abhijeetmittal/" target="_blank" rel="noopener">Abhijeet Mittal</a>
+    <span>&middot; June 2026</span>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-val">12</div><div class="stat-label">Functions</div></div>
+  <div class="stat"><div class="stat-val">96</div><div class="stat-label">Sub-tasks</div></div>
+  <div class="stat"><div class="stat-val">58</div><div class="stat-label">AI-automatable</div></div>
+  <div class="stat"><div class="stat-val">38</div><div class="stat-label">Human-only</div></div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--ai-bg);border:1px solid var(--ai-text)"></div> AI can own or heavily assist</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--human-bg);border:1px solid var(--human-text)"></div> Human judgment required</div>
+</div>
+
+<!-- LAYER 1 -->
+<div class="layer">
+  <div class="layer-label">Layer 1 &mdash; Build the product</div>
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="card-icon" style="background:#e7ebf2;color:#3551c4">&#128270;</div>
+        <div class="card-info"><div class="card-title">Market research</div><div class="card-meta">9 tasks &middot; 7 AI-automatable</div></div>
+        <div class="card-chevron">&#9662;</div>
+      </div>
+      <div class="card-body">
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Category sizing and TAM estimation <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Competitor product audit (ingredients, pricing, claims) <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Consumer sentiment mining (Reddit, Amazon, YouTube) <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Google Trends and search demand mapping <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">White space identification (unmet needs matrix) <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">ICP definition and persona building <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Pricing strategy and willingness-to-pay research <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Regulatory landscape scan (FSSAI, DCGI, AYUSH) <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Adjacent category opportunity mapping <span class="tag tag-ai">AI</span></div></div>
+        <div class="playbook">
+          <div class="playbook-title">AI playbook</div>
+          <div class="playbook-row"><div class="playbook-label">Tools</div><div class="playbook-val">Apify (scrape Reddit, Amazon, YouTube), Claude/GPT for synthesis, Google Trends API, SimilarWeb</div></div>
+          <div class="playbook-row"><div class="playbook-label">Setup</div><div class="playbook-val">Build 5 Apify scrapers (one per source). Feed all output into Claude with a structured brief. Set agents to re-run weekly.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Output</div><div class="playbook-val">One-page category brief: TAM, top 10 competitors ranked, 3 white spaces, consumer language bank, regulatory flags.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Time saved</div><div class="playbook-val">2-3 weeks of manual research compressed to 1 day. Recurring updates in minutes.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="card-icon" style="background:#E1F5EE;color:#0F6E56">&#9883;</div>
+        <div class="card-info"><div class="card-title">Product development</div><div class="card-meta">10 tasks &middot; 2 AI-automatable</div></div>
+        <div class="card-chevron">&#9662;</div>
+      </div>
+      <div class="card-body">
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Ingredient/formulation research and sourcing <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Contract manufacturer identification and negotiation <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Product testing and stability studies <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Regulatory compliance and certifications <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Packaging design (structural + graphic) <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">SKU planning and variant strategy <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Claims substantiation and clinical evidence <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Cost sheet and margin modeling <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Sensory testing and consumer panels <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">New category launch pipeline <span class="tag tag-human">Human</span></div></div>
+        <div class="playbook">
+          <div class="playbook-title">AI playbook</div>
+          <div class="playbook-row"><div class="playbook-label">Tools</div><div class="playbook-val">Claude for cost modeling and SKU analysis, spreadsheet AI copilots for margin simulation</div></div>
+          <div class="playbook-row"><div class="playbook-label">Setup</div><div class="playbook-val">Build a cost-sheet template with variable inputs (RM cost, MOQ, packaging, logistics). AI runs scenarios across price points and margin targets.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Output</div><div class="playbook-val">SKU matrix with margin projections. Variant recommendations based on competitor gaps and demand signals.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Reality check</div><div class="playbook-val">This is the most human-heavy function. A bad product is a bad product. AI cannot fix formulation, taste, or regulatory compliance. The R&amp;D person is irreplaceable.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="card-icon" style="background:#e7ebf2;color:#993C1D">&#128230;</div>
+        <div class="card-info"><div class="card-title">Supply chain</div><div class="card-meta">8 tasks &middot; 5 AI-automatable</div></div>
+        <div class="card-chevron">&#9662;</div>
+      </div>
+      <div class="card-body">
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Raw material procurement and vendor management <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Inventory planning and demand forecasting <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Warehouse operations and 3PL management <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Quality control at manufacturing <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Batch tracking and expiry management <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Cost optimization (shipping, packaging, MOQ) <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Returns and reverse logistics <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Multi-channel inventory sync <span class="tag tag-ai">AI</span></div></div>
+        <div class="playbook">
+          <div class="playbook-title">AI playbook</div>
+          <div class="playbook-row"><div class="playbook-label">Tools</div><div class="playbook-val">Custom demand forecasting model (Python + historical sales data), inventory management APIs, Claude for exception analysis</div></div>
+          <div class="playbook-row"><div class="playbook-label">Setup</div><div class="playbook-val">Connect sales data from all channels into one sheet. Build a forecasting agent that predicts demand by SKU, flags stockout risks, and recommends reorder quantities weekly.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Output</div><div class="playbook-val">Weekly reorder report. Expiry risk alerts. Channel-wise inventory dashboard. Automated PO draft for top-moving SKUs.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Time saved</div><div class="playbook-val">Ops person spends 2 hours/week on inventory instead of 2 days. Stockout rate drops 40-60%.</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LAYER 2 -->
+<div class="layer">
+  <div class="layer-label">Layer 2 &mdash; Get customers</div>
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="card-icon" style="background:#e6ecfb;color:#3551c4">&#127912;</div>
+        <div class="card-info"><div class="card-title">Brand marketing</div><div class="card-meta">9 tasks &middot; 3 AI-automatable</div></div>
+        <div class="card-chevron">&#9662;</div>
+      </div>
+      <div class="card-body">
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Brand strategy and positioning <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Brand identity system (logo, typography, color) <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Content calendar and editorial planning <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Social media content production (reels, carousels, stories) <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">PR and media outreach <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Community building (WhatsApp, Discord, Instagram) <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Brand campaigns and tentpole moments <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Organic SEO content (blogs, guides, comparison pages) <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Packaging as brand touchpoint (unboxing, inserts) <span class="tag tag-human">Human</span></div></div>
+        <div class="playbook">
+          <div class="playbook-title">AI playbook</div>
+          <div class="playbook-row"><div class="playbook-label">Tools</div><div class="playbook-val">Claude/GPT with brand OS context for copy, Midjourney/DALL-E for visual concepts, Runway for video, scheduling tools for calendar</div></div>
+          <div class="playbook-row"><div class="playbook-label">Setup</div><div class="playbook-val">Build a brand OS with voice guidelines, visual DNA, and content pillars. AI reads this before generating anything. One creative person curates and approves; AI produces volume.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Output</div><div class="playbook-val">30-50 social assets/month from 1 person. SEO blog pipeline: 8-12 long-form articles/month. Content calendar auto-populated from category events and competitor moves.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Reality check</div><div class="playbook-val">Brand strategy is 100% human. AI produces content, humans decide what is worth making. The creative person's job is taste, not production.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="card-icon" style="background:#e4e7eb;color:#5f6772">&#128200;</div>
+        <div class="card-info"><div class="card-title">Performance marketing</div><div class="card-meta">10 tasks &middot; 9 AI-automatable</div></div>
+        <div class="card-chevron">&#9662;</div>
+      </div>
+      <div class="card-body">
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Meta ads (creative production, audience, scaling) <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Google Ads (search, shopping, PMax) <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">YouTube ads (video production + targeting) <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Landing page design and CRO <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">A/B testing framework (creative, copy, offer) <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Attribution modeling and channel mix <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">CAC optimization and bid management <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Retargeting and lookalike strategy <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Ad creative testing at scale (1000s of variants) <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Budget allocation across channels <span class="tag tag-human">Human</span></div></div>
+        <div class="playbook">
+          <div class="playbook-title">AI playbook</div>
+          <div class="playbook-row"><div class="playbook-label">Tools</div><div class="playbook-val">Midjourney/Runway for creative production, Meta Advantage+ for automated ad optimization, Claude for copy variants, custom dashboards for attribution</div></div>
+          <div class="playbook-row"><div class="playbook-label">Setup</div><div class="playbook-val">Generate 100+ ad creative variants per week using AI. Feed winners back into the model. Build automated rules for bid management and budget shifting. One marketing person manages the system, not the ads.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Output</div><div class="playbook-val">100+ creatives tested/week vs. 5-10 manually. CAC reduction of 30-50% within 3 months. Full-funnel attribution dashboard updated daily.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Time saved</div><div class="playbook-val">One person runs what used to need a 5-person performance team + agency. The human decides budgets and strategy; AI executes and optimizes.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="card-icon" style="background:#FBEAF0;color:#993556">&#128101;</div>
+        <div class="card-info"><div class="card-title">Creator and influencer</div><div class="card-meta">8 tasks &middot; 5 AI-automatable</div></div>
+        <div class="card-chevron">&#9662;</div>
+      </div>
+      <div class="card-body">
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Creator discovery and shortlisting <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Outreach and negotiation <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Brief creation and content alignment <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">UGC collection and rights management <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Affiliate program setup and tracking <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Creator performance analytics <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Long-term creator relationship management <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Seeding and gifting programs <span class="tag tag-human">Human</span></div></div>
+        <div class="playbook">
+          <div class="playbook-title">AI playbook</div>
+          <div class="playbook-row"><div class="playbook-label">Tools</div><div class="playbook-val">Apify for scraping creator profiles and engagement data, Claude for brief generation, affiliate tracking platforms, custom analytics dashboards</div></div>
+          <div class="playbook-row"><div class="playbook-label">Setup</div><div class="playbook-val">Scrape top 500 creators in your category weekly. Rank by engagement rate, audience overlap with your ICP, and content quality. Auto-generate personalized briefs from your brand OS.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Output</div><div class="playbook-val">Ranked creator shortlist updated weekly. Templated briefs in 5 minutes vs. 2 hours. ROI dashboard per creator with revenue attribution.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Reality check</div><div class="playbook-val">Relationships are human. The best creator partnerships come from genuine connection, not automated outreach. AI handles the admin so you can focus on the relationship.</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LAYER 3 -->
+<div class="layer">
+  <div class="layer-label">Layer 3 &mdash; Sell everywhere</div>
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="card-icon" style="background:#EAF3DE;color:#3B6D11">&#127760;</div>
+        <div class="card-info"><div class="card-title">Distribution channels</div><div class="card-meta">9 tasks &middot; 5 AI-automatable</div></div>
+        <div class="card-chevron">&#9662;</div>
+      </div>
+      <div class="card-body">
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">D2C website (Shopify/custom) setup and optimization <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Amazon listing, A+ content, PPC <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Flipkart, Nykaa, other marketplace management <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Quick commerce (Blinkit, Zepto, Instamart) ops <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Offline retail (modern trade, GT) expansion <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">PDP optimization (images, copy, reviews, schema) <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Catalog management across channels <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Channel pricing and promotion strategy <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">International expansion (Amazon US, Middle East) <span class="tag tag-human">Human</span></div></div>
+        <div class="playbook">
+          <div class="playbook-title">AI playbook</div>
+          <div class="playbook-row"><div class="playbook-label">Tools</div><div class="playbook-val">Claude for PDP copy and A+ content, AI image generators for product statics, marketplace APIs for catalog sync, Apify for competitor PDP monitoring</div></div>
+          <div class="playbook-row"><div class="playbook-label">Setup</div><div class="playbook-val">Build a product data layer: one source of truth for every SKU (ingredients, claims, images, pricing). AI reads this layer and generates marketplace-specific listings. Monitor competitor PDPs weekly and flag changes.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Output</div><div class="playbook-val">Listings across 5+ marketplaces from one data source. PDP refresh cycle: monthly instead of quarterly. Competitor price/claim change alerts in real-time.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Time saved</div><div class="playbook-val">Catalog updates that took a team of 3 people now run with 1 person + AI. PDP creation drops from 2 days to 2 hours per SKU.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="card-icon" style="background:#e7ebf2;color:#3551c4">&#128241;</div>
+        <div class="card-info"><div class="card-title">App and web platform</div><div class="card-meta">8 tasks &middot; 5 AI-automatable</div></div>
+        <div class="card-chevron">&#9662;</div>
+      </div>
+      <div class="card-body">
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Mobile app development (iOS + Android) <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Website performance and Core Web Vitals <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Personalization engine (recommendations, dynamic pricing) <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Subscription and auto-replenishment system <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Checkout optimization and payment integrations <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Push notifications and in-app messaging <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Loyalty and rewards program <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Health data integration (wearables, lab reports) <span class="tag tag-human">Human</span></div></div>
+        <div class="playbook">
+          <div class="playbook-title">AI playbook</div>
+          <div class="playbook-row"><div class="playbook-label">Tools</div><div class="playbook-val">Claude Code / Cursor for development, AI-powered personalization APIs, automated CWV monitoring, push notification AI copilots</div></div>
+          <div class="playbook-row"><div class="playbook-label">Setup</div><div class="playbook-val">One technical PM/engineer builds and maintains the platform using AI coding tools. Personalization runs on purchase history + browsing data. Subscription logic auto-optimized by churn prediction model.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Output</div><div class="playbook-val">Full-stack D2C platform maintained by 1 engineer. Personalized product recs that lift AOV 15-25%. Subscription churn reduced 20-30%.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Reality check</div><div class="playbook-val">The engineer/PM is the person who gives your small team its firepower. AI writes code faster, but architecture decisions, security, and payment integrations need a human who understands the full system.</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LAYER 4 -->
+<div class="layer">
+  <div class="layer-label">Layer 4 &mdash; Keep customers</div>
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="card-icon" style="background:#E1F5EE;color:#0F6E56">&#128172;</div>
+        <div class="card-info"><div class="card-title">Customer experience</div><div class="card-meta">8 tasks &middot; 6 AI-automatable</div></div>
+        <div class="card-chevron">&#9662;</div>
+      </div>
+      <div class="card-body">
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Customer support (chat, email, phone) <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Review and rating management <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">NPS and CSAT measurement <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Complaint resolution and escalation <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Post-purchase communication (WhatsApp, email) <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Subscription churn prediction and intervention <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Customer feedback loop to product team <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Repeat purchase and cross-sell campaigns <span class="tag tag-ai">AI</span></div></div>
+        <div class="playbook">
+          <div class="playbook-title">AI playbook</div>
+          <div class="playbook-row"><div class="playbook-label">Tools</div><div class="playbook-val">AI chatbot (custom-trained on your product knowledge base), WhatsApp Business API + AI, email automation with dynamic personalization, sentiment analysis on reviews</div></div>
+          <div class="playbook-row"><div class="playbook-label">Setup</div><div class="playbook-val">Train a support agent on your entire product catalog, FAQ, and past ticket history. Route 80% of queries to AI, escalate edge cases to human. Build churn prediction model on subscription data.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Output</div><div class="playbook-val">80% of support tickets resolved without human intervention. Response time drops from hours to seconds. Churn intervention emails sent automatically when risk score exceeds threshold.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Time saved</div><div class="playbook-val">Support that used to need 8-10 people now runs with 1 person overseeing the AI + handling escalations.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="card-icon" style="background:#e7ebf2;color:#993C1D">&#128202;</div>
+        <div class="card-info"><div class="card-title">Data and analytics</div><div class="card-meta">9 tasks &middot; 8 AI-automatable</div></div>
+        <div class="card-chevron">&#9662;</div>
+      </div>
+      <div class="card-body">
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Customer data platform (CDP) setup <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Cohort analysis and LTV modeling <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Revenue and P&amp;L dashboards <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Funnel analytics (awareness to repeat purchase) <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Competitive intelligence monitoring <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Category performance tracking <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Demand forecasting models <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Experiment tracking (what we tested, what worked) <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Weekly/monthly business review reports <span class="tag tag-ai">AI</span></div></div>
+        <div class="playbook">
+          <div class="playbook-title">AI playbook</div>
+          <div class="playbook-row"><div class="playbook-label">Tools</div><div class="playbook-val">Claude/GPT for natural-language querying of data, Python for modeling, Looker/Metabase for dashboards, Apify for competitor monitoring</div></div>
+          <div class="playbook-row"><div class="playbook-label">Setup</div><div class="playbook-val">Build a unified data layer connecting all sales channels, ad platforms, and CRM. Create AI agents that generate weekly business review reports automatically. Set up competitor monitoring agents that run daily.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Output</div><div class="playbook-val">Auto-generated WBR every Monday. LTV predictions by cohort. Competitor price/launch alerts. "Ask your data" interface for ad-hoc questions.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Time saved</div><div class="playbook-val">No dedicated analytics team needed. The marketing and ops people query the system directly instead of filing data requests.</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LAYER 5 -->
+<div class="layer">
+  <div class="layer-label">Layer 5 &mdash; Run the company</div>
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="card-icon" style="background:#e6ecfb;color:#3551c4">&#128178;</div>
+        <div class="card-info"><div class="card-title">Finance and legal</div><div class="card-meta">8 tasks &middot; 3 AI-automatable</div></div>
+        <div class="card-chevron">&#9662;</div>
+      </div>
+      <div class="card-body">
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">P&amp;L management and unit economics <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Cash flow and working capital management <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">GST, TDS, and tax compliance <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Fundraising and investor relations <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Legal (contracts, IP, trademark) <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Vendor payment reconciliation <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Financial modeling and scenario planning <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Audit preparation and compliance <span class="tag tag-human">Human</span></div></div>
+        <div class="playbook">
+          <div class="playbook-title">AI playbook</div>
+          <div class="playbook-row"><div class="playbook-label">Tools</div><div class="playbook-val">Claude for financial modeling and scenario analysis, automated GST filing tools, reconciliation bots for vendor payments</div></div>
+          <div class="playbook-row"><div class="playbook-label">Setup</div><div class="playbook-val">Connect accounting software to AI layer. Build automated reconciliation for vendor payments. Create financial model templates that AI updates monthly with actuals.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Output</div><div class="playbook-val">Monthly P&amp;L auto-generated. Tax compliance automated. Scenario planning (what if CAC rises 20%?) answered in minutes, not days.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Reality check</div><div class="playbook-val">Cash flow decisions, fundraising, and legal strategy are deeply human. The ops/finance person needs judgment and relationships. AI handles the clerical layer underneath.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="card-icon" style="background:#e4e7eb;color:#5f6772">&#129504;</div>
+        <div class="card-info"><div class="card-title">AI and knowledge OS</div><div class="card-meta">8 tasks &middot; 4 AI-automatable</div></div>
+        <div class="card-chevron">&#9662;</div>
+      </div>
+      <div class="card-body">
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Shared context layer (brand truths, ICP, positioning) <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Skills library (reusable AI prompts that compound) <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Decision log (every strategic call, dated, reversible) <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Workflow automation (agents for recurring tasks) <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Cross-functional knowledge sync <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">AI tool evaluation and stack management <span class="tag tag-human">Human</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--ai-text)"></div><div class="task-text">Team onboarding via OS (new hire reads the OS, not a deck) <span class="tag tag-ai">AI</span></div></div>
+        <div class="task"><div class="task-dot" style="background:var(--human-text)"></div><div class="task-text">Compounding loop (feed wins/losses back into skills) <span class="tag tag-human">Human</span></div></div>
+        <div class="playbook">
+          <div class="playbook-title">AI playbook</div>
+          <div class="playbook-row"><div class="playbook-label">Tools</div><div class="playbook-val">GitHub for the OS repo, Claude Code/Cowork for AI interface, Obsidian or Notion for notes, markdown files for skills and decision logs</div></div>
+          <div class="playbook-row"><div class="playbook-label">Setup</div><div class="playbook-val">Three layers. Slow layer: brand truths, audience research, frameworks (rarely changes). Medium layer: category plans, active positioning, market context (updated monthly). Fast layer: decision log with date, rationale, reversal criteria (updated daily). Every AI tool reads the OS before generating anything.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Output</div><div class="playbook-val">Any team member's AI has the same context as the founder. New hires productive in days, not months. Skills compound: one person's discovery becomes everyone's baseline.</div></div>
+          <div class="playbook-row"><div class="playbook-label">Key insight</div><div class="playbook-val">This is the function that makes all other functions work with 5 people. Without it, you have 5 people using 15 tools with 15 different contexts. With it, you have a single operating brain that gets sharper every week.</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p>Built by <a href="https://www.linkedin.com/in/abhijeetmittal/" target="_blank" rel="noopener">Abhijeet Mittal</a>. Follow for the full 1000cr playbook series, one function at a time.</p>
+  <a class="cta-btn" href="https://www.linkedin.com/in/abhijeetmittal/" target="_blank" rel="noopener">Follow on LinkedIn</a>
+</div>
+
+</div>
+</body>
+</html>

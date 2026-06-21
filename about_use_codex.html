@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eceef1">
+  <meta name="description" content="About Abhijeet Mittal, an operator working across AI, consumer health, and D2C.">
+  <title>About Abhijeet Mittal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #eceef1;
+      --paper-2: #e4e7eb;
+      --ink: #191e26;
+      --muted: #5f6772;
+      --line: rgba(25,30,38,.16);
+      --teal: #3551c4;
+      --teal-soft: #d7dcf4;
+      --rust: #5f6772;
+      --rust-soft: #d7dbe2;
+      --white: #ffffff;
+      --serif: "Newsreader", Georgia, serif;
+      --display: "Newsreader", Georgia, serif;
+      --sans: "Hanken Grotesk", Arial, sans-serif;
+      --mono: "JetBrains Mono", monospace;
+      --ease: cubic-bezier(.2,.75,.25,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    button { font: inherit; }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      pointer-events: none;
+      opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
+    }
+
+    .site-header {
+      position: fixed;
+      top: 18px;
+      right: clamp(14px,3vw,42px);
+      left: clamp(14px,3vw,42px);
+      z-index: 20;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      height: 60px;
+      padding: 0 22px;
+      border: 1px solid rgba(25,30,38,.13);
+      border-radius: 999px;
+      background: rgba(255,253,248,.76);
+      box-shadow: 0 18px 60px rgba(33,43,38,.08);
+      backdrop-filter: blur(18px) saturate(1.2);
+    }
+
+    .brand,
+    .header-link {
+      display: flex;
+      align-items: center;
+      width: fit-content;
+      text-decoration: none;
+    }
+    .brand { gap: 12px; }
+    .brand-mark { font-family: var(--serif); font-size: 1.55rem; line-height: 1; }
+    .brand-state,
+    .header-label {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: .57rem;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+    .brand-state::before {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      margin-right: 8px;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 0 4px rgba(53,81,196,.12);
+      content: "";
+    }
+    .header-link {
+      justify-self: end;
+      gap: 9px;
+      padding: 8px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--rust);
+      font-family: var(--mono);
+      font-size: .58rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .grid-paper {
+      background:
+        linear-gradient(rgba(25,30,38,.075) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(25,30,38,.075) 1px,transparent 1px),
+        linear-gradient(rgba(25,30,38,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(25,30,38,.035) 1px,transparent 1px);
+      background-size: 296px 296px,296px 296px,74px 74px,74px 74px;
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0,1.05fr) minmax(360px,.72fr);
+      gap: clamp(48px,8vw,132px);
+      align-items: center;
+      min-height: 100svh;
+      padding: 140px clamp(24px,7vw,108px) 72px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-copy { position: relative; z-index: 2; }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 0 0 28px;
+      color: var(--teal);
+      font-family: var(--mono);
+      font-size: .62rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { width: 42px; height: 1px; background: currentColor; content: ""; }
+    h1,h2,h3,p { margin-top: 0; }
+    h1 {
+      max-width: 940px;
+      margin-bottom: 34px;
+      font-family: var(--display);
+      font-size: clamp(4.8rem,8.8vw,9.4rem);
+      font-weight: 500;
+      letter-spacing: -.055em;
+      line-height: .79;
+    }
+    h1 em,h2 em { color: var(--rust); font-family: var(--serif); font-weight: 400; }
+    .hero-intro {
+      max-width: 680px;
+      color: var(--muted);
+      font-size: clamp(1.05rem,1.5vw,1.38rem);
+      line-height: 1.55;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      min-height: 48px;
+      padding: 0 22px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--white);
+      font-size: .78rem;
+      text-decoration: none;
+      transition: transform 180ms ease,box-shadow 180ms ease;
+    }
+    .button.secondary { border-color: var(--line); background: rgba(255,253,248,.62); color: var(--muted); }
+    .button:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(25,30,38,.1); }
+
+    .portrait-stage {
+      position: relative;
+      z-index: 2;
+      width: min(100%,540px);
+      justify-self: end;
+      transition: transform 400ms var(--ease);
+    }
+    .portrait-frame {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4 / 5.25;
+      border: 1px solid var(--line);
+      border-radius: 42px;
+      background: var(--paper-2);
+      box-shadow: 0 38px 110px rgba(25,30,38,.16);
+    }
+    .portrait-frame::after {
+      position: absolute;
+      right: -24%;
+      bottom: -16%;
+      width: 78%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle,rgba(53,81,196,.28),transparent 67%);
+      content: "";
+      mix-blend-mode: multiply;
+    }
+    .portrait-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 18%;
+      filter: saturate(.88) contrast(1.02);
+    }
+    .float-tag {
+      position: absolute;
+      z-index: 2;
+      padding: 12px 18px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,253,248,.86);
+      box-shadow: 0 14px 34px rgba(25,30,38,.1);
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: .57rem;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      backdrop-filter: blur(14px);
+      animation: float 5s ease-in-out infinite;
+    }
+    .tag-one { top: 11%; left: -17%; }
+    .tag-two { top: 47%; right: -14%; animation-delay: -1.7s; }
+    .tag-three { bottom: 8%; left: -13%; animation-delay: -3.1s; }
+    @keyframes float { 50% { transform: translateY(-8px); } }
+
+    .orbit {
+      position: absolute;
+      right: -9vw;
+      bottom: -16vw;
+      width: 49vw;
+      min-width: 560px;
+      aspect-ratio: 1;
+      border: 1px dashed rgba(53,81,196,.25);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: spin 36s linear infinite;
+    }
+    .orbit::before,.orbit::after {
+      position: absolute;
+      border: 1px dashed rgba(95,103,114,.22);
+      border-radius: 50%;
+      content: "";
+    }
+    .orbit::before { inset: 13%; }
+    .orbit::after { inset: 29%; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .proof-strip {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      border-bottom: 1px solid var(--line);
+      background: var(--white);
+    }
+    .proof {
+      min-height: 130px;
+      padding: 25px clamp(20px,3vw,46px);
+    }
+    .proof + .proof { border-left: 1px solid var(--line); }
+    .proof small {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--teal);
+      font-family: var(--mono);
+      font-size: .55rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .proof strong { font-family: var(--serif); font-size: clamp(1.3rem,2vw,1.85rem); font-weight: 400; line-height: 1.05; }
+
+    section { position: relative; padding: 118px clamp(24px,7vw,108px); border-bottom: 1px solid var(--line); }
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) minmax(260px,.45fr);
+      gap: 50px;
+      align-items: end;
+      margin-bottom: 60px;
+    }
+    .section-head h2 {
+      max-width: 900px;
+      margin: 0;
+      font-family: var(--display);
+      font-size: clamp(4rem,7vw,7.6rem);
+      font-weight: 500;
+      letter-spacing: -.045em;
+      line-height: .82;
+    }
+    .section-head > p { margin: 0; color: var(--muted); }
+
+    .lenses { overflow: hidden; }
+    .lens-shell {
+      display: grid;
+      grid-template-columns: 290px minmax(0,1fr);
+      min-height: 470px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 38px;
+      background: rgba(255,253,248,.65);
+      box-shadow: 0 30px 100px rgba(25,30,38,.08);
+    }
+    .lens-tabs { display: grid; align-content: stretch; border-right: 1px solid var(--line); }
+    .lens-tab {
+      position: relative;
+      padding: 30px;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      font-family: var(--serif);
+      font-size: 2rem;
+      text-align: left;
+      cursor: pointer;
+      transition: background 220ms ease,color 220ms ease;
+    }
+    .lens-tab:last-child { border-bottom: 0; }
+    .lens-tab::after { position: absolute; right: 25px; content: "↗"; font-family: var(--sans); font-size: .8rem; }
+    .lens-tab.active { background: var(--ink); color: var(--white); }
+    .lens-panel {
+      position: relative;
+      display: grid;
+      align-content: center;
+      min-height: 470px;
+      padding: clamp(42px,7vw,100px);
+      overflow: hidden;
+    }
+    .lens-number {
+      position: absolute;
+      right: 5%;
+      bottom: -28%;
+      color: rgba(53,81,196,.075);
+      font-family: var(--serif);
+      font-size: 28rem;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .lens-kicker { color: var(--rust); font-family: var(--mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; }
+    .lens-panel h3 { max-width: 780px; margin: 17px 0 22px; font-family: var(--serif); font-size: clamp(3rem,5vw,5.6rem); font-weight: 400; line-height: .9; }
+    .lens-panel p { max-width: 720px; margin: 0; color: var(--muted); font-size: 1.02rem; }
+
+    .career { background: var(--ink); color: var(--white); }
+    .career .eyebrow { color: var(--teal-soft); }
+    .career .section-head > p { color: rgba(255,253,248,.6); }
+    .career-grid { display: grid; grid-template-columns: minmax(310px,.74fr) minmax(0,1fr); gap: clamp(40px,7vw,110px); }
+    .career-list { border-top: 1px solid rgba(255,255,255,.16); }
+    .career-item {
+      display: grid;
+      grid-template-columns: 92px 1fr auto;
+      gap: 16px;
+      width: 100%;
+      padding: 22px 0;
+      border: 0;
+      border-bottom: 1px solid rgba(255,255,255,.16);
+      background: transparent;
+      color: rgba(255,253,248,.58);
+      text-align: left;
+      cursor: pointer;
+      transition: color 180ms ease,padding 180ms ease;
+    }
+    .career-item:hover,.career-item.active { padding-left: 12px; color: var(--white); }
+    .career-item time { font-family: var(--mono); font-size: .57rem; }
+    .career-item strong { font-family: var(--serif); font-size: 1.3rem; font-weight: 400; line-height: 1.05; }
+    .career-item span { color: var(--rust-soft); font-size: .75rem; }
+    .career-card {
+      position: sticky;
+      top: 110px;
+      align-self: start;
+      min-height: 430px;
+      padding: clamp(36px,5vw,70px);
+      border: 1px solid rgba(255,255,255,.17);
+      border-radius: 38px;
+      background:
+        radial-gradient(circle at 85% 90%,rgba(53,81,196,.35),transparent 34%),
+        rgba(255,255,255,.055);
+    }
+    .career-card small { color: var(--teal-soft); font-family: var(--mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; }
+    .career-card h3 { max-width: 650px; margin: 22px 0 18px; font-family: var(--serif); font-size: clamp(3rem,5vw,5rem); font-weight: 400; line-height: .9; }
+    .career-card p { max-width: 620px; color: rgba(255,253,248,.62); }
+    .career-card .company { position: absolute; right: 36px; bottom: 30px; color: var(--rust-soft); font-family: var(--mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; }
+
+    .method { overflow: hidden; }
+    .method-board {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 18px;
+      padding: 58px 0 10px;
+    }
+    .method-board::before {
+      position: absolute;
+      top: 29px;
+      right: 6%;
+      left: 6%;
+      height: 1px;
+      background: repeating-linear-gradient(90deg,var(--teal) 0 5px,transparent 5px 12px);
+      opacity: .42;
+      content: "";
+    }
+    .method-card {
+      position: relative;
+      min-height: 260px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: rgba(255,253,248,.75);
+      text-align: left;
+      cursor: pointer;
+      transition: transform 240ms var(--ease),background 240ms ease,box-shadow 240ms ease;
+    }
+    .method-card::before {
+      position: absolute;
+      top: -35px;
+      left: 50%;
+      width: 11px;
+      height: 11px;
+      border: 3px solid var(--paper);
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 0 1px var(--teal);
+      content: "";
+      transform: translateX(-50%);
+    }
+    .method-card:hover,.method-card.active {
+      z-index: 2;
+      background: var(--white);
+      box-shadow: 0 24px 70px rgba(25,30,38,.12);
+      transform: translateY(-10px) rotate(-.4deg);
+    }
+    .method-card:nth-child(even):hover,.method-card:nth-child(even).active { transform: translateY(-10px) rotate(.4deg); }
+    .method-card small { color: var(--rust); font-family: var(--mono); font-size: .56rem; letter-spacing: .1em; text-transform: uppercase; }
+    .method-card h3 { margin: 38px 0 14px; font-family: var(--serif); font-size: 2.2rem; font-weight: 400; line-height: .95; }
+    .method-card p { margin: 0; color: var(--muted); font-size: .83rem; }
+    .method-note {
+      max-width: 850px;
+      min-height: 120px;
+      margin: 42px auto 0;
+      padding: 26px 34px;
+      border-left: 2px solid var(--rust);
+      background: rgba(233,199,173,.2);
+      font-family: var(--serif);
+      font-size: clamp(1.45rem,2.6vw,2.25rem);
+      line-height: 1.15;
+    }
+
+    .outside {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) minmax(320px,.7fr);
+      gap: clamp(50px,8vw,120px);
+      align-items: center;
+      background: var(--rust);
+      color: var(--white);
+    }
+    .outside h2 { max-width: 850px; margin: 0 0 28px; font-family: var(--display); font-size: clamp(4rem,7.2vw,7.8rem); font-weight: 500; letter-spacing: -.05em; line-height: .82; }
+    .outside h2 em { color: var(--white); opacity: .76; }
+    .outside p { max-width: 680px; color: rgba(255,253,248,.72); }
+    .outside-list { border-top: 1px solid rgba(255,255,255,.3); }
+    .outside-list div { display: flex; justify-content: space-between; gap: 20px; padding: 19px 0; border-bottom: 1px solid rgba(255,255,255,.3); }
+    .outside-list strong { font-family: var(--serif); font-size: 1.45rem; font-weight: 400; }
+    .outside-list span { color: rgba(255,253,248,.64); font-size: .78rem; text-align: right; }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 26px clamp(24px,7vw,108px);
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: .56rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms var(--ease),transform 700ms var(--ease); }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 960px) {
+      .hero,.section-head,.career-grid,.outside { grid-template-columns: 1fr; }
+      .portrait-stage { width: min(78vw,540px); justify-self: center; }
+      .proof-strip { grid-template-columns: 1fr 1fr; }
+      .proof:nth-child(3) { border-left: 0; border-top: 1px solid var(--line); }
+      .proof:nth-child(4) { border-top: 1px solid var(--line); }
+      .lens-shell { grid-template-columns: 1fr; }
+      .lens-tabs { grid-template-columns: repeat(3,1fr); border-right: 0; border-bottom: 1px solid var(--line); }
+      .lens-tab { padding: 22px; border-right: 1px solid var(--line); border-bottom: 0; font-size: 1.5rem; }
+      .lens-tab:last-child { border-right: 0; }
+      .career-card { position: relative; top: auto; }
+      .method-board { grid-template-columns: 1fr 1fr; row-gap: 58px; }
+      .method-board::before { display: none; }
+      .method-card::before { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      .site-header { right: 10px; left: 10px; padding: 0 17px; }
+      .brand-state,.header-label { display: none; }
+      .hero { padding: 132px 20px 76px; }
+      h1 { font-size: clamp(4.2rem,19vw,6rem); }
+      .portrait-stage { width: 86vw; }
+      .float-tag { padding: 9px 12px; font-size: .48rem; }
+      .tag-one { left: -5%; }
+      .tag-two { right: -4%; }
+      .tag-three { left: -4%; }
+      .proof-strip { grid-template-columns: 1fr; }
+      .proof + .proof { border-top: 1px solid var(--line); border-left: 0; }
+      section { padding: 88px 20px; }
+      .section-head { gap: 24px; margin-bottom: 40px; }
+      .section-head h2 { font-size: clamp(3.7rem,17vw,5.5rem); }
+      .lens-shell { border-radius: 28px; }
+      .lens-tabs { grid-template-columns: 1fr; }
+      .lens-tab { border-right: 0; border-bottom: 1px solid var(--line); }
+      .lens-panel { min-height: 440px; padding: 38px 26px; }
+      .lens-panel h3 { font-size: 3.3rem; }
+      .career-item { grid-template-columns: 76px 1fr; }
+      .career-item span { display: none; }
+      .career-card { min-height: 410px; padding: 34px 26px; border-radius: 28px; }
+      .career-card .company { right: 26px; bottom: 24px; }
+      .method-board { grid-template-columns: 1fr; gap: 14px; padding-top: 0; }
+      .method-card { min-height: 220px; }
+      .method-note { margin-top: 24px; padding: 22px; }
+      .outside h2 { font-size: clamp(4rem,18vw,5.8rem); }
+      footer { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *,*::before,*::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">AM</span>
+      <span class="brand-state">Back to home</span>
+    </a>
+    <span class="header-label">About / operating from India</span>
+    <a class="header-link" href="https://www.linkedin.com/in/abhijeetmittal" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a>
+  </header>
+
+  <main>
+    <section class="hero grid-paper">
+      <div class="orbit" aria-hidden="true"></div>
+      <div class="hero-copy reveal">
+        <p class="eyebrow">Abhijeet Mittal / About</p>
+        <h1>Operator by work.<br><em>Curious by default.</em></h1>
+        <p class="hero-intro">I build at the intersection of AI, consumer health, and D2C. My career has moved from data science to founding companies to owning categories, but the question has stayed the same: what makes people choose, trust, and return?</p>
+        <div class="hero-actions">
+          <a class="button" href="#career">See the path <span>↓</span></a>
+          <a class="button secondary" href="mailto:abhijeetmittal@gmail.com">Start a conversation <span>↗</span></a>
+        </div>
+      </div>
+
+      <div class="portrait-stage reveal">
+        <div class="portrait-frame">
+          <img src="assets/abhijeet-mittal-portrait.jpg" alt="Portrait of Abhijeet Mittal" width="933" height="1400">
+        </div>
+        <span class="float-tag tag-one">Former data scientist</span>
+        <span class="float-tag tag-two">D2C operator</span>
+        <span class="float-tag tag-three">Builder + writer</span>
+      </div>
+    </section>
+
+    <div class="proof-strip" aria-label="Selected background">
+      <div class="proof"><small>Current</small><strong>Director, Category<br>Mosaic Wellness</strong></div>
+      <div class="proof"><small>Built before</small><strong>MoooFarm<br>Erth.ai</strong></div>
+      <div class="proof"><small>Recognition</small><strong>Forbes 30<br>Under 30 Asia</strong></div>
+      <div class="proof"><small>Foundation</small><strong>IIT Roorkee<br>Data science</strong></div>
+    </div>
+
+    <section class="lenses grid-paper" id="lenses">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">01 / The three lenses</p>
+          <h2>One career. <em>Three obsessions.</em></h2>
+        </div>
+        <p>Click each lens to see how it changes the way I approach a problem.</p>
+      </div>
+
+      <div class="lens-shell reveal">
+        <div class="lens-tabs" role="tablist" aria-label="Areas of focus">
+          <button class="lens-tab active" type="button" role="tab" aria-selected="true" data-lens="ai">AI</button>
+          <button class="lens-tab" type="button" role="tab" aria-selected="false" data-lens="health">Health</button>
+          <button class="lens-tab" type="button" role="tab" aria-selected="false" data-lens="d2c">D2C</button>
+        </div>
+        <article class="lens-panel" aria-live="polite">
+          <span class="lens-number">01</span>
+          <span class="lens-kicker">AI / leverage</span>
+          <h3>Make a small team think with more range.</h3>
+          <p>I use AI for market research, category strategy, consumer analysis, and operating documentation. The goal is not automation for its own sake. It is better context before a human decision.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="career" id="career">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">02 / Career path</p>
+          <h2>Built through <em>different vantage points.</em></h2>
+        </div>
+        <p>Choose a chapter. The details change, but each one added a new operating layer.</p>
+      </div>
+
+      <div class="career-grid">
+        <div class="career-list reveal" role="list">
+          <button class="career-item active" type="button" data-career="mosaic"><time>2024 → now</time><strong>Director, Category</strong><span>Mosaic Wellness</span></button>
+          <button class="career-item" type="button" data-career="mooofarm"><time>2020 → 2024</time><strong>Co-founder and CGO</strong><span>MoooFarm</span></button>
+          <button class="career-item" type="button" data-career="erth"><time>2019 → 2020</time><strong>Co-founder</strong><span>Erth.ai</span></button>
+          <button class="career-item" type="button" data-career="sigmoid"><time>2019</time><strong>Data Scientist</strong><span>Sigmoid</span></button>
+          <button class="career-item" type="button" data-career="sears"><time>2017 → 2019</time><strong>Business Consultant</strong><span>Sears Holdings India</span></button>
+          <button class="career-item" type="button" data-career="iit"><time>2013 → 2017</time><strong>Engineering</strong><span>IIT Roorkee</span></button>
+        </div>
+
+        <article class="career-card reveal" aria-live="polite">
+          <small>Current chapter / Mumbai</small>
+          <h3>Owning a consumer health category end to end.</h3>
+          <p>At Mosaic Wellness, I lead category with full P&amp;L ownership. The work connects consumer insight, product, growth, content, marketplaces, performance marketing, and retention.</p>
+          <span class="company">Mosaic Wellness / Man Matters</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="method grid-paper">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">03 / How I work</p>
+          <h2>A loop, not a <em>playbook.</em></h2>
+        </div>
+        <p>Click a stage to see the principle beneath it.</p>
+      </div>
+
+      <div class="method-board reveal">
+        <button class="method-card active" type="button" data-note="Start close to the customer. Behaviour, language, friction, and repeat patterns usually reveal more than a polished strategy deck.">
+          <small>01 / Observe</small>
+          <h3>Find the signal</h3>
+          <p>Listen for repeated behaviour, not loud opinions.</p>
+        </button>
+        <button class="method-card" type="button" data-note="Turn scattered evidence into a clear model. A useful system should make the next decision easier for everyone, not just its creator.">
+          <small>02 / Structure</small>
+          <h3>Build the system</h3>
+          <p>Give messy evidence a shape a team can use.</p>
+        </button>
+        <button class="method-card" type="button" data-note="Put the idea into the market early enough to learn. Real customer behaviour is the most useful argument in the room.">
+          <small>03 / Act</small>
+          <h3>Test in market</h3>
+          <p>Prefer a live experiment to a longer debate.</p>
+        </button>
+        <button class="method-card" type="button" data-note="Document what changed, what did not, and why. The result should improve the operating system, not disappear into a post-mortem.">
+          <small>04 / Compound</small>
+          <h3>Feed learning back</h3>
+          <p>Make each cycle improve the next one.</p>
+        </button>
+      </div>
+      <div class="method-note reveal" aria-live="polite">Start close to the customer. Behaviour, language, friction, and repeat patterns usually reveal more than a polished strategy deck.</div>
+    </section>
+
+    <section class="outside">
+      <div class="reveal">
+        <p class="eyebrow">04 / Beyond the job title</p>
+        <h2>Health is not a category I only <em>study at work.</em></h2>
+        <p>I have played tennis for 15 years, run 10Ks, and spend a lot of time understanding nutrition, recovery, longevity, food, sleep, and supplements. I also mentor founders and operators on brand building, D2C strategy, and the early mess of creating something useful.</p>
+      </div>
+      <div class="outside-list reveal">
+        <div><strong>Tennis</strong><span>15 years</span></div>
+        <div><strong>Running</strong><span>10K distance</span></div>
+        <div><strong>Learning</strong><span>Nutrition + longevity</span></div>
+        <div><strong>Mentoring</strong><span>Founders + operators</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 Abhijeet Mittal</span>
+    <span>Built in India</span>
+    <a href="index.html">Back to home ↑</a>
+  </footer>
+
+  <script>
+    const lensContent = {
+      ai: {
+        number: "01",
+        kicker: "AI / leverage",
+        title: "Make a small team think with more range.",
+        body: "I use AI for market research, category strategy, consumer analysis, and operating documentation. The goal is not automation for its own sake. It is better context before a human decision."
+      },
+      health: {
+        number: "02",
+        kicker: "Health / behaviour",
+        title: "Treat a health number as a clue, not a verdict.",
+        body: "Health became personal before it became professional. I study nutrition, recovery, glucose, running, and longevity to understand how information becomes behaviour people can actually sustain."
+      },
+      d2c: {
+        number: "03",
+        kicker: "D2C / trust",
+        title: "Build for the second purchase, not the first click.",
+        body: "A consumer brand is a chain of promises. Insight, product, positioning, distribution, service, and retention all need to agree. I like owning the whole chain."
+      }
+    };
+
+    const careerContent = {
+      mosaic: {
+        kicker: "Current chapter / Mumbai",
+        title: "Owning a consumer health category end to end.",
+        body: "At Mosaic Wellness, I lead category with full P&L ownership. The work connects consumer insight, product, growth, content, marketplaces, performance marketing, and retention.",
+        company: "Mosaic Wellness / Man Matters"
+      },
+      mooofarm: {
+        kicker: "Founder chapter / Gurugram",
+        title: "Building and growing for rural India.",
+        body: "I co-founded MoooFarm and later served as Chief Growth Officer. Four years of building taught me how product, distribution, trust, capital, and execution collide outside a spreadsheet.",
+        company: "MoooFarm"
+      },
+      erth: {
+        kicker: "Zero to one / Gurugram",
+        title: "Exploring technology for dairy traceability.",
+        body: "At Erth.ai, I worked on an early company at the intersection of technology and the dairy ecosystem. It sharpened my interest in applied systems, not technology in isolation.",
+        company: "Erth.ai"
+      },
+      sigmoid: {
+        kicker: "Technical foundation / Bengaluru",
+        title: "Learning to turn raw data into a decision.",
+        body: "As a data scientist, I worked with models and large datasets. The lasting lesson was simpler: analysis matters only when someone can act on it.",
+        company: "Sigmoid"
+      },
+      sears: {
+        kicker: "First operating layer / Pune",
+        title: "Learning how businesses ask and answer questions.",
+        body: "I began as a business consultant at Sears Holdings India. It gave me an early view of how commercial questions become analytical problems and operating choices.",
+        company: "Sears Holdings India"
+      },
+      iit: {
+        kicker: "Foundation / Roorkee",
+        title: "Engineering, computer science, tennis, and range.",
+        body: "At IIT Roorkee, I studied Production and Industrial Engineering alongside Computer Science. The combination still shapes how I think about systems, constraints, and software.",
+        company: "IIT Roorkee"
+      }
+    };
+
+    const panel = document.querySelector(".lens-panel");
+    const lensNumber = panel.querySelector(".lens-number");
+    const lensKicker = panel.querySelector(".lens-kicker");
+    const lensTitle = panel.querySelector("h3");
+    const lensBody = panel.querySelector("p");
+
+    document.querySelectorAll(".lens-tab").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const content = lensContent[tab.dataset.lens];
+        document.querySelectorAll(".lens-tab").forEach((item) => {
+          item.classList.toggle("active", item === tab);
+          item.setAttribute("aria-selected", String(item === tab));
+        });
+        panel.animate([{ opacity: .35, transform: "translateY(8px)" }, { opacity: 1, transform: "none" }], { duration: 320, easing: "ease-out" });
+        lensNumber.textContent = content.number;
+        lensKicker.textContent = content.kicker;
+        lensTitle.textContent = content.title;
+        lensBody.textContent = content.body;
+      });
+    });
+
+    const careerCard = document.querySelector(".career-card");
+    document.querySelectorAll(".career-item").forEach((item) => {
+      item.addEventListener("click", () => {
+        const content = careerContent[item.dataset.career];
+        document.querySelectorAll(".career-item").forEach((button) => button.classList.toggle("active", button === item));
+        careerCard.animate([{ opacity: .4, transform: "translateY(10px)" }, { opacity: 1, transform: "none" }], { duration: 320, easing: "ease-out" });
+        careerCard.querySelector("small").textContent = content.kicker;
+        careerCard.querySelector("h3").textContent = content.title;
+        careerCard.querySelector("p").textContent = content.body;
+        careerCard.querySelector(".company").textContent = content.company;
+      });
+    });
+
+    const methodNote = document.querySelector(".method-note");
+    document.querySelectorAll(".method-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        document.querySelectorAll(".method-card").forEach((item) => item.classList.toggle("active", item === card));
+        methodNote.textContent = card.dataset.note;
+        methodNote.animate([{ opacity: .35, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }], { duration: 300, easing: "ease-out" });
+      });
+    });
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const portrait = document.querySelector(".portrait-stage");
+    if (!reduceMotion) {
+      window.addEventListener("pointermove", (event) => {
+        const x = event.clientX / window.innerWidth - .5;
+        const y = event.clientY / window.innerHeight - .5;
+        portrait.style.transform = `translate(${x * -10}px, ${y * -7}px)`;
+      });
+    }
+
+    const reveals = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .08 });
+    reveals.forEach((element) => observer.observe(element));
+  </script>
+</body>
+</html>

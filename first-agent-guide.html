@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#eceef1">
+<meta name="description" content="Build your first AI agent this weekend. Zero code. A job description, four decisions, one weekly loop. By Abhijeet Mittal.">
+<title>Your First Agent | The 1000cr Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#eceef1; --paper-2:#e4e7eb; --ink:#191e26; --muted:#5f6772;
+  --line:rgba(25,30,38,.16); --teal:#3551c4; --teal-soft:#d7dcf4;
+  --rust:#5f6772; --rust-soft:#d7dbe2; --night:#161b24; --white:#ffffff;
+  --display:"Newsreader",Georgia,serif;
+  --serif:"Newsreader",Georgia,serif;
+  --sans:"Hanken Grotesk",Arial,sans-serif;
+  --mono:"JetBrains Mono",monospace;
+  --ease:cubic-bezier(.2,.75,.25,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.noise{position:fixed;inset:0;z-index:20;pointer-events:none;opacity:.035;mix-blend-mode:multiply;
+background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E")}
+.wrap{max-width:880px;margin:0 auto;padding:0 clamp(20px,5vw,48px)}
+.eyebrow{display:flex;align-items:center;gap:12px;margin:0 0 22px;color:var(--teal);font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--teal)}
+
+/* hero */
+.hero{position:relative;padding:96px 0 72px;border-bottom:1px solid var(--line);
+background:
+ linear-gradient(rgba(25,30,38,.07) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(25,30,38,.07) 1px,transparent 1px),
+ linear-gradient(rgba(25,30,38,.035) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(25,30,38,.035) 1px,transparent 1px);
+background-size:296px 296px,296px 296px,74px 74px,74px 74px}
+h1{margin:0 0 18px;font-family:var(--display);font-weight:600;font-size:clamp(3rem,8vw,5.4rem);line-height:1.02;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--rust)}
+.hero-intro{max-width:560px;margin:0 0 34px;font-size:1.06rem;color:var(--muted)}
+.hero-intro strong{color:var(--ink);font-weight:600}
+.stats{display:flex;flex-wrap:wrap;gap:12px}
+.stat{padding:10px 18px;border:1px solid var(--line);border-radius:999px;background:rgba(255,253,248,.7);font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--ink)}
+.stat b{color:var(--rust);font-weight:500}
+
+section{padding:78px 0;border-bottom:1px solid var(--line)}
+h2{margin:0 0 14px;font-family:var(--display);font-weight:600;font-size:clamp(1.9rem,4.4vw,2.7rem);line-height:1.08}
+h2 em{font-style:italic;color:var(--teal)}
+.lede{max-width:600px;margin:0 0 40px;color:var(--muted)}
+
+/* stepper */
+.step-nav{display:flex;gap:8px;margin:0 0 30px;flex-wrap:wrap}
+.step-dot{flex:1;min-width:96px;padding:11px 8px;border:1px solid var(--line);border-radius:12px;background:var(--white);font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);cursor:pointer;text-align:center;transition:all 220ms var(--ease)}
+.step-dot span{display:block;margin-bottom:4px;font-size:.58rem;color:var(--teal)}
+.step-dot.active{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.step-dot.active span{color:var(--rust-soft)}
+.step-dot.done{border-color:var(--teal);color:var(--teal)}
+.step-card{position:relative;padding:38px clamp(22px,4.5vw,46px);border:1px solid var(--line);border-radius:20px;background:var(--white);box-shadow:0 24px 70px rgba(33,43,38,.07)}
+.step-card h3{margin:0 0 14px;font-family:var(--display);font-weight:600;font-size:1.9rem;line-height:1.1}
+.step-card h3 em{font-style:italic;color:var(--rust)}
+.step-body{max-width:640px;color:#39414d}
+.step-body p{margin:0 0 14px}
+.do-now{margin:24px 0 0;padding:18px 20px;border-left:3px solid var(--rust);border-radius:0 12px 12px 0;background:linear-gradient(90deg,rgba(233,199,173,.25),rgba(233,199,173,.05))}
+.do-now .tag{display:block;margin-bottom:6px;font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--rust)}
+.step-foot{display:flex;justify-content:space-between;align-items:center;margin-top:30px}
+.step-count{font-family:var(--mono);font-size:.65rem;color:var(--muted);letter-spacing:.1em}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border:1px solid var(--ink);border-radius:999px;background:var(--ink);color:var(--paper);font-family:var(--sans);font-size:.85rem;font-weight:500;cursor:pointer;transition:all 200ms var(--ease)}
+.btn:hover{background:var(--rust);border-color:var(--rust)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--paper-2);color:var(--ink)}
+.btn:disabled{opacity:.3;cursor:default}
+
+/* builder */
+.builder{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+@media(max-width:760px){.builder{grid-template-columns:1fr}}
+.field{margin-bottom:18px}
+.field label{display:block;margin-bottom:7px;font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+.field input{width:100%;padding:13px 16px;border:1px solid var(--line);border-radius:12px;background:var(--white);color:var(--ink);font-size:.95rem;outline:none;transition:border-color 180ms ease}
+.field input:focus{border-color:var(--teal)}
+.prompt-box{position:relative;display:flex;flex-direction:column;border:1px solid rgba(25,30,38,.25);border-radius:18px;background:var(--night);color:#dde2f4;overflow:hidden}
+.prompt-head{display:flex;justify-content:space-between;align-items:center;padding:13px 18px;border-bottom:1px solid rgba(245,241,232,.12);font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:#78b4b0}
+.copy-btn{padding:6px 14px;border:1px solid rgba(245,241,232,.25);border-radius:999px;background:transparent;color:#dde2f4;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;cursor:pointer;transition:all 180ms ease}
+.copy-btn:hover{background:var(--rust);border-color:var(--rust)}
+.prompt-text{flex:1;margin:0;padding:20px;font-family:var(--mono);font-size:.74rem;line-height:1.75;white-space:pre-wrap;max-height:430px;overflow:auto}
+.prompt-text .v{color:var(--rust-soft)}
+
+/* loop */
+.loop-row{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:36px 0 10px}
+.loop-step{flex:1;min-width:150px;position:relative;padding:22px 20px;border:1px solid var(--line);background:var(--white)}
+.loop-step:first-child{border-radius:16px 0 0 16px}
+.loop-step:last-child{border-radius:0 16px 16px 0}
+.loop-step+.loop-step{border-left:none}
+.loop-step .n{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;color:var(--teal)}
+.loop-step h4{margin:8px 0 6px;font-family:var(--display);font-size:1.22rem;font-weight:600}
+.loop-step p{margin:0;font-size:.82rem;color:var(--muted)}
+.loop-back{display:flex;align-items:center;gap:10px;margin-top:14px;color:var(--rust);font-family:var(--serif);font-style:italic;font-size:1.02rem}
+.loop-back::before{content:"";flex:0 0 110px;height:1px;background:repeating-linear-gradient(90deg,var(--rust) 0 6px,transparent 6px 12px)}
+.golden{margin-top:34px;padding:26px 28px;border:1px solid rgba(95,103,114,.35);border-radius:18px;background:rgba(233,199,173,.16)}
+.golden .tag{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--rust)}
+.golden p{margin:10px 0 0;font-family:var(--serif);font-size:1.28rem;line-height:1.45}
+.golden p em{font-style:italic;color:var(--rust)}
+
+/* mistakes accordion */
+.acc{border:1px solid var(--line);border-radius:16px;background:var(--white);overflow:hidden}
+.acc-item+.acc-item{border-top:1px solid var(--line)}
+.acc-btn{display:flex;justify-content:space-between;align-items:center;width:100%;padding:20px 24px;border:0;background:transparent;color:var(--ink);font-family:var(--display);font-size:1.25rem;font-weight:600;text-align:left;cursor:pointer}
+.acc-btn .mark{font-family:var(--mono);font-size:.8rem;color:var(--rust);transition:transform 220ms var(--ease)}
+.acc-item.open .mark{transform:rotate(45deg)}
+.acc-panel{max-height:0;overflow:hidden;transition:max-height 320ms var(--ease)}
+.acc-panel-inner{padding:0 24px 22px;max-width:620px;color:#39414d;font-size:.93rem}
+
+/* footer */
+footer{padding:64px 0 80px}
+.foot-line{font-family:var(--serif);font-style:italic;font-size:clamp(1.4rem,3.4vw,1.9rem);line-height:1.4;max-width:640px}
+.foot-line em{color:var(--rust)}
+.foot-meta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;margin-top:36px;padding-top:24px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.foot-meta a{color:var(--teal);text-decoration:none}
+.checklist{margin:34px 0 0;padding:0;list-style:none}
+.checklist li{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-bottom:1px dashed var(--line);cursor:pointer}
+.checklist .box{flex:0 0 20px;height:20px;margin-top:3px;border:1.5px solid var(--muted);border-radius:6px;transition:all 180ms ease}
+.checklist li.checked .box{background:var(--teal);border-color:var(--teal);box-shadow:inset 0 0 0 3px var(--white)}
+.checklist li.checked span{color:var(--muted);text-decoration:line-through}
+.progress{margin-top:18px;font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;color:var(--teal)}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Abhijeet Mittal / The 1000cr Playbook</p>
+    <h1>Your first <em>agent.</em></h1>
+    <p class="hero-intro"><strong>Zero code. A job description, four decisions, one weekly loop.</strong> Everything below is buildable tonight with a Claude or ChatGPT subscription. If you want to build a D2C brand, this removes your last excuse.</p>
+    <div class="stats">
+      <div class="stat"><b>45 min</b> to build</div>
+      <div class="stat"><b>0</b> lines of code</div>
+      <div class="stat"><b>1</b> job, done weekly</div>
+      <div class="stat"><b>Rs 2,000</b>/month stack</div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="steps">
+  <div class="wrap">
+    <p class="eyebrow">01 / The build</p>
+    <h2>Five steps. <em>One evening.</em></h2>
+    <p class="lede">An agent is a hire, not a project. You are about to write a JD, hand over context, point at sources, and save a playbook. Click through.</p>
+
+    <div class="step-nav" id="stepNav"></div>
+
+    <div class="step-card">
+      <div id="stepContent"></div>
+      <div class="step-foot">
+        <span class="step-count" id="stepCount"></span>
+        <div>
+          <button class="btn ghost" id="prevBtn">Back</button>
+          <button class="btn" id="nextBtn">Next step →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="builder">
+  <div class="wrap">
+    <p class="eyebrow">02 / The JD builder</p>
+    <h2>Type four things. <em>Copy the prompt.</em></h2>
+    <p class="lede">Fill in your category. The master prompt assembles itself on the right. Paste it into Claude or ChatGPT as a saved project or custom instruction, and your agent exists.</p>
+    <div class="builder">
+      <div>
+        <div class="field"><label>Your category</label><input id="inCat" placeholder="e.g. hair care for men" value="hair care for men"></div>
+        <div class="field"><label>Your customer, in one line</label><input id="inCust" placeholder="e.g. 22-35 year old Indian men noticing early hair fall" value="22-35 year old Indian men noticing early hair fall"></div>
+        <div class="field"><label>Two or three competitors</label><input id="inComp" placeholder="e.g. Brand A, Brand B, Brand C" value="the top 3 brands on Amazon in my category"></div>
+        <div class="field"><label>Where the answer should land</label><input id="inOut" placeholder="e.g. a Google Sheet called Category Signals" value="a Google Sheet called Category Signals"></div>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-head"><span>master-prompt.txt</span><button class="copy-btn" id="copyBtn">Copy</button></div>
+        <pre class="prompt-text" id="promptOut"></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="loop">
+  <div class="wrap">
+    <p class="eyebrow">03 / The weekly loop</p>
+    <h2>This is where it <em>compounds.</em></h2>
+    <p class="lede">Building the agent is the easy half. Managing it is what separates a toy from a system. Four moves, every week.</p>
+    <div class="loop-row">
+      <div class="loop-step"><span class="n">RUN</span><h4>Run it Monday</h4><p>Same job, same morning. Agents earn trust through rhythm, like people do.</p></div>
+      <div class="loop-step"><span class="n">READ</span><h4>Read its work</h4><p>All of it, like you'd read an intern's first report. Never skim, never auto-trust.</p></div>
+      <div class="loop-step"><span class="n">CORRECT</span><h4>Correct the playbook</h4><p>Never the output. One edit to the instructions kills that mistake forever.</p></div>
+      <div class="loop-step"><span class="n">WIDEN</span><h4>Widen the job</h4><p>Trust grows, scope grows. Complaints this month, pricing gaps the next.</p></div>
+    </div>
+    <p class="loop-back">and the corrections feed the next run. That's the compounding.</p>
+    <div class="golden">
+      <span class="tag">The one rule people break</span>
+      <p>Fix the mistake by hand and you fix it once. Fix the playbook and you fix it <em>forever.</em> Thirty seconds of hand-fixing every week feels productive. It's how agents stay interns.</p>
+    </div>
+  </div>
+</section>
+
+<section id="mistakes">
+  <div class="wrap">
+    <p class="eyebrow">04 / Where first agents die</p>
+    <h2>Three mistakes. <em>All avoidable.</em></h2>
+    <div class="acc" id="acc">
+      <div class="acc-item">
+        <button class="acc-btn">The goal is a wish, not a job <span class="mark">+</span></button>
+        <div class="acc-panel"><div class="acc-panel-inner">"Help me with market research" is a wish. "Top 3 complaints in my category, every Monday, in my sheet" is a job. The test: can you look at the output and say it did the job or it didn't? If you can't review it, you can't manage it.</div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-btn">It gets no context, then gets blamed <span class="mark">+</span></button>
+        <div class="acc-panel"><div class="acc-panel-inner">An agent that doesn't know your customer, your price point, and what you've already ruled out will work hard on the wrong things. Same as a fresher with no handbook. Five minutes of pasted context beats fifty corrections later.</div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-btn">Ten jobs in week one <span class="mark">+</span></button>
+        <div class="acc-panel"><div class="acc-panel-inner">You wouldn't give a new hire ten responsibilities on day one. One job, run weekly, corrected in the playbook, until you trust it blind. Then widen. The teams running entire categories on agents all started with one boring job done well.</div></div>
+      </div>
+    </div>
+
+    <ul class="checklist" id="checklist">
+      <li><span class="box"></span><span>Picked one repeating job I currently do by hand</span></li>
+      <li><span class="box"></span><span>Wrote the one-line JD (measurable, reviewable)</span></li>
+      <li><span class="box"></span><span>Pasted my context: customer, product, what's ruled out</span></li>
+      <li><span class="box"></span><span>Pointed it at sources and one place to write</span></li>
+      <li><span class="box"></span><span>Saved the playbook. Ran it once. Read everything.</span></li>
+      <li><span class="box"></span><span>Calendar block: Monday, 15 minutes, read and correct</span></li>
+    </ul>
+    <p class="progress" id="progress">0 / 6 done</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="foot-line">Manage it like an intern in June. It works like an <em>analyst</em> by August. Stack enough of these and you understand how 5 people will run 1000cr companies.</p>
+    <div class="foot-meta">
+      <span>Abhijeet Mittal · AI x Health x D2C</span>
+      <a href="ai-employee-builder.html">Level up: design a fully autonomous AI employee →</a>
+      <a href="https://www.linkedin.com/in/abhijeetmittal" target="_blank" rel="noopener">Tell me what you built → LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const steps=[
+ {tag:"STEP 1",title:'Pick <em>one</em> repeating job',body:'<p>Not your hardest problem. Your most repetitive one. The job you do every week that follows the same shape: gather, read, summarise, decide.</p><p>For a D2C builder, the best first hire is the review reader: it reads what customers say about your competitors and tells you what to fix, build, and say.</p>',now:'Write down the one job you do (or avoid) every single week. If it has the word "every" in it, it qualifies.'},
+ {tag:"STEP 2",title:'Write the <em>one-line JD</em>',body:'<p>One sentence, measurable, reviewable. "Find the top 3 customer complaints in my category. Every Monday. Put them in my sheet with the exact quotes."</p><p>The test is brutal and simple: when the output arrives, can you say "yes it did the job" or "no it didn\'t"? If you can\'t review it, you can\'t manage it, so don\'t assign it.</p>',now:'Write your JD as one sentence. Read it aloud. If it sounds like a wish, sharpen until it sounds like a job.'},
+ {tag:"STEP 3",title:'Hand over <em>context</em>',body:'<p>This is onboarding. Who your customer is, what you sell, your price point, what you\'ve already tried and ruled out. Paste it once, save it with the agent.</p><p>An agent without context is a fresher without a handbook. It will work hard on the wrong things and you\'ll blame the tool instead of the onboarding.</p>',now:'Write 5 lines: customer, product, price, what you\'ve ruled out, what a great answer looks like. That\'s the handbook.'},
+ {tag:"STEP 4",title:'Point at <em>tools</em>',body:'<p>Where it reads, where it writes. Competitor reviews on Amazon. Two Reddit threads where your customer is honest. And one sheet where the answer lands every week, so the output has an address.</p><p>Claude and ChatGPT can browse and read links you give them. Start there. No integrations needed on day one.</p>',now:'List 3 sources (paste the actual links) and create one empty sheet titled Category Signals.'},
+ {tag:"STEP 5",title:'Save the <em>playbook</em>',body:'<p>Combine the JD, the context, and the sources into one saved prompt: a Claude Project or ChatGPT custom instruction. That saved prompt is the playbook. It IS the agent.</p><p>Every correction you ever make goes into this playbook, never into the output. That single habit is what makes week 8 unrecognisable from week 1.</p>',now:'Use the JD builder below. Fill four fields, copy the master prompt, save it, run it once tonight.'}
+];
+let cur=0;const nav=document.getElementById('stepNav'),content=document.getElementById('stepContent'),count=document.getElementById('stepCount');
+steps.forEach((s,i)=>{const b=document.createElement('button');b.className='step-dot';b.innerHTML='<span>0'+(i+1)+'</span>'+s.title.replace(/<[^>]+>/g,'');b.onclick=()=>{cur=i;render()};nav.appendChild(b);});
+function render(){
+ [...nav.children].forEach((b,i)=>{b.classList.toggle('active',i===cur);b.classList.toggle('done',i<cur)});
+ const s=steps[cur];
+ content.innerHTML='<p class="eyebrow" style="margin-bottom:10px">'+s.tag+'</p><h3>'+s.title+'</h3><div class="step-body">'+s.body+'</div><div class="do-now"><span class="tag">Do this now</span>'+s.now+'</div>';
+ count.textContent=(cur+1)+' / '+steps.length;
+ document.getElementById('prevBtn').disabled=cur===0;
+ document.getElementById('nextBtn').textContent=cur===steps.length-1?'Build it ↓':'Next step →';
+}
+document.getElementById('prevBtn').onclick=()=>{if(cur>0){cur--;render()}};
+document.getElementById('nextBtn').onclick=()=>{if(cur<steps.length-1){cur++;render()}else{document.getElementById('builder').scrollIntoView({behavior:'smooth'})}};
+render();
+
+const f={cat:document.getElementById('inCat'),cust:document.getElementById('inCust'),comp:document.getElementById('inComp'),out:document.getElementById('inOut')};
+const promptOut=document.getElementById('promptOut');
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function buildPrompt(){
+ const cat=esc(f.cat.value||'[your category]'),cust=esc(f.cust.value||'[your customer]'),comp=esc(f.comp.value||'[competitors]'),out=esc(f.out.value||'[your sheet]');
+ promptOut.innerHTML=
+`You are my category research agent for <span class="v">${cat}</span>.
+
+THE JOB (run every Monday):
+Find the top 3 customer complaints in <span class="v">${cat}</span> this week.
+Source them from reviews and discussions about <span class="v">${comp}</span>.
+Deliver them to <span class="v">${out}</span> format: complaint, who said it
+(exact quote), where, and what I should do about it.
+
+CONTEXT (my handbook):
+- My customer: <span class="v">${cust}</span>
+- I care about complaints that repeat, not one-off rants.
+- Ignore complaints about delivery and packaging unless they
+  spike. I want product, pricing and trust signals.
+- A great answer fits on one screen and ends with one
+  recommendation I can act on this week.
+
+RULES:
+- Quote customers in their exact words. Never paraphrase.
+- Say where every quote came from.
+- If you are not sure something repeats, say so. Honest
+  uncertainty beats confident noise.
+- End with: one thing to fix, one thing to build, one thing
+  to say in marketing.
+
+This playbook will be corrected over time. Follow the latest
+version exactly.`;
+}
+Object.values(f).forEach(i=>i.addEventListener('input',buildPrompt));buildPrompt();
+document.getElementById('copyBtn').onclick=async()=>{
+ await navigator.clipboard.writeText(promptOut.innerText);
+ const b=document.getElementById('copyBtn');b.textContent='Copied ✓';setTimeout(()=>b.textContent='Copy',1600);
+};
+
+document.querySelectorAll('.acc-btn').forEach(btn=>{btn.onclick=()=>{
+ const item=btn.parentElement,panel=item.querySelector('.acc-panel'),open=item.classList.contains('open');
+ document.querySelectorAll('.acc-item').forEach(i=>{i.classList.remove('open');i.querySelector('.acc-panel').style.maxHeight=null});
+ if(!open){item.classList.add('open');panel.style.maxHeight=panel.scrollHeight+'px'}
+}});
+
+const list=document.getElementById('checklist'),prog=document.getElementById('progress');
+list.querySelectorAll('li').forEach(li=>li.onclick=()=>{
+ li.classList.toggle('checked');
+ const n=list.querySelectorAll('.checked').length;
+ prog.textContent=n+' / 6 done'+(n===6?' · your first agent exists. Tell me on LinkedIn.':'');
+});
+</script>
+</body>
+</html>
