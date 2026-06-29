@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How I lost 11kg in 4 months: a first-principles breakdown of fat loss</title>
+<meta name="description" content="I failed for 10 years, then lost 11kg in 4 months. A simple, visual, first-principles breakdown of how fat loss actually works. Where fat goes, how your body makes energy, and how to train. Built on Huberman and Andy Galpin.">
+<link rel="canonical" href="https://abhijeetmittal.vercel.app/how-i-lost-11kg">
+<meta property="og:url" content="https://abhijeetmittal.vercel.app/how-i-lost-11kg">
+<meta property="og:site_name" content="Abhijeet Mittal">
+<meta property="og:title" content="How I lost 11kg in 4 months: the science, made simple">
+<meta property="og:description" content="Where fat actually goes (you breathe it out), how your body makes energy, and how to train. A first-principles breakdown built on Huberman and Andy Galpin.">
+<meta property="og:image" content="https://abhijeetmittal.vercel.app/assets/Abhijeet-photo.png">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How I lost 11kg in 4 months: the science, made simple">
+<meta name="twitter:description" content="Where fat actually goes, how your body makes energy, and how to train. Built on Huberman and Andy Galpin.">
+<meta name="twitter:image" content="https://abhijeetmittal.vercel.app/assets/Abhijeet-photo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eceef1; --bg-2:#e4e7eb; --ink:#191e26; --ink-soft:#39414d; --muted:#5f6772; --faint:#8a909a;
+    --line:rgba(25,30,38,.12); --line-2:rgba(25,30,38,.08);
+    --accent:#3551c4; --accent-2:#8ea0e6; --accent-soft:#e7ebf8;
+    --clay:#b5604a; --clay-soft:#f3e6e0; --card:#ffffff;
+    --serif:'Newsreader',Georgia,serif; --sans:'Hanken Grotesk',system-ui,-apple-system,sans-serif;
+    --mono:'JetBrains Mono',monospace; --hand:'Caveat',cursive;
+    --shadow:0 14px 40px rgba(25,30,38,.07); --shadow-h:0 28px 64px rgba(25,30,38,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.58;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  @media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+
+  .progress{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--accent);z-index:100;transition:width .1s linear}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:0 clamp(18px,5vw,56px)}
+  .col{max-width:760px;margin:0 auto}
+  .wide{max-width:1000px;margin:0 auto}
+
+  .kick{font-family:var(--mono);font-size:clamp(.58rem,2.6vw,.64rem);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;display:flex;align-items:center;gap:11px}
+  .kick .ln{width:26px;height:1px;background:currentColor;flex-shrink:0}
+  h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.9rem,5.6vw,3.1rem);line-height:1.03;letter-spacing:-.022em;margin-bottom:20px}
+  h2 .it{font-style:italic;color:var(--accent);position:relative;display:inline-block}
+  .ul{position:absolute;left:0;bottom:-6px;width:100%;height:11px;overflow:visible}
+  h3{font-family:var(--serif);font-weight:500;font-size:clamp(1.25rem,4vw,1.5rem);letter-spacing:-.012em;margin-bottom:8px}
+  p{font-size:clamp(1.02rem,2.7vw,1.15rem);color:var(--ink-soft);margin-bottom:1.05em}
+  p strong{color:var(--ink);font-weight:600}
+  .lead{font-size:clamp(1.12rem,3vw,1.32rem);color:var(--ink)}
+  .big-q{font-family:var(--serif);font-size:clamp(1.5rem,5vw,2.2rem);color:var(--ink);line-height:1.12;letter-spacing:-.02em;margin:6px 0 14px}
+  .answer{font-family:var(--serif);font-style:italic;color:var(--accent);font-size:clamp(1.6rem,5.5vw,2.4rem);margin:2px 0 18px}
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s cubic-bezier(.2,.6,.2,1),transform .6s cubic-bezier(.2,.6,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* HERO */
+  .hero{position:relative;padding:clamp(96px,16vh,150px) 0 clamp(54px,8vh,86px);background:radial-gradient(120% 70% at 82% 8%,transparent 42%,rgba(247,244,237,.5) 100%),linear-gradient(rgba(25,30,38,.026) 1px,transparent 1px),linear-gradient(90deg,rgba(25,30,38,.026) 1px,transparent 1px);background-size:auto,40px 40px,40px 40px}
+  .hero .tag{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:clamp(.58rem,2.6vw,.64rem);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
+  .hero .tag .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(53,81,196,.14)}
+  .hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.5rem,9vw,5.4rem);line-height:.96;letter-spacing:-.035em;margin-bottom:18px}
+  .hero h1 .em{font-style:italic;color:var(--accent)}
+  .hero .sub{font-family:var(--serif);font-size:clamp(1.2rem,3.6vw,1.9rem);color:var(--ink-soft);line-height:1.16;letter-spacing:-.015em;max-width:22ch;margin-bottom:26px}
+  .hero .dek{font-size:clamp(1.04rem,2.8vw,1.22rem);color:var(--muted);max-width:54ch;line-height:1.5}
+  .hero .meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:32px;font-family:var(--mono);font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
+  .hero .meta .d{width:4px;height:4px;border-radius:50%;background:var(--faint)}
+
+  /* STATS */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:clamp(40px,6vh,60px)}
+  .statcard{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px}
+  .statcard .lab{font-family:var(--mono);font-size:.54rem;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
+  .statcard .n{font-family:var(--serif);font-size:clamp(1.7rem,4.5vw,2.6rem);line-height:.9;letter-spacing:-.03em}
+  .statcard .n .u{font-size:.36em;color:var(--accent);margin-left:2px;letter-spacing:0}
+  .statcard .n .ar{color:var(--accent);margin:0 2px}
+  .statcard .sub{margin-top:12px;font-size:.82rem;color:var(--muted);line-height:1.4}
+
+  section.blk{padding:clamp(58px,9vh,104px) 0;border-bottom:1px solid var(--line)}
+  section.alt{background:var(--bg-2)}
+
+  /* FAILS */
+  .fails{display:flex;flex-direction:column;gap:7px;margin:24px 0}
+  .fail{display:flex;align-items:center;gap:14px;padding:13px 18px;background:var(--card);border:1px solid var(--line);border-radius:13px}
+  .fail .yr{font-family:var(--mono);font-size:.58rem;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);width:78px;flex-shrink:0}
+  .fail .t{font-size:.92rem;color:var(--ink)}
+  .fail .x{margin-left:auto;font-family:var(--mono);font-size:.58rem;letter-spacing:.07em;color:var(--clay);flex-shrink:0}
+  .fail .x.ok{color:var(--accent)}
+
+  .pull{font-family:var(--serif);font-size:clamp(1.5rem,4.6vw,2.3rem);line-height:1.16;letter-spacing:-.02em;border-left:3px solid var(--accent);padding:4px 0 4px 22px;margin:14px 0}
+  .pull .it{font-style:italic;color:var(--accent)}
+
+  /* WIDGET */
+  .widget{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(20px,4vw,30px);box-shadow:var(--shadow);margin:26px 0}
+  .wlab{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:18px}
+  .whint{font-size:.9rem;color:var(--muted);margin-top:16px}
+  .src{font-size:.82rem;color:var(--muted);border-top:1px dashed var(--line);margin-top:16px;padding-top:13px}
+  .src b{color:var(--ink-soft)}
+
+  /* CARBON diagram */
+  .carbon{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:clamp(8px,2vw,20px);text-align:center}
+  .cnode{background:var(--bg-2);border:1px solid var(--line);border-radius:16px;padding:18px 10px}
+  .cnode .ci{font-size:1.7rem;margin-bottom:8px}
+  .cnode .ct{font-family:var(--mono);font-size:.56rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+  .cnode .cd{font-size:.82rem;color:var(--ink-soft);line-height:1.3}
+  .cnode.you{background:var(--ink);border-color:var(--ink)}
+  .cnode.you .ct{color:var(--accent-2)}
+  .cnode.you .cd,.cnode.you .ci{color:#eceef1}
+  .cnode.out{background:var(--accent-soft);border-color:rgba(53,81,196,.25)}
+  .carrow{font-family:var(--mono);color:var(--accent);font-size:1.3rem;font-weight:500}
+  .cnote{text-align:center;font-family:var(--mono);font-size:.66rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-top:18px}
+
+  /* ENGINES timeline */
+  .engines{display:flex;flex-direction:column;gap:10px}
+  .eng{display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:center}
+  .eng .et{font-family:var(--mono);font-size:.62rem;letter-spacing:.03em;color:var(--accent);text-align:right;line-height:1.3}
+  .eng .ebar{background:var(--bg-2);border-radius:10px;padding:13px 16px;border:1px solid var(--line)}
+  .eng .ebar .en{font-weight:600;color:var(--ink);font-size:.98rem}
+  .eng .ebar .ed{font-size:.85rem;color:var(--muted);margin-top:2px}
+  .eng .ebar .ey{float:right;font-family:var(--mono);font-size:.7rem;color:var(--accent);background:var(--accent-soft);padding:3px 8px;border-radius:6px;margin-left:8px}
+
+  /* FUEL gauge */
+  .fuelbar{display:flex;height:46px;border-radius:12px;overflow:hidden;border:1px solid var(--line);font-family:var(--mono);font-size:.78rem;font-weight:500}
+  .fuelbar .ffat{background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;transition:width .25s}
+  .fuelbar .fcarb{background:var(--clay);color:#fff;display:flex;align-items:center;justify-content:center;transition:width .25s}
+  .fuelkey{display:flex;justify-content:space-between;margin-top:10px;font-size:.82rem;color:var(--ink-soft)}
+  .fuelkey .k{display:flex;align-items:center;gap:7px}
+  .fuelkey .sw{width:10px;height:10px;border-radius:3px}
+  .intenslab{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.56rem;letter-spacing:.03em;text-transform:uppercase;color:var(--faint);margin-top:14px}
+
+  /* TEF */
+  .tefrow{margin:14px 0}
+  .tefrow .lab{display:flex;justify-content:space-between;font-size:.92rem;color:var(--ink-soft);margin-bottom:6px}
+  .tefrow .lab b{color:var(--ink);font-family:var(--mono);font-size:.8rem}
+  .tefbar{height:12px;border-radius:7px;background:var(--bg-2);overflow:hidden}
+  .tefbar>span{display:block;height:100%;width:0;border-radius:7px;transition:width 1s cubic-bezier(.2,.7,.2,1)}
+
+  /* plate */
+  .toggle{display:inline-flex;background:var(--bg-2);border-radius:999px;padding:5px;margin-bottom:22px}
+  .toggle button{border:none;background:none;padding:8px 20px;border-radius:999px;font-size:.86rem;font-weight:500;color:var(--muted);cursor:pointer;transition:.25s;font-family:var(--sans)}
+  .toggle button.on{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+  .plate{display:flex;align-items:center;gap:clamp(20px,4vw,34px);flex-wrap:wrap}
+  .ring{position:relative;width:150px;height:150px;flex-shrink:0;margin:0 auto}
+  .ring svg{transform:rotate(-90deg)}
+  .ring .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+  .ring .center .big{font-family:var(--serif);font-size:1.5rem;color:var(--ink)}
+  .ring .center .sm{font-family:var(--mono);font-size:.54rem;letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
+  .legend{flex:1;min-width:190px}
+  .legrow{display:flex;align-items:center;gap:11px;padding:7px 0;font-size:.92rem;color:var(--ink-soft)}
+  .legrow .sw{width:12px;height:12px;border-radius:4px;flex-shrink:0}
+  .legrow .v{margin-left:auto;font-family:var(--mono);font-size:.76rem;color:var(--ink)}
+  .verdict{font-size:.92rem;margin-top:18px;padding-top:16px;border-top:1px solid var(--line-2);color:var(--ink-soft)}
+  .verdict b{color:var(--accent)}
+
+  /* sliders */
+  .calc label{display:block;font-size:.84rem;color:var(--ink-soft);margin-bottom:6px;font-weight:500}
+  .calc .row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+  .calc .field{flex:1;min-width:140px}
+  .calc input[type=range]{width:100%;accent-color:var(--accent);margin-top:6px;height:24px}
+  .calc .val{font-family:var(--mono);font-weight:500;color:var(--accent);font-size:.92rem}
+  .calc .out{margin-top:22px;padding:20px;background:var(--accent-soft);border-radius:14px}
+  .calc .out .big{font-family:var(--serif);font-size:1.45rem;color:var(--ink);margin-bottom:4px}
+  .calc .out .sub{font-size:.88rem;color:var(--ink-soft)}
+  .calc .out.warn{background:var(--clay-soft)}
+  select.sel{font-family:var(--sans);font-size:.92rem;padding:11px 12px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--ink);width:100%;margin-top:6px}
+  .otv{margin-top:18px;padding:16px 18px;border-radius:13px;background:var(--clay-soft);font-size:.96rem;color:var(--ink-soft)}
+  .otv.good{background:var(--accent-soft)}
+  .otv b{color:var(--ink)}
+
+  /* recomp */
+  .rbar{display:flex;height:50px;border-radius:13px;overflow:hidden;border:1px solid var(--line)}
+  .rseg{display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--mono);font-weight:500;font-size:.8rem;width:0;transition:width 1.1s cubic-bezier(.2,.7,.2,1)}
+  .rfat{background:var(--accent)} .rmus{background:var(--faint)}
+  .rkey{display:flex;gap:20px;margin-top:13px;font-size:.85rem;color:var(--ink-soft);flex-wrap:wrap}
+  .rkey .k{display:flex;align-items:center;gap:7px}
+  .rkey .sw{width:10px;height:10px;border-radius:3px}
+
+  /* quadrants */
+  .quad{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px}
+  .qc{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:var(--shadow)}
+  .qc .qi{font-size:1.5rem;margin-bottom:10px}
+  .qc h4{font-family:var(--serif);font-size:1.2rem;font-weight:500;letter-spacing:-.01em;margin-bottom:4px}
+  .qc .qex{font-size:.86rem;color:var(--muted);margin-bottom:14px}
+  .qc .qline{display:flex;gap:8px;font-size:.84rem;color:var(--ink-soft);padding:7px 0;border-top:1px solid var(--line-2)}
+  .qc .qline .ql{font-family:var(--mono);font-size:.56rem;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);width:64px;flex-shrink:0;padding-top:2px}
+
+  /* week */
+  .week{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;margin-top:4px}
+  .day{border:1px solid var(--line);border-radius:13px;padding:13px 6px;text-align:center;background:var(--card)}
+  .day .dn{font-family:var(--mono);font-size:.54rem;letter-spacing:.03em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+  .day .di{font-size:1.3rem;margin-bottom:7px}
+  .day .dt{font-size:.7rem;color:var(--ink-soft);line-height:1.2}
+  .day.str{background:var(--accent-soft);border-color:rgba(53,81,196,.22)}
+  .day.rest{background:var(--bg-2)}
+
+  /* chart */
+  .chartwrap{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(20px,4vw,30px) clamp(16px,3vw,26px) 16px;box-shadow:var(--shadow);margin:26px 0}
+  .chartwrap h4{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:5px}
+  .chartwrap .csub{font-size:.88rem;color:var(--muted);margin-bottom:20px}
+  .chart{width:100%;height:230px}
+  .chart .grid-l{stroke:var(--line);stroke-width:1}
+  .chart .axis-t{font-family:var(--mono);font-size:10px;fill:var(--faint)}
+  .chart .line{fill:none;stroke:var(--accent);stroke-width:3;stroke-linecap:round}
+  .chart .phase{font-family:var(--mono);font-size:10px;font-weight:500}
+  .chart .dot{fill:var(--accent)}
+  .chart .dot-lab{font-family:var(--mono);font-size:11px;fill:var(--ink);font-weight:500}
+
+  /* callout */
+  .callout{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:16px;padding:24px 26px;box-shadow:var(--shadow);margin:26px 0}
+  .callout .ct{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:11px}
+  .callout p{font-size:1rem;margin-bottom:.6em}
+  .callout p:last-child{margin-bottom:0}
+
+  /* recap */
+  .recap{counter-reset:r;margin-top:6px}
+  .ritem{counter-increment:r;position:relative;padding:16px 0 16px 46px;border-bottom:1px solid var(--line-2)}
+  .ritem:before{content:counter(r);position:absolute;left:0;top:14px;width:30px;height:30px;background:var(--accent);color:#fff;border-radius:9px;font-family:var(--mono);font-size:.8rem;display:flex;align-items:center;justify-content:center}
+  .ritem b{color:var(--ink)}
+  .ritem p{margin:0;font-size:1rem}
+
+  /* close */
+  .close{background:var(--ink);color:#eceef1;padding:clamp(58px,9vh,104px) 0;text-align:center}
+  .close h2{color:#fff} .close h2 .it{color:var(--accent-2)}
+  .close p{color:#aab2bf;font-size:1.12rem}
+  .close .q{font-family:var(--serif);font-style:italic;color:#fff;font-size:clamp(1.3rem,4vw,1.8rem);margin:26px 0 32px;line-height:1.28}
+  .share{display:flex;gap:11px;justify-content:center;flex-wrap:wrap}
+  .share a,.share button{font-family:var(--sans);font-size:.88rem;font-weight:500;padding:12px 22px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:transparent;color:#eceef1;cursor:pointer;text-decoration:none;transition:.22s;display:inline-flex;align-items:center;gap:8px}
+  .share a:hover,.share button:hover{background:#fff;color:var(--ink);border-color:#fff}
+  .share .primary{background:var(--accent);border-color:var(--accent);color:#fff}
+
+  /* sources */
+  .sources ol{list-style:none;counter-reset:s;margin-top:8px}
+  .sources li{counter-increment:s;position:relative;padding:13px 0 13px 36px;border-bottom:1px solid var(--line-2);font-size:.9rem;color:var(--ink-soft);line-height:1.45}
+  .sources li:before{content:counter(s);position:absolute;left:0;top:12px;width:23px;height:23px;background:var(--accent-soft);border-radius:7px;font-family:var(--mono);font-size:.72rem;color:var(--accent);display:flex;align-items:center;justify-content:center}
+  .sources li b{color:var(--ink)}
+  .sources a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-soft)}
+
+  footer{padding:42px 0;text-align:center;font-size:.8rem;color:var(--muted)}
+  footer .disc{max-width:600px;margin:0 auto 14px;line-height:1.55}
+
+  @media(max-width:760px){
+    .stats{grid-template-columns:1fr 1fr}
+    .quad{grid-template-columns:1fr}
+    .week{grid-template-columns:repeat(4,1fr)}
+    .eng{grid-template-columns:74px 1fr;gap:10px}
+    .carbon{grid-template-columns:1fr;gap:6px}
+    .carrow{transform:rotate(90deg);margin:2px auto}
+  }
+  @media(max-width:430px){
+    .stats{grid-template-columns:1fr 1fr;gap:10px}
+    .fail .yr{width:62px}
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="tag"><span class="dot"></span>Performance &amp; Health</div>
+    <h1>How I lost <span class="em">11kg</span> in 4 months.</h1>
+    <div class="sub">A complete first-principles and scientific breakdown of how to lose weight.</div>
+    <p class="dek">I tried five times in ten years and failed every time. I was playing tennis and lifting the whole decade, so I blamed everything except the real problem: I never understood how fat loss actually works. Once I did, the weight came off fast. Here is the whole science, kept simple.</p>
+    <div class="meta"><span>Abhijeet Mittal</span><span class="d"></span><span>8 min read</span><span class="d"></span><span>Built on Huberman &amp; Andy Galpin</span></div>
+
+    <div class="stats">
+      <div class="statcard reveal"><div class="lab">Weight</div><div class="n">90<span class="ar">&rarr;</span>79<span class="u">kg</span></div><div class="sub">In 4 months. From overweight to a healthy BMI.</div></div>
+      <div class="statcard reveal"><div class="lab">Body fat</div><div class="n">27<span class="ar">&rarr;</span>19<span class="u">%</span></div><div class="sub">Most of the 11kg was fat, not muscle.</div></div>
+      <div class="statcard reveal"><div class="lab">Fat share</div><div class="n">84<span class="u">%</span></div><div class="sub">Of everything I lost. That was the whole point.</div></div>
+      <div class="statcard reveal"><div class="lab">Run pace</div><div class="n">11<span class="ar">&rarr;</span>5.1</div><div class="sub">Min/km for a 5k. A brand new aerobic engine.</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- STORY -->
+<section class="blk">
+  <div class="wrap col reveal">
+    <div class="kick"><span class="ln"></span>Where I started</div>
+    <h2>For ten years I thought I could <span class="it">out-train<svg class="ul" viewBox="0 0 200 11" preserveAspectRatio="none"><path d="M2 6 C 50 2, 130 10, 170 4 S 195 3, 198 6" fill="none" stroke="#3551c4" stroke-width="2.3" stroke-linecap="round"/></svg></span> a bad diet.</h2>
+    <p class="lead">I was in the gym the whole time. That was never the problem.</p>
+    <p>I ate fried snacks and dessert almost every day and told myself the workout would burn it off. It never did. Five real attempts over a decade, all the same ending: heavier than I wanted, no energy, half-convinced this was just my body.</p>
+    <div class="fails">
+      <div class="fail"><span class="yr">Try 1</span><span class="t">More cardio, same plate</span><span class="x">Failed</span></div>
+      <div class="fail"><span class="yr">Try 2</span><span class="t">Crash diet, no plan</span><span class="x">Failed</span></div>
+      <div class="fail"><span class="yr">Try 3</span><span class="t">Train harder, eat to "earn it"</span><span class="x">Failed</span></div>
+      <div class="fail"><span class="yr">Try 4</span><span class="t">Motivation, then it ran out</span><span class="x">Failed</span></div>
+      <div class="fail"><span class="yr">Try 5</span><span class="t">Learned the science first</span><span class="x ok">Worked</span></div>
+    </div>
+    <p>The fifth time I stopped collecting tips and learned how the body actually works. It is simpler than the fitness industry wants you to think. Start with the question nobody answers.</p>
+  </div>
+</section>
+
+<!-- WHERE FAT GOES -->
+<section class="blk alt">
+  <div class="wrap col reveal">
+    <div class="kick"><span class="ln"></span>First principle · where fat goes</div>
+    <div class="big-q">When you lose fat, where does it actually go?</div>
+    <p>Most people guess sweat. Or that it "turns into energy" and vanishes. Both wrong.</p>
+    <div class="answer">You breathe it out.</div>
+    <p>Fat and carbs are just chains of carbon atoms. When your body breaks them apart for energy, that carbon has to leave. It grabs the oxygen you breathe in and walks out as carbon dioxide, every single time you exhale. Galpin puts it simply: fat loss is carbon in versus carbon out.</p>
+
+    <div class="widget wide reveal">
+      <div class="wlab">How fat actually leaves your body</div>
+      <div class="carbon">
+        <div class="cnode"><div class="ci">&#127869;</div><div class="ct">Carbon in</div><div class="cd">Food. Carbs and fat are carbon chains.</div></div>
+        <div class="carrow">&rarr;</div>
+        <div class="cnode you"><div class="ci">&#128293;</div><div class="ct">Your cells</div><div class="cd">Break the carbon bonds to make energy.</div></div>
+        <div class="carrow">&rarr;</div>
+        <div class="cnode out"><div class="ci">&#128168;</div><div class="ct">Carbon out</div><div class="cd">Leaves as CO&#8322; when you breathe out.</div></div>
+      </div>
+      <div class="cnote">Roughly 84% of the fat you lose leaves through your lungs. The rest as water.</div>
+    </div>
+
+    <p>This sounds like trivia. It is the most useful thing I learned. It means there is one real rule for fat loss: <strong>put in less carbon than you breathe out.</strong> That is a calorie deficit, said in atoms.</p>
+    <p>And it kills the lie I lived in for a decade. <strong>Burning fat in a workout is not the same as losing fat.</strong> You can do a fasted run that burns mostly fat and lose nothing, because if you eat it all back, the carbon never leaves. The workout helps. It does not excuse the plate.</p>
+  </div>
+</section>
+
+<!-- THE LAW + out-train -->
+<section class="blk">
+  <div class="wrap col reveal">
+    <div class="kick"><span class="ln"></span>The one law</div>
+    <h2>Eat less than you burn. Everything else is <span class="it">detail.<svg class="ul" viewBox="0 0 120 11" preserveAspectRatio="none"><path d="M2 6 C 30 2, 80 10, 105 4 S 117 3, 118 6" fill="none" stroke="#3551c4" stroke-width="2.3" stroke-linecap="round"/></svg></span></h2>
+    <p>Every diet that works, works because it gets you into a deficit. Keto, fasting, counting, none of them beat this law, they just trick you into following it. The hard part is how fast you can undo it. Try the numbers.</p>
+
+    <div class="widget">
+      <div class="wlab">Tool · can you out-train it?</div>
+      <div class="calc">
+        <div class="row">
+          <div class="field"><label>Your workout</label>
+            <select class="sel" id="otWork" onchange="otCalc()">
+              <option value="300">30 min run (~300 kcal)</option>
+              <option value="450" selected>45 min run (~450 kcal)</option>
+              <option value="250">45 min weights (~250 kcal)</option>
+              <option value="400">60 min cycling (~400 kcal)</option>
+            </select>
+          </div>
+          <div class="field"><label>Then you ate</label>
+            <select class="sel" id="otFood" onchange="otCalc()">
+              <option value="600" selected>2 samosas + 1 gulab jamun (~600 kcal)</option>
+              <option value="500">1 slice cake (~500 kcal)</option>
+              <option value="350">1 pack of chips (~350 kcal)</option>
+              <option value="900">Biryani + cola (~900 kcal)</option>
+            </select>
+          </div>
+        </div>
+        <div class="otv" id="otOut"></div>
+      </div>
+      <div class="whint">Burning calories is slow. Eating them back takes four minutes. That gap is why the plate wins.</div>
+    </div>
+  </div>
+</section>
+
+<!-- THE PLATE -->
+<section class="blk alt">
+  <div class="wrap col reveal">
+    <div class="kick"><span class="ln"></span>The plate · the food that won it</div>
+    <h2>I added cardio for ten years. The fix was on my <span class="it">plate.<svg class="ul" viewBox="0 0 100 11" preserveAspectRatio="none"><path d="M2 6 C 26 2, 66 10, 88 4 S 98 3, 98 6" fill="none" stroke="#3551c4" stroke-width="2.3" stroke-linecap="round"/></svg></span></h2>
+    <p>Two things make protein the one food worth obsessing over.</p>
+    <p><strong>It is expensive to digest.</strong> Your body burns 20 to 30% of protein's calories just breaking it down. For fried snacks it is almost nothing. So 100 calories of eggs cost you less than 100 calories of chips, before you have done anything.</p>
+
+    <div class="widget">
+      <div class="wlab">Calories your body burns just digesting</div>
+      <div class="tefrow"><div class="lab"><span>Protein</span><b>20&ndash;30%</b></div><div class="tefbar"><span data-w="92%" style="background:var(--accent)"></span></div></div>
+      <div class="tefrow"><div class="lab"><span>Carbs</span><b>5&ndash;10%</b></div><div class="tefbar"><span data-w="28%" style="background:var(--accent-2)"></span></div></div>
+      <div class="tefrow"><div class="lab"><span>Fat</span><b>0&ndash;3%</b></div><div class="tefbar"><span data-w="9%" style="background:var(--clay)"></span></div></div>
+    </div>
+
+    <p><strong>It is the only food that turns hunger off.</strong> Your body keeps you hungry until it gets enough protein. Eat low-protein meals and you keep eating, chips, dessert, more of everything, chasing a target you never reach. Scientists call it the protein leverage effect. I call it the reason my cravings disappeared. I stopped fighting them. I was just full.</p>
+
+    <div class="widget">
+      <div class="wlab">Tool · a normal day on my plate</div>
+      <div class="toggle"><button id="btnBefore" class="on" onclick="setPlate('before')">Before</button><button id="btnAfter" onclick="setPlate('after')">After</button></div>
+      <div class="plate">
+        <div class="ring">
+          <svg width="150" height="150" viewBox="0 0 150 150">
+            <circle cx="75" cy="75" r="60" fill="none" stroke="#e4e7eb" stroke-width="18"></circle>
+            <circle id="segA" cx="75" cy="75" r="60" fill="none" stroke="#b5604a" stroke-width="18" stroke-dasharray="0 999"></circle>
+            <circle id="segB" cx="75" cy="75" r="60" fill="none" stroke="#8ea0e6" stroke-width="18" stroke-dasharray="0 999"></circle>
+            <circle id="segC" cx="75" cy="75" r="60" fill="none" stroke="#3551c4" stroke-width="18" stroke-dasharray="0 999"></circle>
+          </svg>
+          <div class="center"><div class="big" id="plateKcal">~2,900</div><div class="sm">kcal/day</div></div>
+        </div>
+        <div class="legend">
+          <div class="legrow"><span class="sw" style="background:#b5604a"></span> Fried &amp; sugar <span class="v" id="vJunk">High</span></div>
+          <div class="legrow"><span class="sw" style="background:#8ea0e6"></span> Refined carbs <span class="v" id="vCarb">High</span></div>
+          <div class="legrow"><span class="sw" style="background:#3551c4"></span> Protein <span class="v" id="vProt">~60g</span></div>
+        </div>
+      </div>
+      <div class="verdict" id="verdict">Training hard, eating to undo it. Ten years of that never moved the scale.</div>
+    </div>
+
+    <p>The number that works is about <strong>1.6g of protein per kg of bodyweight</strong>, more if you train hard. At 90kg that is ~144g. I ran 120 to 150g a day from whey, eggs, tofu and paneer, with carbs and fat kept in balance, not cut.</p>
+
+    <div class="widget calc">
+      <div class="wlab">Tool · your daily protein target</div>
+      <div class="row"><div class="field"><label>Your bodyweight · <span class="val" id="bwV">90</span> kg</label><input type="range" id="bw" min="45" max="140" value="90" oninput="protCalc()"></div></div>
+      <div class="out" id="protOut"><div class="big" id="protBig">144 g / day</div><div class="sub" id="protSub">Your floor (1.6 g/kg). Push higher if you train hard and want to hold muscle.</div></div>
+    </div>
+
+    <div class="callout">
+      <div class="ct">If you're a beginner, read this</div>
+      <p>Do not try to guess your calories alone. For the first 14 days I worked with a nutritionist who set my numbers and cut the junk. I sent a photo of every meal to a WhatsApp group. No cheat days, not even Sunday.</p>
+      <p>The first week was hard. By day seven I had adapted. By day 14 it felt normal. After that there was no diet to "stay on." I knew what the right plate looked like, so it was just repetition. If you understand the science, or you hand your diet to Claude, you can skip the guesswork yourself.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW ENERGY IS MADE -->
+<section class="blk">
+  <div class="wrap col reveal">
+    <div class="kick"><span class="ln"></span>The engine room · how you make energy</div>
+    <h2>You run on three engines. They switch on in <span class="it">order.<svg class="ul" viewBox="0 0 110 11" preserveAspectRatio="none"><path d="M2 6 C 28 2, 72 10, 96 4 S 108 3, 108 6" fill="none" stroke="#3551c4" stroke-width="2.3" stroke-linecap="round"/></svg></span></h2>
+    <p>You do not need a biology degree. But once you see how your body makes energy, training finally makes sense.</p>
+
+    <div class="widget wide reveal">
+      <div class="wlab">The three energy systems</div>
+      <div class="engines">
+        <div class="eng"><div class="et">0&ndash;10 sec</div><div class="ebar"><span class="ey">1 ATP</span><div class="en">The instant engine</div><div class="ed">Stored in the muscle. A heavy lift or short sprint. Fires now, gone in seconds. Like a matchstick.</div></div></div>
+        <div class="eng"><div class="et">10s&ndash;2 min</div><div class="ebar"><span class="ey">~4 ATP</span><div class="en">The sugar engine</div><div class="ed">Burns glucose fast for hard efforts. Makes acid, that's the burn at the end of a sprint.</div></div></div>
+        <div class="eng"><div class="et">2 min +</div><div class="ebar"><span class="ey">~32 ATP</span><div class="en">The oxygen engine</div><div class="ed">In your mitochondria, with oxygen, burns sugar and fat. Makes ~10x more energy. This is the fat-burning one.</div></div></div>
+      </div>
+      <div class="src"><b>The lactate myth:</b> lactate is not the villain behind the burn or next-day soreness. It is fuel. Your heart, brain and liver recycle it for energy. It is the cleanup crew, not the enemy.</div>
+    </div>
+
+    <h3 style="margin-top:30px">The skill that matters: switching fuel</h3>
+    <p>A healthy body switches between fat and sugar without you noticing. At rest you run mostly on fat. Flat out, you run almost entirely on sugar. Drag the intensity and watch the mix change.</p>
+
+    <div class="widget calc">
+      <div class="wlab">Tool · your fuel mix by effort</div>
+      <div class="row"><div class="field"><label>Effort · <span class="val" id="intV">resting</span></label><input type="range" id="inten" min="0" max="100" value="0" oninput="fuelCalc()"></div></div>
+      <div class="fuelbar"><div class="ffat" id="ffat" style="width:70%">70% fat</div><div class="fcarb" id="fcarb" style="width:30%">30% carbs</div></div>
+      <div class="intenslab"><span>Resting</span><span>Walk</span><span>Jog</span><span>Hard</span><span>Sprint</span></div>
+      <div class="fuelkey"><div class="k"><span class="sw" style="background:var(--accent)"></span> Fat</div><div class="k"><span class="sw" style="background:var(--clay)"></span> Carbs</div></div>
+      <div class="src">Two signs your switch is rusty: you crash hard 30 minutes after a normal meal (poor at using carbs), or an easy fasted walk feels brutal (poor at burning fat). Zone 2 cardio fixes both.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAINING -->
+<section class="blk alt">
+  <div class="wrap col reveal">
+    <div class="kick"><span class="ln"></span>Training · name what you train</div>
+    <h2>"Get fit" is useless. Galpin made it a <span class="it">list.<svg class="ul" viewBox="0 0 80 11" preserveAspectRatio="none"><path d="M2 6 C 22 2, 52 10, 70 4 S 78 3, 78 6" fill="none" stroke="#3551c4" stroke-width="2.3" stroke-linecap="round"/></svg></span></h2>
+    <p>This is what hit me hardest. Fitness is not one thing. Even endurance is four different things, each trained differently. You cannot improve what you cannot name. So I named them, and trained each on purpose.</p>
+
+    <div class="quad wide">
+      <div class="qc"><div class="qi">&#128170;</div><h4>Muscular endurance</h4><div class="qex">How long one muscle lasts. Planks, push-ups.</div><div class="qline"><span class="ql">Limit</span><span>How fast the muscle clears waste, and its tiny blood vessels.</span></div><div class="qline"><span class="ql">Train</span><span>High reps near failure with light loads. Grows new capillaries.</span></div></div>
+      <div class="qc"><div class="qi">&#128293;</div><h4>Anaerobic capacity</h4><div class="qex">All-out for 20 sec to 2 min. One brutal hill sprint.</div><div class="qline"><span class="ql">Limit</span><span>How fast your body buffers acid.</span></div><div class="qline"><span class="ql">Train</span><span>Short max sprints, long rests. 20s on, 40 to 60s off.</span></div></div>
+      <div class="qc"><div class="qi">&#10084;&#65039;</div><h4>VO&#8322; max</h4><div class="qex">Your aerobic ceiling. 5 to 15 min flat out, a hard mile.</div><div class="qline"><span class="ql">Limit</span><span>How much blood your heart pumps per beat.</span></div><div class="qline"><span class="ql">Train</span><span>Mile repeats, 1 to 2x a week. Lowers your resting heart rate.</span></div></div>
+      <div class="qc"><div class="qi">&#127939;</div><h4>Long-duration (Zone 2)</h4><div class="qex">30 min to hours, easy pace, can still talk.</div><div class="qline"><span class="ql">Limit</span><span>Breathing and posture, not your legs.</span></div><div class="qline"><span class="ql">Train</span><span>Steady 30 to 120 min. Galpin's tip: breathe through your nose only.</span></div></div>
+    </div>
+    <div class="src" style="max-width:760px;margin:14px auto 0">Source: Dr. Andy Galpin on Huberman Lab, "How to Build Endurance &amp; Lose Fat." The whole week takes about two hours.</div>
+
+    <p style="margin-top:30px">Then strength on top, to keep the muscle. That part is not optional, and my numbers show why.</p>
+
+    <div class="widget">
+      <div class="wlab">Where the 11kg came from</div>
+      <div class="rbar"><div class="rseg rfat" data-w="84.5%">~9.3 kg fat</div><div class="rseg rmus" data-w="15.5%">~1.7 kg</div></div>
+      <div class="rkey"><div class="k"><span class="sw" style="background:var(--accent)"></span> Fat lost (the goal)</div><div class="k"><span class="sw" style="background:var(--faint)"></span> Lean mass</div></div>
+      <div class="verdict">Body fat went from <b>27% to 19%</b>. About <b>84% of what I lost was fat</b>, not muscle. Crash diets burn muscle, which drops your metabolism and brings the weight back. Lifting in a deficit tells your body to keep the muscle and pull from fat instead.</div>
+    </div>
+
+    <h3 style="margin-top:30px">Then I gave it a number</h3>
+    <p>"Get fit" is a mood. A target weight, a weekly weigh-in, and fixed training days is a system. I checked my running too: 11 min/km down to 5.1 for a 5k and 5.5 for a 10k. That faster pace is a literal new heart, pumping more blood per beat.</p>
+
+    <div class="widget calc">
+      <div class="wlab">Tool · turn a wish into a goal</div>
+      <div class="row">
+        <div class="field"><label>Now · <span class="val" id="curV">90</span> kg</label><input type="range" id="cur" min="55" max="140" value="90" oninput="goalCalc()"></div>
+        <div class="field"><label>Target · <span class="val" id="tgtV">79</span> kg</label><input type="range" id="tgt" min="50" max="135" value="79" oninput="goalCalc()"></div>
+      </div>
+      <div class="row"><div class="field"><label>Timeline · <span class="val" id="wkV">17</span> weeks</label><input type="range" id="wk" min="4" max="52" value="17" oninput="goalCalc()"></div></div>
+      <div class="out" id="goalOut"><div class="big" id="goalBig">0.65 kg / week</div><div class="sub" id="goalSub">Clear and sustainable. This is what a goal looks like once it has a number.</div></div>
+    </div>
+
+    <h3 style="margin-top:30px">My week</h3>
+    <p>Three strength days, three cardio days, one rest day. Fixed slots, not when I felt like it.</p>
+    <div class="widget">
+      <div class="wlab">A simple week that covers the bases</div>
+      <div class="week">
+        <div class="day str"><div class="dn">Mon</div><div class="di">&#127947;</div><div class="dt">Strength</div></div>
+        <div class="day"><div class="dn">Tue</div><div class="di">&#127939;</div><div class="dt">Zone 2</div></div>
+        <div class="day str"><div class="dn">Wed</div><div class="di">&#127947;</div><div class="dt">Strength</div></div>
+        <div class="day"><div class="dn">Thu</div><div class="di">&#127939;</div><div class="dt">Zone 2</div></div>
+        <div class="day str"><div class="dn">Fri</div><div class="di">&#127947;</div><div class="dt">Strength</div></div>
+        <div class="day"><div class="dn">Sat</div><div class="di">&#9889;</div><div class="dt">Intervals</div></div>
+        <div class="day rest"><div class="dn">Sun</div><div class="di">&#128164;</div><div class="dt">Rest</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPOUNDING -->
+<section class="blk">
+  <div class="wrap col reveal">
+    <div class="kick"><span class="ln"></span>The part that tests you</div>
+    <h2>It's slow before it's <span class="it">fast.<svg class="ul" viewBox="0 0 90 11" preserveAspectRatio="none"><path d="M2 6 C 24 2, 60 10, 80 4 S 88 3, 88 6" fill="none" stroke="#3551c4" stroke-width="2.3" stroke-linecap="round"/></svg></span></h2>
+    <p>First two months: 3kg. I almost quit. The next two months: 8kg. Same effort. The body builds the engine before it shows the result. Fixed days carried me across the gap that motivation never could.</p>
+    <div class="chartwrap">
+      <h4>Weight · Feb to May</h4>
+      <div class="csub">3kg in the first two months, 8kg in the next two.</div>
+      <svg class="chart" id="chart" viewBox="0 0 600 230" preserveAspectRatio="none" aria-label="Weight dropping, slow then fast"></svg>
+    </div>
+  </div>
+</section>
+
+<!-- RECAP -->
+<section class="blk alt">
+  <div class="wrap col reveal">
+    <div class="kick"><span class="ln"></span>The whole thing</div>
+    <h2>Five things. That's the <span class="it">entire<svg class="ul" viewBox="0 0 110 11" preserveAspectRatio="none"><path d="M2 6 C 28 2, 72 10, 96 4 S 108 3, 108 6" fill="none" stroke="#3551c4" stroke-width="2.3" stroke-linecap="round"/></svg></span> playbook.</h2>
+    <div class="recap">
+      <div class="ritem"><p><b>Fat leaves through your breath.</b> To lose it you have to put in less carbon than you breathe out. That is a calorie deficit.</p></div>
+      <div class="ritem"><p><b>You can't out-train the plate.</b> Fix food first. The workout helps, it does not excuse it.</p></div>
+      <div class="ritem"><p><b>Protein is the lever.</b> Around 1.6g per kg. It costs more to digest, kills hunger, and saves your muscle.</p></div>
+      <div class="ritem"><p><b>Build the oxygen engine.</b> Lift to keep muscle, Zone 2 to burn fat, and name the exact thing you are training.</p></div>
+      <div class="ritem"><p><b>Give it a number and a schedule.</b> Then just repeat it. Discipline beats motivation every time.</p></div>
+    </div>
+    <p style="margin-top:26px">It took me ten years to learn something I could have understood in an afternoon. The science is not the hard part. Starting is.</p>
+  </div>
+</section>
+
+<!-- CLOSE -->
+<section class="close">
+  <div class="wrap col">
+    <h2>If you train hard and still aren't <span class="it">losing,</span></h2>
+    <p>be honest for a second.</p>
+    <div class="q">"What does your plate actually look like on a normal day?"</div>
+    <div class="share">
+      <button class="primary" onclick="copyLink()" id="copyBtn">&#128279; Copy link</button>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=" id="liShare" target="_blank" rel="noopener">Share on LinkedIn</a>
+      <a href="https://wa.me/?text=" id="waShare" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<section class="blk sources">
+  <div class="wrap col reveal">
+    <div class="kick"><span class="ln"></span>Sources</div>
+    <ol>
+      <li><b>Huberman Lab &amp; Dr. Andy Galpin</b>, "How to Build Endurance &amp; Lose Fat" (the carbon cycle, energy systems, the four endurance types). <a href="https://www.hubermanlab.com/episode/dr-andy-galpin-how-to-build-physical-endurance-and-lose-fat" target="_blank" rel="noopener">hubermanlab.com</a></li>
+      <li><b>Huberman Lab #97 &mdash; Dr. Layne Norton</b>, eating for fat loss and lean muscle (protein, satiety, thermic effect). <a href="https://www.hubermanlab.com/episode/dr-layne-norton-the-science-of-eating-for-health-fat-loss-lean-muscle" target="_blank" rel="noopener">hubermanlab.com</a></li>
+      <li><b>Protein leverage effect</b>, Raubenheimer &amp; Simpson, <em>Phil. Trans. R. Soc. B</em> (2023). <a href="https://royalsocietypublishing.org/doi/10.1098/rstb.2022.0212" target="_blank" rel="noopener">royalsocietypublishing.org</a></li>
+      <li><b>Resistance training and lean mass</b>, meta-analysis, <em>Obesity</em> (2022). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9285060/" target="_blank" rel="noopener">ncbi.nlm.nih.gov</a></li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <div class="disc">Written from personal experience and public research. This worked for one person. It is not medical advice. Talk to a doctor or nutritionist before changing your diet or training. Calorie figures in the tools are rounded examples.</div>
+  <div>&copy; <span id="yr"></span> Abhijeet Mittal</div>
+</footer>
+
+<script>
+  var prog=document.getElementById('progress');
+  document.addEventListener('scroll',function(){var h=document.documentElement,m=h.scrollHeight-h.clientHeight;prog.style.width=(m>0?(h.scrollTop/m)*100:0)+'%';},{passive:true});
+
+  // robust reveal: threshold 0, plus hard fallbacks so nothing ever stays hidden
+  function showEl(el){el.classList.add('in');el.querySelectorAll('[data-w]').forEach(function(b){b.style.width=b.dataset.w;});}
+  try{
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){showEl(e.target);io.unobserve(e.target);}});},{threshold:0,rootMargin:'0px 0px -6% 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  }catch(err){document.querySelectorAll('.reveal').forEach(showEl);}
+  function sweep(){document.querySelectorAll('.reveal:not(.in)').forEach(function(el){if(el.getBoundingClientRect().top<window.innerHeight*1.05)showEl(el);});}
+  window.addEventListener('load',sweep);window.addEventListener('scroll',sweep,{passive:true});
+  setTimeout(function(){document.querySelectorAll('.reveal').forEach(showEl);},2200);
+
+  // OUT-TRAIN
+  function otCalc(){var w=+document.getElementById('otWork').value,f=+document.getElementById('otFood').value,n=f-w,o=document.getElementById('otOut');
+    if(n<=0){o.className='otv good';o.innerHTML='The workout just covers it, with <b>'+Math.abs(n)+' kcal</b> to spare. But real days rarely stop at one snack.';}
+    else{o.className='otv';o.innerHTML='You ate the workout back and added <b>'+n+' kcal</b> on top. To erase it you would do the whole session again. The snack took four minutes.';}}
+  otCalc();
+
+  // PLATE
+  var C=2*Math.PI*60;
+  var plates={before:{kcal:'~2,900',junk:'High',carb:'High',prot:'~60g',a:.34,b:.40,c:.26,verdict:'Training hard, eating to undo it. Ten years of that never moved the scale.'},
+    after:{kcal:'~2,000',junk:'Cut',carb:'Balanced',prot:'120-150g',a:.05,b:.30,c:.65,verdict:'Same training. The plate flipped. Protein up, junk gone, cravings gone with it.'}};
+  function arc(el,fr,off){var l=fr*C;el.setAttribute('stroke-dasharray',l+' '+(C-l));el.setAttribute('stroke-dashoffset',(-off*C));}
+  function setPlate(w){var p=plates[w];document.getElementById('btnBefore').classList.toggle('on',w==='before');document.getElementById('btnAfter').classList.toggle('on',w==='after');
+    document.getElementById('plateKcal').textContent=p.kcal;document.getElementById('vJunk').textContent=p.junk;document.getElementById('vCarb').textContent=p.carb;document.getElementById('vProt').textContent=p.prot;document.getElementById('verdict').innerHTML=p.verdict;
+    arc(document.getElementById('segA'),p.a,0);arc(document.getElementById('segB'),p.b,p.a);arc(document.getElementById('segC'),p.c,p.a+p.b);}
+  setPlate('before');
+
+  // PROTEIN
+  function protCalc(){var b=+document.getElementById('bw').value;document.getElementById('bwV').textContent=b;var lo=Math.round(b*1.6),hi=Math.round(b*2.2);
+    document.getElementById('protBig').textContent=lo+' g / day';document.getElementById('protSub').textContent='Your floor is '+lo+'g (1.6 g/kg). Push toward '+hi+'g if you train hard and want to hold muscle.';}
+  protCalc();
+
+  // FUEL MIX
+  function fuelCalc(){var i=+document.getElementById('inten').value;var fat=Math.max(0,Math.round(70-0.7*i));var carb=100-fat;
+    var labs=['resting','easy walk','jog','tempo','hard','sprint'];document.getElementById('intV').textContent=labs[Math.min(5,Math.floor(i/20))];
+    var ff=document.getElementById('ffat'),fc=document.getElementById('fcarb');ff.style.width=fat+'%';fc.style.width=carb+'%';
+    ff.textContent=fat>10?fat+'% fat':'';fc.textContent=carb>10?carb+'% carbs':'';}
+  fuelCalc();
+
+  // GOAL
+  function goalCalc(){var c=+document.getElementById('cur').value,t=+document.getElementById('tgt').value,wk=+document.getElementById('wk').value;
+    document.getElementById('curV').textContent=c;document.getElementById('tgtV').textContent=t;document.getElementById('wkV').textContent=wk;
+    var d=c-t,o=document.getElementById('goalOut'),big=document.getElementById('goalBig'),sub=document.getElementById('goalSub');
+    if(d<=0){o.classList.remove('warn');big.textContent='Maintain';sub.textContent='Target is at or above your current weight. Pick a number you want to hit.';return;}
+    var pw=d/wk;big.textContent=pw.toFixed(2)+' kg / week';
+    if(pw>1.0){o.classList.add('warn');sub.textContent='Aggressive. '+d+'kg in '+wk+' weeks. Doable short term, hard to hold. Stretch the timeline.';}
+    else if(pw<0.2){o.classList.remove('warn');sub.textContent='Gentle. '+d+'kg over '+wk+' weeks. Easy to sustain, easy to drift.';}
+    else{o.classList.remove('warn');sub.textContent='Clear and sustainable. '+d+'kg over '+wk+' weeks. This is what a goal looks like with a number.';}}
+  goalCalc();
+
+  // CHART
+  (function(){var svg=document.getElementById('chart');if(!svg)return;var W=600,H=230,pl=40,pr=20,pt=14,pb=30;
+    var data=[{m:'Feb',w:90},{m:'',w:89.3},{m:'Mar',w:88.2},{m:'',w:87.0},{m:'Apr',w:84.5},{m:'',w:82.3},{m:'May',w:80.3},{m:'End',w:79}];
+    var wMin=78,wMax=91,x=function(i){return pl+(i/(data.length-1))*(W-pl-pr);},y=function(w){return pt+(1-(w-wMin)/(wMax-wMin))*(H-pt-pb);};
+    var g='';[90,87,84,81,79].forEach(function(v){var yy=y(v);g+='<line class="grid-l" x1="'+pl+'" y1="'+yy+'" x2="'+(W-pr)+'" y2="'+yy+'"></line><text class="axis-t" x="'+(pl-9)+'" y="'+(yy+4)+'" text-anchor="end">'+v+'</text>';});
+    data.forEach(function(d,i){if(d.m)g+='<text class="axis-t" x="'+x(i)+'" y="'+(H-7)+'" text-anchor="middle">'+d.m+'</text>';});
+    g+='<text class="phase" x="'+x(1.4)+'" y="'+(y(88.2)-11)+'" fill="#8a909a" text-anchor="middle">slow: 3kg</text>';
+    g+='<text class="phase" x="'+x(5.6)+'" y="'+(y(82.3)+24)+'" fill="#3551c4" text-anchor="middle">fast: 8kg</text>';
+    g+='<path class="line" id="cline" d="M'+data.map(function(d,i){return x(i)+','+y(d.w);}).join(' L')+'"></path>';
+    g+='<circle class="dot" cx="'+x(0)+'" cy="'+y(90)+'" r="4.5"></circle><text class="dot-lab" x="'+(x(0)+8)+'" y="'+(y(90)-8)+'">90kg</text>';
+    var li=data.length-1;g+='<circle class="dot" cx="'+x(li)+'" cy="'+y(79)+'" r="5"></circle><text class="dot-lab" x="'+(x(li)-6)+'" y="'+(y(79)+22)+'" text-anchor="end">79kg</text>';
+    svg.innerHTML=g;var p=document.getElementById('cline'),L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;
+    var co=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){p.style.transition='stroke-dashoffset 1.8s ease-in-out';p.style.strokeDashoffset=0;co.disconnect();}});},{threshold:.3});co.observe(svg);})();
+
+  // SHARE
+  var url=location.href;
+  document.getElementById('liShare').href='https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(url);
+  document.getElementById('waShare').href='https://wa.me/?text='+encodeURIComponent('How I lost 11kg in 4 months, the science made simple: '+url);
+  function copyLink(){var b=document.getElementById('copyBtn');navigator.clipboard.writeText(url).then(function(){b.textContent='✓ Copied';setTimeout(function(){b.innerHTML='&#128279; Copy link';},1700);}).catch(function(){b.textContent='Copy the page URL';});}
+  document.getElementById('yr').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>

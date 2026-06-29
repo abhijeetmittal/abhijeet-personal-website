@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#eceef1">
+<meta name="description" content="How a PPG (photoplethysmography) sensor actually works, what it measures, and the difference between blood volume, blood flow, and heart rate. A source-backed visual explainer.">
+<title>How a PPG sensor actually works | Visual explainer</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23191e26'/%3E%3Cpath d='M8 34h10l5-16 8 30 6-20 4 8h7' fill='none' stroke='%233551c4' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#eceef1; --paper-2:#e4e7eb; --ink:#191e26; --muted:#5f6772;
+  --line:rgba(25,30,38,.16); --line-soft:rgba(25,30,38,.08); --card:#ffffff;
+  --teal:#3551c4; --teal-2:#d7dcf4; --green:#36684a; --green-2:rgba(54,104,74,.13);
+  --amber:#a66b24; --amber-2:rgba(166,107,36,.15); --red:#a94035; --red-2:rgba(169,64,53,.12);
+  --shadow:0 24px 70px rgba(25,30,38,.09);
+  --serif:"Newsreader",Georgia,serif; --sans:"Hanken Grotesk",Arial,sans-serif;
+  --mono:"JetBrains Mono",monospace; --hand:"Caveat",cursive;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.wrap{width:min(1080px,calc(100% - 40px));margin:0 auto}
+
+.topbar{position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line);background:rgba(236,238,241,.82);backdrop-filter:blur(18px) saturate(1.2)}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:13px 0}
+.brand{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none}
+.brand b{font-family:var(--serif);font-size:1.2rem;letter-spacing:0;text-transform:none;color:var(--ink)}
+.nav{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.nav a{padding:8px 12px;border:1px solid var(--line);border-radius:999px;text-decoration:none;font-family:var(--mono);font-size:.6rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,.55)}
+.nav a:hover{border-color:var(--ink);color:var(--ink)}
+
+.hero{padding:64px 0 26px}
+.kicker{display:inline-block;font-family:var(--hand);font-size:1.6rem;color:var(--teal);transform:rotate(-1.5deg);margin-bottom:6px}
+h1{margin:8px 0 18px;font-family:var(--serif);font-size:clamp(2.5rem,5.2vw,4.4rem);font-weight:400;line-height:1.02;letter-spacing:-.02em;max-width:14ch}
+h1 .it{font-style:italic;color:var(--teal)}
+.standfirst{max-width:680px;color:var(--muted);font-size:1.08rem}
+.byline{margin-top:18px;font-family:var(--hand);font-size:1.3rem;color:#8a909a}
+
+.verdicts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:30px 0 8px}
+.vbox{padding:22px;border:1px solid var(--line);border-radius:20px;background:var(--card);box-shadow:0 14px 35px rgba(25,30,38,.045)}
+.vbox .vt{display:inline-block;font-family:var(--hand);font-size:1.6rem;line-height:1;transform:rotate(-1deg)}
+.vbox.s .vt{color:var(--green)} .vbox.o .vt{color:var(--amber)} .vbox.u .vt{color:var(--red)}
+.vbox p{margin:10px 0 0;color:var(--muted);font-size:.92rem}
+
+.section{padding:52px 0;border-top:1px solid var(--line)}
+.sec-num{font-family:var(--hand);font-size:1.5rem;color:var(--teal)}
+h2{margin:4px 0 0;font-family:var(--serif);font-size:clamp(1.9rem,3.6vw,3rem);font-weight:400;line-height:1.04;letter-spacing:-.015em}
+.lead{max-width:660px;margin:14px 0 0;font-size:1.04rem;color:var(--ink)}
+.lead.muted{color:var(--muted)}
+p.body{max-width:680px;color:var(--muted);margin:14px 0 0}
+strong{font-weight:600;color:var(--ink)}
+
+.stage{margin-top:26px;padding:clamp(20px,3vw,34px);border:1px solid var(--line);border-radius:24px;background:var(--card);box-shadow:var(--shadow)}
+.stage svg{width:100%;height:auto;display:block;overflow:visible}
+.stage .cap{margin-top:14px;font-family:var(--hand);font-size:1.25rem;color:#8a909a;text-align:center}
+
+/* skin animation */
+.vessel{transform-box:fill-box;transform-origin:center;animation:pulse 0.95s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scaleY(1)}45%{transform:scaleY(1.85)}}
+.ray-back{animation:dim 0.95s ease-in-out infinite}
+@keyframes dim{0%,100%{opacity:.85}45%{opacity:.3}}
+.beat-dot{animation:beat 0.95s ease-in-out infinite}
+@keyframes beat{0%,100%{r:5px;opacity:.5}45%{r:9px;opacity:1}}
+
+/* waveform */
+.scope{position:relative;border:1px solid var(--line);border-radius:18px;background:linear-gradient(160deg,#10151c,#1d2530);box-shadow:var(--shadow);padding:18px 16px;color:#eef1f4;margin-top:24px}
+.scope-head{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;color:#9aa6b2;margin-bottom:8px}
+canvas{width:100%;height:170px;display:block}
+.scope-foot{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;font-family:var(--mono);font-size:.58rem;letter-spacing:.04em;text-transform:uppercase;color:#9aa6b2}
+.scope-foot span{display:inline-flex;align-items:center;gap:7px}
+.dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+/* chain */
+.chain{display:grid;grid-template-columns:1fr;gap:14px;margin-top:8px}
+.chain-row{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1.4fr);gap:16px;align-items:center}
+.node{padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:var(--card);box-shadow:0 14px 35px rgba(25,30,38,.045)}
+.node b{display:block;font-family:var(--serif);font-size:1.25rem;font-weight:400}
+.node span{display:block;margin-top:5px;color:var(--muted);font-size:.9rem}
+.node.raw{background:#10151c;color:#eef1f4;border-color:#10151c}
+.node.raw span{color:#9aa6b2}
+.arrow{font-family:var(--mono);color:var(--teal);font-size:1.4rem;text-align:center}
+.derived{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.derived .d{padding:12px 14px;border:1px solid var(--line);border-radius:13px;background:var(--card)}
+.derived .d b{font-family:var(--mono);font-size:.62rem;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);display:block}
+.derived .d span{display:block;margin-top:4px;font-size:.86rem;color:var(--muted)}
+
+/* graded statements */
+.qa{display:grid;gap:12px;margin-top:6px}
+.q{border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden}
+.q-head{display:flex;align-items:center;gap:14px;padding:18px 20px}
+.q-head .qq{flex:1;font-family:var(--serif);font-size:1.16rem}
+.q-head .qq small{display:block;font-family:var(--mono);font-size:.56rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.status{flex-shrink:0;padding:6px 12px;border-radius:999px;font-family:var(--mono);font-size:.55rem;letter-spacing:.05em;text-transform:uppercase;font-weight:700;white-space:nowrap}
+.status.over{background:var(--amber-2);color:var(--amber)}
+.status.unproven{background:var(--red-2);color:var(--red)}
+.status.solid{background:var(--green-2);color:var(--green)}
+.q-body{padding:0 20px 20px;color:var(--muted)}
+.q-body p{margin:0}
+
+/* compare table */
+.cmp{width:100%;border-collapse:collapse;margin-top:10px;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.cmp th,.cmp td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line-soft);font-size:.92rem;vertical-align:top}
+.cmp thead th{font-family:var(--mono);font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--paper-2)}
+.cmp td:first-child{font-family:var(--serif);font-size:1rem;color:var(--ink)}
+.cmp tr:last-child td{border-bottom:none}
+
+.callout{position:relative;padding:22px 24px;border:1px solid var(--line);border-radius:18px;background:var(--card);margin-top:22px}
+.callout::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:3px;border-radius:3px;background:var(--teal)}
+.callout .ct{font-family:var(--hand);font-size:1.45rem;color:var(--teal)}
+.callout p{margin:6px 0 0;font-size:1rem}
+
+.sources{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:8px}
+.source{display:block;padding:18px;border:1px solid var(--line);border-radius:16px;background:var(--card);text-decoration:none;transition:border-color .18s,transform .18s}
+.source:hover{border-color:var(--teal);transform:translateY(-3px)}
+.source .j{font-family:var(--mono);font-size:.56rem;letter-spacing:.04em;text-transform:uppercase;color:var(--teal)}
+.source .st{display:block;margin-top:6px;font-family:var(--serif);font-size:1.08rem}
+
+.footer{padding:38px 0 60px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+.footer .tl{font-family:var(--hand);font-size:1.2rem;color:var(--teal)}
+
+@media(max-width:860px){
+  .verdicts,.sources{grid-template-columns:1fr}
+  .chain-row{grid-template-columns:1fr}
+  .arrow{transform:rotate(90deg)}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html"><b>AM</b> PPG, decoded</a>
+    <nav class="nav">
+      <a href="#setup">The setup</a>
+      <a href="#signal">The signal</a>
+      <a href="#chain">What's derived</a>
+      <a href="#graded">Graded</a>
+      <a href="#cgm">Vs CGM</a>
+      <a href="#sources">Sources</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <span class="kicker">Sensor literacy, one diagram at a time</span>
+    <h1>What a PPG sensor <span class="it">actually</span> measures</h1>
+    <p class="standfirst">It does not measure heart rate. It does not quite measure blood flow either. It measures pulses of blood <strong>volume</strong> in your skin, using light. Everything else, heart rate included, is calculated from that one wave.</p>
+    <p class="byline">A source-backed walk-through, plus the line to use next time it comes up.</p>
+
+    <div class="verdicts">
+      <div class="vbox s"><span class="vt">what it measures</span><p>Pulsatile change in <strong>blood volume</strong> in the microvessels, read as a change in how much light returns to a detector.</p></div>
+      <div class="vbox o"><span class="vt">"blood flow"</span><p>Close, but not the same thing. Flow is rate of movement. PPG sees volume. True flow is a <em>derived</em> index, not the raw signal.</p></div>
+      <div class="vbox u"><span class="vt">"heart rate"</span><p>Not measured. Heart rate is <em>computed</em> from the spacing between volume pulses in the waveform.</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="setup">
+    <div class="wrap">
+      <span class="sec-num">01 / The setup</span>
+      <h2>A light, a detector, and your blood in between</h2>
+      <p class="lead">A reflectance PPG sensor sits on the skin. An LED shines light in. A photodiode next to it reads how much light bounces back. Blood absorbs more light than the tissue around it, so the answer changes with every heartbeat.</p>
+
+      <div class="stage">
+        <svg viewBox="0 0 760 340" role="img" aria-label="Cross section of a PPG sensor on skin">
+          <!-- device -->
+          <rect x="170" y="20" width="420" height="70" rx="16" fill="#191e26"/>
+          <text x="380" y="46" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#9aa6b2" letter-spacing="1">WEARABLE SENSOR</text>
+          <!-- LED -->
+          <circle cx="280" cy="74" r="13" fill="#36684a"/>
+          <text x="280" y="112" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#36684a">LED</text>
+          <!-- detector -->
+          <rect x="468" y="62" width="26" height="24" rx="5" fill="#3551c4"/>
+          <text x="481" y="112" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#3551c4">DETECTOR</text>
+
+          <!-- skin layers -->
+          <rect x="60" y="150" width="640" height="40" fill="#f0d9c8" opacity=".85"/>
+          <rect x="60" y="190" width="640" height="120" fill="#e7b9a3" opacity=".8"/>
+          <text x="76" y="174" font-family="JetBrains Mono" font-size="11" fill="#7c5b48">EPIDERMIS</text>
+          <text x="76" y="214" font-family="JetBrains Mono" font-size="11" fill="#7c5b48">DERMIS  ·  microvessels</text>
+
+          <!-- light in -->
+          <line x1="280" y1="88" x2="360" y2="250" stroke="#36684a" stroke-width="3" stroke-linecap="round" opacity=".75"/>
+          <polygon points="360,250 352,238 366,240" fill="#36684a" opacity=".75"/>
+          <!-- light back -->
+          <line class="ray-back" x1="400" y1="250" x2="481" y2="88" stroke="#a66b24" stroke-width="3" stroke-linecap="round"/>
+          <polygon class="ray-back" points="481,88 472,98 486,100" fill="#a66b24"/>
+
+          <!-- pulsing vessel -->
+          <rect class="vessel" x="330" y="244" width="110" height="12" rx="6" fill="#a94035"/>
+          <circle class="beat-dot" cx="385" cy="250" r="5" fill="#fff" opacity=".6"/>
+
+          <text x="385" y="300" text-anchor="middle" font-family="Caveat,cursive" font-size="22" fill="#a94035">blood pulse fills the vessel, absorbs more light</text>
+        </svg>
+        <div class="cap">More blood in the vessel, more light absorbed, less light returns. The amber ray dims on every beat.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="signal">
+    <div class="wrap">
+      <span class="sec-num">02 / The signal</span>
+      <h2>The wave is volume, riding on a baseline</h2>
+      <p class="lead">The returning light traces a wave. The fast wiggle, the <strong>AC</strong> component, is arterial blood volume rising and falling with each heartbeat. It sits on a slow <strong>DC</strong> baseline from static tissue, veins, and bone. Count the peaks and you have heart rate. The signal itself was never heart rate.</p>
+
+      <div class="scope">
+        <div class="scope-head"><span>PPG waveform · live</span><span id="bpm">— bpm</span></div>
+        <canvas id="ppg" width="1000" height="170"></canvas>
+        <div class="scope-foot">
+          <span><span class="dot" style="background:#3551c4"></span> AC · pulsatile blood volume</span>
+          <span><span class="dot" style="background:#5f6772"></span> DC · static tissue baseline</span>
+          <span><span class="dot" style="background:#a66b24"></span> each peak = one heartbeat</span>
+        </div>
+      </div>
+      <p class="body">This is why a wrist or temple optical sensor can read heart rate, breathing, and blood oxygen without a single wire touching an artery. One optical wave, many readouts.</p>
+    </div>
+  </section>
+
+  <section class="section" id="chain">
+    <div class="wrap">
+      <span class="sec-num">03 / What is raw, what is derived</span>
+      <h2>One measurement. Everything else is math.</h2>
+      <p class="lead muted">The single thing the hardware senses is on the left. Each number people quote is computed from it.</p>
+
+      <div class="chain" style="margin-top:22px">
+        <div class="chain-row">
+          <div class="node raw"><b>Blood volume pulse</b><span>The only thing optically measured: light absorbed by pulsing blood.</span></div>
+          <div class="arrow">&#10142;</div>
+          <div class="derived">
+            <div class="d"><b>Heart rate</b><span>Spacing between peaks.</span></div>
+            <div class="d"><b>HRV</b><span>Variation in that spacing.</span></div>
+            <div class="d"><b>SpO2</b><span>Red vs infrared absorption ratio.</span></div>
+            <div class="d"><b>Perfusion index</b><span>AC divided by DC. The closest thing to "flow."</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="callout">
+        <div class="ct">the one line to keep</div>
+        <p>A PPG sensor optically measures pulsatile changes in blood <strong>volume</strong>. Heart rate, HRV, oxygen, and perfusion are all derived from that one waveform. So "it measures heart rate" skips three steps, and "it measures blood flow" names the wrong variable.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="graded">
+    <div class="wrap">
+      <span class="sec-num">04 / The disagreement, graded</span>
+      <h2>Three statements, one correct</h2>
+      <div class="qa">
+        <div class="q">
+          <div class="q-head"><span class="qq"><small>The original claim</small>"PPG measures blood flow, and from that you get heart rate."</span><span class="status over">Half right</span></div>
+          <div class="q-body"><p>The direction is correct: the optical signal comes first, heart rate is derived from it. The variable is wrong: PPG reads blood <strong>volume</strong>, not flow. Flow is how fast blood moves; volume is how much sits in the vessel. PPG sees volume. Real flow shows up only as a derived perfusion index.</p></div>
+        </div>
+        <div class="q">
+          <div class="q-head"><span class="qq"><small>The product head's reply</small>"No, the technology measures heart rate."</span><span class="status unproven">Also imprecise</span></div>
+          <div class="q-body"><p>The sensor does not measure heart rate. It measures the blood volume wave, and heart rate is computed from the gaps between peaks. Calling the output the measurement skips the actual physics. Strictly, this is one step further from the truth than the first claim.</p></div>
+        </div>
+        <div class="q">
+          <div class="q-head"><span class="qq"><small>The precise version</small>"PPG optically measures pulsatile blood volume in the skin. Heart rate is derived from the pulse timing."</span><span class="status solid">Correct</span></div>
+          <div class="q-body"><p>Raw signal: blood volume, via light absorption. Everything else, heart rate, HRV, SpO2, perfusion, is a calculation layered on top. Say this and you are ahead of the room.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="cgm">
+    <div class="wrap">
+      <span class="sec-num">05 / Is it like a CGM patch?</span>
+      <h2>Same idea, different machine</h2>
+      <p class="lead">A continuous glucose monitor and an optical wearable feel similar, a patch on the body streaming a live metabolic number. Under the hood they share almost nothing.</p>
+      <table class="cmp">
+        <thead>
+          <tr><th></th><th>CGM patch</th><th>PPG wearable (Temple-family)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Method</td><td>Electrochemical, an enzyme reaction makes a current</td><td>Optical, light absorbed by blood</td></tr>
+          <tr><td>Invasiveness</td><td>Minimally invasive, a filament sits under the skin</td><td>Non-invasive, nothing breaks the skin</td></tr>
+          <tr><td>What it reads</td><td>Glucose in interstitial fluid</td><td>Blood volume, plus oxygenation</td></tr>
+          <tr><td>Delay</td><td>5 to 10 minutes (interstitial lag)</td><td>Real-time, beat to beat</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <div class="ct">the honest framing</div>
+        <p>Same product spirit, a continuous metabolic signal you wear. Completely different sensing. One pokes into interstitial fluid and runs a chemical reaction. The other reads light bouncing off blood. And note: optical sensors give oxygenation cleanly, but true blood <strong>flow</strong> usually needs more than plain PPG, which is the right question to put back to Temple's product team.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="sources">
+    <div class="wrap">
+      <span class="sec-num">06 / References</span>
+      <h2>Where this comes from</h2>
+      <div class="sources">
+        <a class="source" href="https://iopscience.iop.org/article/10.1088/1361-6579/ac2d82" target="_blank" rel="noopener">
+          <span class="j">Physiological Measurement, IOP (peer-reviewed)</span>
+          <span class="st">Photoplethysmography: state-of-the-art methods and applications</span>
+        </a>
+        <a class="source" href="https://www.sciencedirect.com/science/article/am/pii/S2352556821001685" target="_blank" rel="noopener">
+          <span class="j">Peer-reviewed review</span>
+          <span class="st">Perfusion Index: physical principles, physiological meaning, clinical use</span>
+        </a>
+        <a class="source" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11351970/" target="_blank" rel="noopener">
+          <span class="j">PMC (peer-reviewed)</span>
+          <span class="st">What remote PPG oximetry tells us about pulsatile volume</span>
+        </a>
+        <a class="source" href="https://en.wikipedia.org/wiki/Continuous_glucose_monitor" target="_blank" rel="noopener">
+          <span class="j">Reference overview</span>
+          <span class="st">Continuous glucose monitor: electrochemical sensing in interstitial fluid</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>Built as study notes on optical biosensing. Educational, not medical advice. <span class="tl">The raw signal is blood volume. Everything else is arithmetic.</span></p>
+  </div>
+</footer>
+
+<script>
+// Live PPG-style waveform on a dark scope
+(function(){
+  var c=document.getElementById('ppg'); if(!c) return;
+  var ctx=c.getContext('2d');
+  var W=c.width, H=c.height;
+  var mid=H*0.62, amp=H*0.30;
+  var t=0, peakFlash=0;
+  // one cardiac beat shaped as systolic peak + dicrotic notch
+  function beat(p){ // p in 0..1 within a beat
+    if(p<0.12){ return Math.sin((p/0.12)*Math.PI*0.5); }            // sharp upstroke
+    if(p<0.30){ return Math.cos(((p-0.12)/0.18)*Math.PI*0.5); }      // downstroke to ~0
+    if(p<0.42){ return 0.18*Math.sin(((p-0.30)/0.12)*Math.PI); }     // dicrotic bump
+    return 0;                                                         // diastole baseline
+  }
+  var beatLen=0.95; // seconds per beat -> ~63 bpm
+  document.getElementById('bpm').textContent = Math.round(60/beatLen)+' bpm';
+  var pts=[];
+  function frame(){
+    t+=0.016;
+    // build the full visible wave from a moving phase
+    ctx.clearRect(0,0,W,H);
+    // baseline (DC)
+    ctx.strokeStyle='rgba(154,166,178,.35)';
+    ctx.lineWidth=1; ctx.setLineDash([4,6]);
+    ctx.beginPath(); ctx.moveTo(0,mid); ctx.lineTo(W,mid); ctx.stroke();
+    ctx.setLineDash([]);
+    // waveform (AC on DC)
+    ctx.beginPath();
+    var newPeak=false;
+    for(var x=0;x<=W;x+=2){
+      var time=t - (W-x)/220;        // each px maps back in time
+      var phase=(time/beatLen);
+      var p=phase-Math.floor(phase);
+      var y=mid-amp*beat(p);
+      if(x===0){ctx.moveTo(x,y);} else {ctx.lineTo(x,y);}
+    }
+    ctx.strokeStyle='#3551c4'; ctx.lineWidth=2.6; ctx.lineJoin='round';
+    ctx.shadowColor='rgba(53,81,196,.5)'; ctx.shadowBlur=8;
+    ctx.stroke(); ctx.shadowBlur=0;
+    // peak marker at the leading edge when a new beat crests
+    var leadPhase=(t/beatLen); var lp=leadPhase-Math.floor(leadPhase);
+    if(lp<0.12){
+      var ly=mid-amp*beat(lp);
+      ctx.fillStyle='#a66b24';
+      ctx.beginPath(); ctx.arc(W-4,ly,4,0,Math.PI*2); ctx.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+  // crisp on retina
+  function fit(){
+    var ratio=window.devicePixelRatio||1;
+    var cssW=c.clientWidth||1000;
+    c.width=cssW*ratio; c.height=170*ratio;
+    W=c.width; H=c.height; mid=H*0.62; amp=H*0.30;
+    ctx.scale(1,1);
+  }
+  fit(); window.addEventListener('resize',fit);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
