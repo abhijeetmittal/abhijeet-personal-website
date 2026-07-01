@@ -127,7 +127,28 @@ mark{background:rgba(53,81,196,.22);color:var(--ink);padding:0 2px;border-radius
   .stats{grid-template-columns:1fr 1fr}
   .patterns{grid-template-columns:1fr}
   .nav{display:none}
-  .controls{top:53px}
+  .controls{top:52px}
+}
+@media(max-width:600px){
+  .hero{padding:40px 0 14px}
+  h1{font-size:clamp(2.1rem,7.4vw,2.8rem)}
+  .standfirst{font-size:1rem}
+  /* stack the filter bar so the long-optioned selects never overflow */
+  .controls{padding:12px 0}
+  .controls .inner{gap:8px}
+  input[type=search]{flex:1 1 100%;min-width:0}
+  #bucketFilter{flex:1 1 100%;width:100%;min-width:0;max-width:100%}
+  #qualFilter,#regionFilter{flex:1 1 calc(50% - 4px);min-width:0;max-width:100%}
+  .toggle{flex:0 0 auto}
+  .toggle button{padding:11px 12px}
+  .stat{flex:1 1 auto;margin-left:auto;text-align:right;white-space:normal}
+  /* one card per row, and never wider than the screen */
+  .grid{grid-template-columns:1fr}
+  .bucket-head{padding:14px 14px;gap:11px}
+  .bucket-head .n{width:30px;height:30px;flex:0 0 30px;font-size:.95rem}
+  .bucket-head h3{font-size:1.02rem}
+  .stat-box{padding:16px 18px}
+  .callout{padding:20px 22px}
 }
 </style>
 </head>
