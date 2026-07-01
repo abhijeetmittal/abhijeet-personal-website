@@ -135,7 +135,7 @@
     [data-menu] { display: none; }
     @media (max-width: 900px) {
       [data-nav] { display: none !important; }
-      [data-hero-grid] { grid-template-columns: 1fr !important; padding-top: 128px !important; padding-bottom: 130px !important; }
+      [data-hero-grid] { grid-template-columns: 1fr !important; padding-top: 104px !important; padding-bottom: 96px !important; }
       [data-hero-diagram] { display: none !important; }
       [data-postgrid] { grid-template-columns: 1fr !important; }
       [data-postgrid] > a { grid-column: auto !important; }
@@ -147,9 +147,16 @@
       [data-loop] { grid-template-columns: 1fr !important; }
       [data-sechead] { grid-template-columns: 1fr !important; gap: 22px !important; }
       [data-section] { padding-left: 22px !important; padding-right: 22px !important; }
+      /* hide the decorative hand-written annotations: once headers stack to
+         one column they overlap the headings and bleed off the right edge */
+      [style*="'Caveat'"], [data-annot] { display: none !important; }
     }
     @media (max-width: 560px) {
       [data-proof] { grid-template-columns: 1fr 1fr !important; }
+      /* sections (not the full-height hero): less vertical air on phones */
+      [data-section]:not(#top) { padding-top: 64px !important; padding-bottom: 64px !important; }
+      /* keep the display headings from getting oversized on narrow screens */
+      [data-h1] { font-size: clamp(3rem, 15vw, 4rem) !important; }
     }
     @media (prefers-reduced-motion: reduce) {
       * { animation-duration: .001ms !important; scroll-behavior: auto !important; }
@@ -196,7 +203,7 @@
         <div style="position:relative; margin-top:24px; width:fit-content;">
           <a href="1000cr-operations-map.html" style="display:inline-flex; align-items:center; gap:14px; padding:20px 34px; border-radius:999px; background:#3551c4; color:#ffffff; font-family:'JetBrains Mono',monospace; font-size:.82rem; letter-spacing:.06em; text-transform:uppercase; text-decoration:none; box-shadow:0 18px 44px rgba(53,81,196,.28);" style-hover="transform:translateY(-2px); box-shadow:0 22px 54px rgba(53,81,196,.34);"><span style="width:11px; height:11px; border-radius:50%; background:#ffffff; box-shadow:0 0 0 6px rgba(255,255,255,.22);"></span>Open the ₹1,000cr map <span style="font-size:1rem;">↗</span></a>
           <span style="position:absolute; left:calc(100% + 18px); top:14px; white-space:nowrap; font-family:'Caveat',cursive; font-size:1.45rem; color:#3551c4; transform:rotate(-4deg);">the whole thesis</span>
-          <svg viewBox="0 0 60 40" style="position:absolute; left:calc(100% + 2px); top:4px; width:54px; height:36px; overflow:visible;"><path d="M4 30 C 22 28, 40 18, 52 6" fill="none" stroke="#3551c4" stroke-width="2.2" stroke-linecap="round"></path><path d="M52 6 L 40 8 M52 6 L 50 18" fill="none" stroke="#3551c4" stroke-width="2.2" stroke-linecap="round"></path></svg>
+          <svg data-annot viewBox="0 0 60 40" style="position:absolute; left:calc(100% + 2px); top:4px; width:54px; height:36px; overflow:visible;"><path d="M4 30 C 22 28, 40 18, 52 6" fill="none" stroke="#3551c4" stroke-width="2.2" stroke-linecap="round"></path><path d="M52 6 L 40 8 M52 6 L 50 18" fill="none" stroke="#3551c4" stroke-width="2.2" stroke-linecap="round"></path></svg>
         </div>
       </div>
       <div data-hero-diagram="" style="position:relative; height:min(62vh,520px);">
