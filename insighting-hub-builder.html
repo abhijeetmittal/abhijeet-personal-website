@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#eceef1">
+<meta name="description" content="Build a fully autonomous insighting hub: one AI agent that runs hypothesis tests, catches churn signals, and proactively listens to customers every day. A step-by-step, no-code tutorial for any AI-literate operator.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://abhijeetmittal.vercel.app/insighting-hub-builder">
+<meta property="og:title" content="The Insighting Hub | The 1000cr Playbook">
+<meta property="og:description" content="One agent. Three research jobs. Zero research hires. Build the system that replaces a research team, step by step.">
+<meta property="og:image" content="https://abhijeetmittal.vercel.app/assets/AI_employee.jpeg">
+<meta property="og:site_name" content="Abhijeet Mittal">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Insighting Hub | The 1000cr Playbook">
+<meta name="twitter:description" content="One agent. Three research jobs. Zero research hires. Build the system that replaces a research team, step by step.">
+<meta name="twitter:image" content="https://abhijeetmittal.vercel.app/assets/AI_employee.jpeg">
+<link rel="canonical" href="https://abhijeetmittal.vercel.app/insighting-hub-builder">
+<title>The Insighting Hub | The 1000cr Playbook</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23191e26'/%3E%3Cpath d='M8 34h10l5-16 8 30 6-20 4 8h7' fill='none' stroke='%233551c4' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#eceef1; --paper-2:#e4e7eb; --ink:#191e26; --muted:#5f6772;
+  --line:rgba(25,30,38,.16); --teal:#3551c4; --teal-soft:#d7dcf4;
+  --rust:#5f6772; --rust-soft:#d7dbe2; --night:#161b24; --white:#ffffff;
+  --green:#36684a; --green-soft:rgba(54,104,74,.13);
+  --display:"Newsreader",Georgia,serif;
+  --serif:"Newsreader",Georgia,serif;
+  --sans:"Hanken Grotesk",Arial,sans-serif;
+  --mono:"JetBrains Mono",monospace;
+  --hand:"Caveat",cursive;
+  --ease:cubic-bezier(.2,.75,.25,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.noise{position:fixed;inset:0;z-index:20;pointer-events:none;opacity:.035;mix-blend-mode:multiply;
+background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E")}
+.wrap{max-width:880px;margin:0 auto;padding:0 clamp(20px,5vw,48px)}
+.eyebrow{display:flex;align-items:center;gap:12px;margin:0 0 22px;color:var(--teal);font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--teal)}
+
+/* topbar */
+.topbar{position:sticky;top:0;z-index:40;border-bottom:1px solid var(--line);background:rgba(236,238,241,.86);backdrop-filter:blur(18px) saturate(1.2)}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px clamp(20px,5vw,48px);max-width:880px;margin:0 auto}
+.brand{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;white-space:nowrap}
+.brand b{font-family:var(--serif);font-size:1.15rem;letter-spacing:0;text-transform:none;color:var(--ink)}
+.topnav{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.topnav a{padding:8px 12px;border:1px solid var(--line);border-radius:999px;text-decoration:none;font-family:var(--mono);font-size:.58rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,.55);white-space:nowrap}
+.topnav a:hover{border-color:var(--ink);color:var(--ink)}
+@media(max-width:640px){.topnav{display:none}}
+
+/* hero */
+.hero{position:relative;padding:64px 0 60px;border-bottom:1px solid var(--line);
+background:
+ linear-gradient(rgba(25,30,38,.07) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(25,30,38,.07) 1px,transparent 1px),
+ linear-gradient(rgba(25,30,38,.035) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(25,30,38,.035) 1px,transparent 1px);
+background-size:296px 296px,296px 296px,74px 74px,74px 74px}
+h1{margin:0 0 18px;font-family:var(--display);font-weight:600;font-size:clamp(2.6rem,7.6vw,4.8rem);line-height:1.03;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--rust)}
+.hero-intro{max-width:600px;margin:0 0 34px;font-size:1.06rem;color:var(--muted)}
+.hero-intro strong{color:var(--ink);font-weight:600}
+.stats{display:flex;flex-wrap:wrap;gap:12px}
+.stat{padding:10px 18px;border:1px solid var(--line);border-radius:999px;background:rgba(255,253,248,.7);font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--ink)}
+.stat b{color:var(--rust);font-weight:500}
+
+section{padding:70px 0;border-bottom:1px solid var(--line);scroll-margin-top:66px}
+h2{margin:0 0 14px;font-family:var(--display);font-weight:600;font-size:clamp(1.8rem,4.4vw,2.6rem);line-height:1.08}
+h2 em{font-style:italic;color:var(--teal)}
+.lede{max-width:600px;margin:0 0 40px;color:var(--muted)}
+
+/* stepper */
+.step-nav{display:flex;gap:8px;margin:0 0 30px;flex-wrap:wrap}
+.step-dot{flex:1;min-width:88px;padding:11px 8px;border:1px solid var(--line);border-radius:12px;background:var(--white);font-family:var(--mono);font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);cursor:pointer;text-align:center;transition:all 220ms var(--ease)}
+.step-dot span{display:block;margin-bottom:4px;font-size:.56rem;color:var(--teal)}
+.step-dot.active{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.step-dot.active span{color:var(--rust-soft)}
+.step-dot.done{border-color:var(--teal);color:var(--teal)}
+.step-card{position:relative;padding:34px clamp(20px,4.5vw,44px);border:1px solid var(--line);border-radius:20px;background:var(--white);box-shadow:0 24px 70px rgba(33,43,38,.07)}
+.step-card h3{margin:0 0 14px;font-family:var(--display);font-weight:600;font-size:1.7rem;line-height:1.1}
+.step-card h3 em{font-style:italic;color:var(--rust)}
+.step-body{max-width:640px;color:#39414d}
+.step-body p{margin:0 0 14px}
+.do-now{margin:24px 0 0;padding:18px 20px;border-left:3px solid var(--rust);border-radius:0 12px 12px 0;background:linear-gradient(90deg,rgba(215,220,244,.4),rgba(215,220,244,.08))}
+.do-now .tag{display:block;margin-bottom:6px;font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.step-foot{display:flex;justify-content:space-between;align-items:center;margin-top:28px;gap:12px;flex-wrap:wrap}
+.step-count{font-family:var(--mono);font-size:.65rem;color:var(--muted);letter-spacing:.1em}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border:1px solid var(--ink);border-radius:999px;background:var(--ink);color:var(--paper);font-family:var(--sans);font-size:.85rem;font-weight:500;cursor:pointer;transition:all 200ms var(--ease)}
+.btn:hover{background:var(--rust);border-color:var(--rust)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--paper-2);color:var(--ink)}
+.btn:disabled{opacity:.3;cursor:default}
+
+/* job tabs */
+.job-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 26px}
+.job-tab{flex:1;min-width:150px;padding:14px 12px;border:1px solid var(--line);border-radius:14px;background:var(--white);cursor:pointer;text-align:left;transition:all 200ms var(--ease)}
+.job-tab .n{display:block;font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:4px}
+.job-tab .t{display:block;font-family:var(--display);font-size:1.05rem;font-weight:600;color:var(--ink)}
+.job-tab.active{border-color:var(--ink);background:var(--ink)}
+.job-tab.active .n{color:var(--rust-soft)}
+.job-tab.active .t{color:var(--paper)}
+
+/* builder */
+.builder{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+@media(max-width:760px){.builder{grid-template-columns:1fr}}
+.field{margin-bottom:18px}
+.field label{display:block;margin-bottom:7px;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal)}
+.field input{width:100%;padding:13px 16px;border:1px solid var(--line);border-radius:12px;background:var(--white);color:var(--ink);font-size:.95rem;outline:none;transition:border-color 180ms ease;font-family:var(--sans)}
+.field input:focus{border-color:var(--teal)}
+.prompt-box{position:relative;display:flex;flex-direction:column;border:1px solid rgba(25,30,38,.25);border-radius:18px;background:var(--night);color:#dde2f4;overflow:hidden}
+.prompt-head{display:flex;justify-content:space-between;align-items:center;padding:13px 18px;border-bottom:1px solid rgba(245,241,232,.12);font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:#78b4b0}
+.copy-btn{padding:6px 14px;border:1px solid rgba(245,241,232,.25);border-radius:999px;background:transparent;color:#dde2f4;font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;cursor:pointer;transition:all 180ms ease}
+.copy-btn:hover{background:var(--rust);border-color:var(--rust)}
+.prompt-text{flex:1;margin:0;padding:20px;font-family:var(--mono);font-size:.72rem;line-height:1.75;white-space:pre-wrap;max-height:430px;overflow:auto}
+.prompt-text .v{color:var(--rust-soft)}
+
+/* dashboard table */
+.table-shell{border:1px solid var(--line);border-radius:18px;background:var(--white);overflow:hidden}
+.table-scroll{overflow-x:auto}
+table.ledger{width:100%;border-collapse:collapse;min-width:640px;font-size:.82rem}
+table.ledger th{text-align:left;padding:12px 16px;background:var(--paper-2);font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);white-space:nowrap}
+table.ledger td{padding:13px 16px;border-bottom:1px solid var(--line);color:#39414d;vertical-align:top}
+table.ledger tr:last-child td{border-bottom:0}
+.pill{display:inline-block;padding:3px 10px;border-radius:999px;font-family:var(--mono);font-size:.56rem;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+.pill.hyp{background:var(--teal-soft);color:var(--teal)}
+.pill.chn{background:rgba(169,64,53,.12);color:#a94035}
+.pill.pro{background:var(--green-soft);color:var(--green)}
+
+/* loop */
+.loop-row{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:36px 0 10px}
+.loop-step{flex:1;min-width:150px;position:relative;padding:22px 20px;border:1px solid var(--line);background:var(--white)}
+.loop-step:first-child{border-radius:16px 0 0 16px}
+.loop-step:last-child{border-radius:0 16px 16px 0}
+.loop-step+.loop-step{border-left:none}
+@media(max-width:640px){
+  .loop-step{border-radius:0 !important;border-left:1px solid var(--line) !important;border-top:none}
+  .loop-step:first-child{border-top:1px solid var(--line);border-radius:16px 16px 0 0 !important}
+  .loop-step:last-child{border-radius:0 0 16px 16px !important}
+}
+.loop-step .n{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;color:var(--teal)}
+.loop-step h4{margin:8px 0 6px;font-family:var(--display);font-size:1.18rem;font-weight:600}
+.loop-step p{margin:0;font-size:.82rem;color:var(--muted)}
+.loop-back{display:flex;align-items:center;gap:10px;margin-top:14px;color:var(--rust);font-family:var(--serif);font-style:italic;font-size:1rem}
+.loop-back::before{content:"";flex:0 0 60px;height:1px;background:repeating-linear-gradient(90deg,var(--rust) 0 6px,transparent 6px 12px)}
+.golden{margin-top:34px;padding:26px 28px;border:1px solid rgba(95,103,114,.35);border-radius:18px;background:rgba(215,220,244,.3)}
+.golden .tag{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--rust)}
+.golden p{margin:10px 0 0;font-family:var(--serif);font-size:1.2rem;line-height:1.45}
+.golden p em{font-style:italic;color:var(--rust)}
+
+/* mistakes accordion */
+.acc{border:1px solid var(--line);border-radius:16px;background:var(--white);overflow:hidden}
+.acc-item+.acc-item{border-top:1px solid var(--line)}
+.acc-btn{display:flex;justify-content:space-between;align-items:center;width:100%;padding:20px 24px;border:0;background:transparent;color:var(--ink);font-family:var(--display);font-size:1.15rem;font-weight:600;text-align:left;cursor:pointer}
+.acc-btn .mark{font-family:var(--mono);font-size:.8rem;color:var(--rust);transition:transform 220ms var(--ease);flex:0 0 auto;margin-left:14px}
+.acc-item.open .mark{transform:rotate(45deg)}
+.acc-panel{max-height:0;overflow:hidden;transition:max-height 320ms var(--ease)}
+.acc-panel-inner{padding:0 24px 22px;max-width:620px;color:#39414d;font-size:.93rem}
+
+/* footer */
+footer{padding:56px 0 80px}
+.foot-line{font-family:var(--serif);font-style:italic;font-size:clamp(1.3rem,3.2vw,1.7rem);line-height:1.4;max-width:640px}
+.foot-line em{color:var(--rust)}
+.foot-seq{margin-top:30px;padding-top:22px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 22px;font-size:.8rem}
+.foot-seq a{color:var(--muted);text-decoration:none}
+.foot-seq a:hover{color:var(--teal)}
+.foot-seq .here{color:var(--rust);font-weight:600}
+.foot-meta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;margin-top:22px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.foot-meta a{color:var(--teal);text-decoration:none}
+.checklist{margin:34px 0 0;padding:0;list-style:none}
+.checklist li{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-bottom:1px dashed var(--line);cursor:pointer}
+.checklist .box{flex:0 0 20px;height:20px;margin-top:3px;border:1.5px solid var(--muted);border-radius:6px;transition:all 180ms ease}
+.checklist li.checked .box{background:var(--teal);border-color:var(--teal);box-shadow:inset 0 0 0 3px var(--white)}
+.checklist li.checked span:last-child{color:var(--muted);text-decoration:line-through}
+.progress{margin-top:18px;font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;color:var(--teal)}
+
+@media(max-width:600px){
+  .hero{padding:44px 0 40px}
+  section{padding:52px 0}
+  .step-card{padding:26px 20px}
+  .job-tab{min-width:100%}
+  table.ledger{min-width:560px}
+}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><b>AM</b> The insighting hub</a>
+    <nav class="topnav">
+      <a href="#jobs">The jobs</a>
+      <a href="#builder">Builder</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#mistakes">Mistakes</a>
+      <a href="index.html">Home</a>
+    </nav>
+  </div>
+</header>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Abhijeet Mittal / The 1000cr Playbook</p>
+    <h1>The insighting <em>hub.</em></h1>
+    <p class="hero-intro"><strong>One agent. Three research jobs. Zero research hires.</strong> This is the actual mechanism behind a ₹1000 crore company running on 5 to 10 people: the function that used to need a research team, running by itself, every single day. Buildable this weekend with tools you already have.</p>
+    <div class="stats">
+      <div class="stat"><b>3</b> jobs, 1 agent</div>
+      <div class="stat"><b>Daily</b> refresh</div>
+      <div class="stat"><b>0</b> lines of code</div>
+      <div class="stat"><b>Rs 2,000</b>/month stack</div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="jobs">
+  <div class="wrap">
+    <p class="eyebrow">01 / The three jobs</p>
+    <h2>Pick where to <em>start.</em></h2>
+    <p class="lede">A research team usually does three different jobs without naming them separately. Split them apart and you can hand each one to the same agent, one piece at a time. Click through.</p>
+
+    <div class="step-nav" id="stepNav"></div>
+
+    <div class="step-card">
+      <div id="stepContent"></div>
+      <div class="step-foot">
+        <span class="step-count" id="stepCount"></span>
+        <div>
+          <button class="btn ghost" id="prevBtn">Back</button>
+          <button class="btn" id="nextBtn">Next step →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="builder">
+  <div class="wrap">
+    <p class="eyebrow">02 / The prompt builder</p>
+    <h2>Pick a job. <em>Copy the prompt.</em></h2>
+    <p class="lede">Choose which of the three jobs you're building first. The fields below change to match it, and the master prompt assembles itself on the right. Paste it into a Claude Project or a custom GPT and the job exists.</p>
+
+    <div class="job-tabs" id="jobTabs">
+      <button class="job-tab active" data-job="hyp"><span class="n">Job one</span><span class="t">Hypothesis test</span></button>
+      <button class="job-tab" data-job="chn"><span class="n">Job two</span><span class="t">Churn / conversion</span></button>
+      <button class="job-tab" data-job="pro"><span class="n">Job three</span><span class="t">Proactive listening</span></button>
+    </div>
+
+    <div class="builder">
+      <div>
+        <div class="field"><label>Your category</label><input id="inCat" placeholder="e.g. hair care for men" value="hair care for men"></div>
+        <div class="field"><label>Your customer, in one line</label><input id="inCust" placeholder="e.g. 22-35 year old Indian men noticing early hair fall" value="22-35 year old Indian men noticing early hair fall"></div>
+        <div id="jobFields"></div>
+        <div class="field"><label>Where the answer should land</label><input id="inOut" placeholder="e.g. the Insighting Log, a Google Sheet" value="the Insighting Log, a Google Sheet"></div>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-head"><span id="promptFileName">hypothesis-job.txt</span><button class="copy-btn" id="copyBtn">Copy</button></div>
+        <pre class="prompt-text" id="promptOut"></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dashboard">
+  <div class="wrap">
+    <p class="eyebrow">03 / The daily ledger</p>
+    <h2>One dashboard. <em>Never a dead report.</em></h2>
+    <p class="lede">All three jobs write into the same running ledger, one row per finding, never overwritten. Six columns, nothing fancy. This is what a real week can look like once all three jobs are live.</p>
+    <div class="table-shell">
+      <div class="table-scroll">
+        <table class="ledger">
+          <thead><tr><th>Date</th><th>Job</th><th>Question</th><th>Finding</th><th>Confidence</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>Mon</td><td><span class="pill hyp">Hypothesis</span></td><td>Do buyers trust a subscription model here?</td><td>62% cite "no lock-in" as the reason they bought</td><td>High</td><td>Lead with flexibility in the next ad set</td></tr>
+            <tr><td>Tue</td><td><span class="pill pro">Proactive</span></td><td>(none, unprompted)</td><td>4 of 20 called mention slow refund processing</td><td>Medium</td><td>Flag to ops before it shows up in reviews</td></tr>
+            <tr><td>Wed</td><td><span class="pill chn">Churn</span></td><td>Where does day-7 churn spike?</td><td>Drop concentrates right after the first reminder email</td><td>High</td><td>Rewrite that one email, not the whole flow</td></tr>
+            <tr><td>Thu</td><td><span class="pill pro">Proactive</span></td><td>(none, unprompted)</td><td>Repeat buyers want a bigger pack size, unprompted</td><td>Medium</td><td>Test a bulk SKU next month</td></tr>
+            <tr><td>Fri</td><td><span class="pill hyp">Hypothesis</span></td><td>Is price or shipping time the bigger objection?</td><td>Shipping time, 3 to 1, in the last 20 support chats</td><td>High</td><td>Test a faster shipping badge on the PDP</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="lede" style="margin-top:26px;margin-bottom:0">Notice job three never starts with a question. That's the point. It finds things nobody thought to ask about yet.</p>
+  </div>
+</section>
+
+<section id="loop">
+  <div class="wrap">
+    <p class="eyebrow">04 / The rhythm</p>
+    <h2>This is where it <em>compounds.</em></h2>
+    <p class="lede">Building the jobs is the easy half. Running them on a rhythm is what makes the ledger worth reading. Jobs one and two run weekly or monthly. Job three runs every day, on its own.</p>
+    <div class="loop-row">
+      <div class="loop-step"><span class="n">RUN</span><h4>Run it on schedule</h4><p>Same board, same day, same cohort size. The agent earns trust through rhythm, like people do.</p></div>
+      <div class="loop-step"><span class="n">READ</span><h4>Read every finding</h4><p>All of it, like an intern's first report. Never skim, never auto-trust a confidence score.</p></div>
+      <div class="loop-step"><span class="n">CORRECT</span><h4>Correct the brief</h4><p>Never the finding. One edit to the instructions kills that mistake forever.</p></div>
+      <div class="loop-step"><span class="n">FEED</span><h4>Feed every decision</h4><p>Point your other prompts at the same ledger. That's the whole trick, no memory feature required.</p></div>
+    </div>
+    <p class="loop-back">and the corrections feed the next run. That's the compounding.</p>
+    <div class="golden">
+      <span class="tag">The one rule people break</span>
+      <p>The ledger is not a report you read once a quarter and forget. It only works if it feeds the same document you use to write the next script, brief the next launch, or fix the next thing. A dashboard nobody else's workflow reads is a graveyard, not a <em>system.</em></p>
+    </div>
+  </div>
+</section>
+
+<section id="mistakes">
+  <div class="wrap">
+    <p class="eyebrow">05 / Where these systems die</p>
+    <h2>Four mistakes. <em>All avoidable.</em></h2>
+    <div class="acc" id="acc">
+      <div class="acc-item">
+        <button class="acc-btn">You call the same 20 people every day <span class="mark">+</span></button>
+        <div class="acc-panel"><div class="acc-panel-inner">Proactive listening dies the moment customers feel farmed. Define a large enough cohort and rotate through it, and cap contact per person, once a month is plenty for most categories. A smaller, resentful list is worse than no list.</div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-btn">The ledger becomes a report nobody opens <span class="mark">+</span></button>
+        <div class="acc-panel"><div class="acc-panel-inner">A new destination nobody remembers to check is worthless. It only works wired into a workflow you already run daily, your planning doc, your marketing brief, your product review. Point existing habits at it instead of creating a new one.</div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-btn">Three jobs, three different brief formats <span class="mark">+</span></button>
+        <div class="acc-panel"><div class="acc-panel-inner">Inconsistent formats multiply agent errors. One board, one row shape, three job types. The agent should never have to guess which fields matter this week.</div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-btn">Nobody defines what a good finding looks like <span class="mark">+</span></button>
+        <div class="acc-panel"><div class="acc-panel-inner">"Customers seem unhappy" is not a finding. "62% cite no lock-in as the reason they bought" is. Same rule as hiring any agent: if you can't say whether the output did the job, you can't manage it.</div></div>
+      </div>
+    </div>
+
+    <ul class="checklist" id="checklist">
+      <li><span class="box"></span><span>Picked which of the three jobs to build first</span></li>
+      <li><span class="box"></span><span>Created one shared board with a fixed brief format</span></li>
+      <li><span class="box"></span><span>Defined my cohort and a contact cap per person</span></li>
+      <li><span class="box"></span><span>Built the six-column ledger, one place, never overwritten</span></li>
+      <li><span class="box"></span><span>Pointed at least one other workflow at the ledger</span></li>
+      <li><span class="box"></span><span>Calendar block: read and correct, on the job's own rhythm</span></li>
+    </ul>
+    <p class="progress" id="progress">0 / 6 done</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="foot-line">Manage each job like an intern in week one. By week eight, the ledger knows things about your customers that no research team would have found in a quarter.</p>
+    <div class="foot-seq">
+      <a href="1000cr-operations-map.html">01 &middot; The operating map</a>
+      <a href="first-agent-guide.html">02 &middot; Your first agent</a>
+      <a href="ai-employee-builder.html">03 &middot; The AI employee builder</a>
+      <span class="here">04 &middot; The insighting hub &larr; you are here</span>
+    </div>
+    <div class="foot-meta">
+      <span>Abhijeet Mittal · AI x Health x D2C</span>
+      <a href="https://www.linkedin.com/in/abhijeetmittal" target="_blank" rel="noopener">Tell me what you found → LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ---- Section 01: stepper ----
+const steps=[
+ {tag:"STEP 1",title:'Pick your <em>first job</em>',body:'<p>A research function actually does three separate jobs. One: answer a specific hypothesis. Two: explain a number that is moving, churn, conversion, cart abandonment. Three: proactively listen for problems nobody thought to ask about.</p><p>Start with whichever hurts most this week. If you are not sure, start with job one: it needs the least infrastructure, just a clear question and an agent that can dig.</p>',now:'Write down which job is causing you the most pain right now: a question you cannot answer, a number that is dropping, or a blind spot in how customers actually feel.'},
+ {tag:"STEP 2",title:'Build the <em>shared brief</em>',body:'<p>Jobs one and two run on the same format. One board (a Notion page or a Google Doc works fine), four fields every time: the question, why it matters, where to look, and the deadline.</p><p>The agent reads the board on its own schedule, weekly or monthly, does the digging, and writes the answer back into the ledger you will build in step 4. Nothing fancy, just consistency.</p>',now:'Create the board. Write your first real brief in the four-field format: question, why it matters, where to look, deadline.'},
+ {tag:"STEP 3",title:'Set up <em>daily listening</em>',body:'<p>Job three is the one most teams skip, and the one an agent can finally do properly. Define a cohort (for example, everyone who bought in the last 30 days), cap how often any one person gets contacted, and send a short survey to a rotating slice of that cohort every day.</p><p>No code needed for the first version: a Google Form or a WhatsApp broadcast to 15 to 20 people a day is enough to start. If it proves useful, a voice AI calling tool is the natural upgrade, but it is not where you start.</p>',now:'Define your cohort in one line, and decide how many people you can responsibly reach per day without anyone feeling farmed.'},
+ {tag:"STEP 4",title:'Wire the <em>daily ledger</em>',body:'<p>One running sheet or Notion database. One row per finding. Six columns: date, job, question, finding, confidence, and the one action it suggests. The agent appends to this. It never overwrites yesterday.</p><p>This single habit is what turns three separate jobs into one system. Anyone on your team can scroll the same ledger and see everything the agent has learned, in order.</p>',now:'Create the sheet. Six columns. Nothing fancy. See section 03 below for exactly what a filled-in week looks like.'},
+ {tag:"STEP 5",title:'Persist it into <em>every decision</em>',body:'<p>The ledger is not the finish line. Get the same document read by whatever you already use to write ad scripts, plan a launch, or brief your team. One instruction, in every other prompt or playbook you run: read the ledger first, every time, before doing anything else.</p><p>That is the entire trick behind a system that seems to "remember." No special memory feature required, just one shared file everything else is told to check first.</p>',now:'Add one line to your other prompts and playbooks: read [your ledger link] before doing anything else.'}
+];
+let cur=0;const nav=document.getElementById('stepNav'),content=document.getElementById('stepContent'),count=document.getElementById('stepCount');
+steps.forEach((s,i)=>{const b=document.createElement('button');b.className='step-dot';b.innerHTML='<span>0'+(i+1)+'</span>'+s.title.replace(/<[^>]+>/g,'');b.onclick=()=>{cur=i;render()};nav.appendChild(b);});
+function render(){
+ [...nav.children].forEach((b,i)=>{b.classList.toggle('active',i===cur);b.classList.toggle('done',i<cur)});
+ const s=steps[cur];
+ content.innerHTML='<p class="eyebrow" style="margin-bottom:10px">'+s.tag+'</p><h3>'+s.title+'</h3><div class="step-body">'+s.body+'</div><div class="do-now"><span class="tag">Do this now</span>'+s.now+'</div>';
+ count.textContent=(cur+1)+' / '+steps.length;
+ document.getElementById('prevBtn').disabled=cur===0;
+ document.getElementById('nextBtn').textContent=cur===steps.length-1?'Build it ↓':'Next step →';
+}
+document.getElementById('prevBtn').onclick=()=>{if(cur>0){cur--;render()}};
+document.getElementById('nextBtn').onclick=()=>{if(cur<steps.length-1){cur++;render()}else{document.getElementById('builder').scrollIntoView({behavior:'smooth'})}};
+render();
+
+// ---- Section 02: job tabs + prompt builder ----
+const jobDefs={
+ hyp:{
+   file:'hypothesis-job.txt',
+   fieldLabel:'Your specific question or hypothesis',
+   fieldPh:'e.g. do buyers trust a subscription model in this category',
+   fieldDefault:'do buyers trust a subscription model in this category',
+   fieldId:'inSpecific'
+ },
+ chn:{
+   file:'churn-signal-job.txt',
+   fieldLabel:'The signal you are chasing',
+   fieldPh:'e.g. day-7 churn, cart abandonment rate',
+   fieldDefault:'day-7 churn',
+   fieldId:'inSpecific'
+ },
+ pro:{
+   file:'proactive-listening-job.txt',
+   fieldLabel:'Cohort definition',
+   fieldPh:'e.g. customers who bought in the last 30 days',
+   fieldDefault:'customers who bought in the last 30 days',
+   fieldId:'inSpecific',
+   extra:{label:'People reached per day',ph:'e.g. 20',def:'20',id:'inDaily'}
+ }
+};
+let currentJob='hyp';
+const jobFieldsWrap=document.getElementById('jobFields');
+function renderJobFields(){
+ const d=jobDefs[currentJob];
+ let html='<div class="field"><label>'+d.fieldLabel+'</label><input id="'+d.fieldId+'" placeholder="'+d.fieldPh+'" value="'+d.fieldDefault+'"></div>';
+ if(d.extra){html+='<div class="field"><label>'+d.extra.label+'</label><input id="'+d.extra.id+'" placeholder="'+d.extra.ph+'" value="'+d.extra.def+'"></div>';}
+ jobFieldsWrap.innerHTML=html;
+ document.getElementById(d.fieldId).addEventListener('input',buildPrompt);
+ if(d.extra){document.getElementById(d.extra.id).addEventListener('input',buildPrompt);}
+ document.getElementById('promptFileName').textContent=d.file;
+}
+document.querySelectorAll('.job-tab').forEach(btn=>{
+ btn.onclick=()=>{
+   document.querySelectorAll('.job-tab').forEach(b=>b.classList.remove('active'));
+   btn.classList.add('active');
+   currentJob=btn.dataset.job;
+   renderJobFields();
+   buildPrompt();
+ };
+});
+
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function buildPrompt(){
+ const cat=esc(document.getElementById('inCat').value||'[your category]');
+ const cust=esc(document.getElementById('inCust').value||'[your customer]');
+ const out=esc(document.getElementById('inOut').value||'[your ledger]');
+ const specEl=document.getElementById('inSpecific');
+ const spec=esc((specEl&&specEl.value)||'[your question]');
+ const promptOut=document.getElementById('promptOut');
+ let body='';
+ if(currentJob==='hyp'){
+   body=`You are my hypothesis-testing agent for <span class="v">${cat}</span>.
+
+THE JOB (run weekly or monthly, when I add a brief):
+Answer this question with evidence, not opinion:
+<span class="v">${spec}</span>
+Search reviews, forums, support chats and any sales
+data I give you access to. Do not guess.
+
+CONTEXT (my handbook):
+- My customer: <span class="v">${cust}</span>
+- A good finding has a number in it. "62% cite X" beats
+  "customers seem to feel X."
+- If the evidence is thin, say so. Do not round a weak
+  signal up to a strong one.
+
+DELIVER TO: <span class="v">${out}</span>
+One row: date, job = hypothesis, the question, the
+finding, a confidence level, and one recommended action.
+
+RULES:
+- Quote customers in their exact words where possible.
+- Say where every data point came from.
+- This playbook will be corrected over time. Follow the
+  latest version exactly.`;
+ } else if(currentJob==='chn'){
+   body=`You are my churn and conversion agent for <span class="v">${cat}</span>.
+
+THE JOB (run weekly or monthly, when I add a brief):
+Explain what is happening to this signal:
+<span class="v">${spec}</span>
+Find where in the journey the drop actually happens,
+not just that it is happening.
+
+CONTEXT (my handbook):
+- My customer: <span class="v">${cust}</span>
+- Name the exact drop-off point. "Users churn" is not a
+  finding. "Drop concentrates after the first reminder
+  email" is.
+- Separate correlation from your best guess at cause,
+  and say which one you are giving me.
+
+DELIVER TO: <span class="v">${out}</span>
+One row: date, job = churn, the signal, the finding, a
+confidence level, and one thing to test, not the whole
+flow.
+
+RULES:
+- Cite the data source for every number.
+- If you are not sure something is the real cause, say so.
+- This playbook will be corrected over time. Follow the
+  latest version exactly.`;
+ } else {
+   const dailyEl=document.getElementById('inDaily');
+   const daily=esc((dailyEl&&dailyEl.value)||'20');
+   body=`You are my proactive listening agent for <span class="v">${cat}</span>.
+
+THE JOB (run every day, no brief required):
+Cohort: <span class="v">${spec}</span>
+Reach <span class="v">${daily}</span> people from this cohort today, a
+different slice than yesterday. Send a short survey or
+make a short call. Ask open questions, do not lead them.
+Never contact the same person more than once a month.
+
+CONTEXT (my handbook):
+- My customer: <span class="v">${cust}</span>
+- You are listening for problems I did not think to ask
+  about. Do not force answers into a hypothesis.
+- Flag anything that repeats across 3 or more people in
+  a single day, that is a real signal, not noise.
+
+DELIVER TO: <span class="v">${out}</span>
+One row: date, job = proactive, "(none, unprompted)" as
+the question, the finding, a confidence level, and one
+action.
+
+RULES:
+- Never exceed the daily contact cap.
+- Quote people in their own words.
+- This playbook will be corrected over time. Follow the
+  latest version exactly.`;
+ }
+ promptOut.innerHTML=body;
+}
+renderJobFields();
+document.getElementById('inCat').addEventListener('input',buildPrompt);
+document.getElementById('inCust').addEventListener('input',buildPrompt);
+document.getElementById('inOut').addEventListener('input',buildPrompt);
+buildPrompt();
+document.getElementById('copyBtn').onclick=async()=>{
+ try{
+   await navigator.clipboard.writeText(document.getElementById('promptOut').innerText);
+ }catch(e){}
+ const b=document.getElementById('copyBtn');b.textContent='Copied ✓';setTimeout(()=>b.textContent='Copy',1600);
+};
+
+// ---- Section 05: accordion ----
+document.querySelectorAll('.acc-btn').forEach(btn=>{btn.onclick=()=>{
+ const item=btn.parentElement,panel=item.querySelector('.acc-panel'),open=item.classList.contains('open');
+ document.querySelectorAll('.acc-item').forEach(i=>{i.classList.remove('open');i.querySelector('.acc-panel').style.maxHeight=null});
+ if(!open){item.classList.add('open');panel.style.maxHeight=panel.scrollHeight+'px'}
+}});
+
+// ---- checklist ----
+const list=document.getElementById('checklist'),prog=document.getElementById('progress');
+list.querySelectorAll('li').forEach(li=>li.onclick=()=>{
+ li.classList.toggle('checked');
+ const n=list.querySelectorAll('.checked').length;
+ prog.textContent=n+' / 6 done'+(n===6?' · the hub is live. Tell me what it found, on LinkedIn.':'');
+});
+</script>
+</body>
+</html>
