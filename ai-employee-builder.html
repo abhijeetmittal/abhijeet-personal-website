@@ -67,7 +67,7 @@ button{cursor:pointer}
 .shell{display:grid;grid-template-columns:290px minmax(0,1fr);min-height:calc(100vh - 58px)}
 .rail{position:sticky;top:58px;height:calc(100vh - 58px);padding:28px 22px;border-right:1px solid var(--line);background:var(--rail);overflow:auto;transition:background .5s ease}
 .rail-kicker,.kicker{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
-.rail h1{margin:10px 0 12px;font-family:var(--serif);font-size:2.4rem;font-weight:400;line-height:.98;letter-spacing:-.01em}
+.rail h1{margin:10px 0 12px;font-family:var(--serif);font-size:2.2rem;font-weight:400;line-height:1.08;letter-spacing:-.01em}
 .rail h1 em{color:var(--rust)}
 .rail-sketch{margin:6px 0 18px}
 .rail-sketch svg{width:100%;height:auto}
@@ -95,7 +95,7 @@ button{cursor:pointer}
 .stage.active{display:block;animation:rise 260ms var(--ease)}
 @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .stage-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;margin-bottom:34px}
-.stage h2{max-width:700px;margin:8px 0 20px;font-family:var(--serif);font-size:clamp(2.3rem,4.5vw,4.2rem);font-weight:400;line-height:.98;letter-spacing:-.01em}
+.stage h2{max-width:700px;margin:8px 0 20px;font-family:var(--serif);font-size:clamp(2rem,3.6vw,3.2rem);font-weight:400;line-height:1.06;letter-spacing:-.015em}
 .stage h2 em{color:var(--rust);padding-bottom:.14em;-webkit-box-decoration-break:clone;box-decoration-break:clone;
  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12'%3E%3Cpath d='M2 8 q 15 6 30 1 t 30 1 t 30 1 t 26 0' fill='none' stroke='%23a95138' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x left bottom;background-size:auto .11em}
 .stage-doodle{display:grid;justify-items:center;gap:8px}
@@ -129,7 +129,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--teal);box-shadow:0 0 
 .choice input:focus-visible+.choice-card{box-shadow:0 0 0 3px rgba(53,81,196,.25)}
 .choice-card b{display:block;font-family:var(--serif);font-size:1.15rem;font-weight:400;line-height:1.15}
 .choice-card small{display:block;color:var(--muted);font-size:.68rem;line-height:1.45}
-.level{font-family:var(--mono);font-size:.58rem;color:var(--rust)}
+.level{font-family:var(--mono);font-size:.64rem;color:var(--rust)}
 .callout{margin-top:18px;padding:17px 19px;border-left:3px solid var(--rust);border-radius:0 var(--r-sm) var(--r-sm) 0;background:var(--rustsoft);font-size:.83rem}
 .workflow-list{display:grid;gap:12px}
 .workflow-row{display:grid;grid-template-columns:34px minmax(0,1fr) 42px;gap:11px;align-items:start;padding:13px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--paper)}
@@ -160,7 +160,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--teal);box-shadow:0 0 
 .result-title p{max-width:620px;margin:0;color:#b9c5bf}
 .readiness{display:grid;place-items:center;padding:24px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--card);text-align:center;animation:dcRise var(--dur) var(--ease) .1s both;transition:background .5s ease}
 .readiness strong{font-family:var(--serif);font-weight:400;line-height:1}
-.meta-k{font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
+.meta-k{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
 .meta-v{margin-top:4px;font-family:var(--serif);font-size:1.05rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .readiness span{font-family:var(--mono);font-size:.63rem;text-transform:uppercase;color:var(--muted)}
 .readiness p{margin:10px 0 0;font-size:.75rem;color:var(--muted)}
@@ -206,9 +206,9 @@ input:focus,textarea:focus,select:focus{border-color:var(--teal);box-shadow:0 0 
 <body>
 <div class="noise"></div>
 <header class="topbar">
-  <div class="brand">Abhijeet Mittal / The 1000cr Playbook</div>
+  <div class="brand"><a href="index.html" style="color:inherit; text-decoration:none;">← Abhijeet Mittal</a> / The 1000cr Playbook</div>
   <div class="top-actions">
-    <a class="btn ghost small" href="1000cr-operations-map.html" style="text-decoration:none;color:inherit;border-color:rgba(245,241,232,.35)">The 1000cr map</a>
+    <a class="btn ghost small" href="1000cr-interactive-guide.html" style="text-decoration:none;color:inherit;border-color:rgba(245,241,232,.35)">The 1000cr map</a>
     <button class="btn ghost small" id="resetBtn">Start over</button>
     <button class="btn small" id="generateTop">Build my AI employee</button>
   </div>
@@ -592,7 +592,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--teal);box-shadow:0 0 
   <div style="display:flex;flex-wrap:wrap;gap:10px 28px;align-items:center;justify-content:space-between;max-width:1340px;margin:0 auto">
     <span class="kicker">The 1000cr Playbook &middot; one build per step</span>
     <nav style="display:flex;flex-wrap:wrap;gap:18px;font-size:.8rem">
-      <a href="1000cr-operations-map.html" style="color:var(--muted);text-decoration:none">01 &middot; The operating map</a>
+      <a href="1000cr-interactive-guide.html" style="color:var(--muted);text-decoration:none">01 &middot; The operating map</a>
       <a href="first-agent-guide.html" style="color:var(--muted);text-decoration:none">02 &middot; Your first agent (weekend build)</a>
       <span style="color:var(--rust);font-weight:600">03 &middot; The AI Employee Builder &#8592; you are here</span>
       <a href="https://www.linkedin.com/in/abhijeetmittal/" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none">Built by Abhijeet Mittal &#8594;</a>
@@ -600,7 +600,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--teal);box-shadow:0 0 
   </div>
 </footer>
 <div id="themeBar" style="position:fixed;left:18px;bottom:18px;z-index:70;display:flex;align-items:center;gap:4px;padding:5px;border:1px solid var(--line);border-radius:var(--pill);background:var(--card);box-shadow:0 12px 34px rgba(0,0,0,.14)">
-  <span style="font-family:var(--mono);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:0 8px">Style</span>
+  <span style="font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:0 8px">Style</span>
   <button type="button" data-theme-pick="atelier" style="padding:7px 13px;border:0;border-radius:var(--pill);background:transparent;color:var(--muted);font-family:var(--mono);font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .2s var(--ease)">Atelier</button>
   <button type="button" data-theme-pick="night" style="padding:7px 13px;border:0;border-radius:var(--pill);background:transparent;color:var(--muted);font-family:var(--mono);font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .2s var(--ease)">Night</button>
   <button type="button" data-theme-pick="dossier" style="padding:7px 13px;border:0;border-radius:var(--pill);background:transparent;color:var(--muted);font-family:var(--mono);font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .2s var(--ease)">Dossier</button>
@@ -1106,7 +1106,7 @@ function renderOutputs(){
     const b=document.createElement("button");b.type="button";b.className="tab"+(i===0?" active":"")+(key==="system"?" hot":"");b.textContent=String(i+1).padStart(2,"0")+" \u00b7 "+tabLabels[key]+(key==="system"?" \u2192 paste this":"");b.dataset.key=key;
     b.onclick=()=>selectTab(key);tabs.appendChild(b);
     const p=document.createElement("section");p.className="output-panel"+(i===0?" active":"");p.dataset.panel=key;
-    p.innerHTML=`<div class="output-head"><b>${tabLabels[key]}</b><span style="display:flex;gap:12px;align-items:center"><span style="font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">The 1000cr Playbook &middot; Build pack</span><button type="button" class="btn ghost small" data-copy="${key}">Copy</button></span></div><div class="output-body"></div>`;
+    p.innerHTML=`<div class="output-head"><b>${tabLabels[key]}</b><span style="display:flex;gap:12px;align-items:center"><span style="font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">The 1000cr Playbook &middot; Build pack</span><button type="button" class="btn ghost small" data-copy="${key}">Copy</button></span></div><div class="output-body"></div>`;
     p.querySelector(".output-body").appendChild(formatDoc(pack[key]));p.querySelector("[data-copy]").onclick=()=>copyText(pack[key]);
     panels.appendChild(p);
   });

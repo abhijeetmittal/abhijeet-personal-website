@@ -4,6 +4,8 @@
   "trailingSlash": false,
   "redirects": [
     { "source": "/about_use_codex", "destination": "/about", "permanent": true },
-    { "source": "/about_claude", "destination": "/about", "permanent": true }
+    { "source": "/about_claude", "destination": "/about", "permanent": true },
+    { "source": "/1000cr-operations-map", "destination": "/1000cr-interactive-guide", "permanent": true },
+    { "source": "/1000cr-operations-map.html", "destination": "/1000cr-interactive-guide", "permanent": true }
   ]
 }
