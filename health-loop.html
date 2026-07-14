@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#eceef1">
+<meta name="description" content="The biggest health companies stopped selling products. WHOOP, Oura, Function Health, Hims and Hers, Ultrahuman, ZOE and Levels are all building the same loop: measure, test, understand, treat, repeat. The receipts, with dates.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://abhijeetmittal.vercel.app/health-loop">
+<meta property="og:title" content="Nobody big sells a health product anymore">
+<meta property="og:description" content="Seven companies, seven starting points, one playbook. The consumer health loop, with receipts.">
+<meta property="og:image" content="https://abhijeetmittal.vercel.app/assets/Abhijeet-photo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<title>Nobody big sells a health product anymore</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23191e26'/%3E%3Cpath d='M8 34h10l5-16 8 30 6-20 4 8h7' fill='none' stroke='%233551c4' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#eceef1; --paper-2:#e4e7eb; --ink:#191e26; --muted:#5f6772;
+  --line:rgba(25,30,38,.16); --line-soft:rgba(25,30,38,.08); --card:#ffffff;
+  --blue:#3551c4; --blue-2:#d7dcf4; --green:#36684a; --green-2:rgba(54,104,74,.13);
+  --amber:#a66b24; --amber-2:rgba(166,107,36,.15);
+  --shadow:0 24px 70px rgba(25,30,38,.09);
+  --serif:"Newsreader",Georgia,serif; --sans:"Hanken Grotesk",Arial,sans-serif;
+  --mono:"JetBrains Mono",monospace; --hand:"Caveat",cursive;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.wrap{width:min(1180px,calc(100% - 40px));margin:0 auto}
+
+.topbar{position:sticky;top:0;z-index:40;border-bottom:1px solid var(--line);background:rgba(236,238,241,.82);backdrop-filter:blur(18px) saturate(1.2)}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:13px 0}
+.brand{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none}
+.brand b{font-family:var(--serif);font-size:1.2rem;letter-spacing:0;text-transform:none;color:var(--ink)}
+.nav{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.nav a{padding:8px 12px;border:1px solid var(--line);border-radius:999px;text-decoration:none;font-family:var(--mono);font-size:.6rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,.55)}
+.nav a:hover{border-color:var(--ink);color:var(--ink)}
+
+.hero{padding:60px 0 30px}
+.kicker{display:inline-block;font-family:var(--hand);font-size:1.6rem;color:var(--blue);transform:rotate(-1.5deg);margin-bottom:6px}
+h1{margin:8px 0 18px;font-family:var(--serif);font-size:clamp(2.4rem,5vw,4.2rem);font-weight:400;line-height:1.03;letter-spacing:-.02em;max-width:17ch}
+h1 .it{font-style:italic;color:var(--blue)}
+.standfirst{max-width:720px;color:var(--muted);font-size:1.08rem}
+.standfirst strong{color:var(--ink)}
+.byline{margin-top:18px;font-family:var(--hand);font-size:1.3rem;color:#8a909a}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:30px 0 6px}
+.stat-box{padding:20px 22px;border:1px solid var(--line);border-radius:18px;background:var(--card);box-shadow:0 14px 35px rgba(25,30,38,.045)}
+.stat-box .num{font-family:var(--serif);font-size:clamp(1.9rem,3vw,2.6rem);line-height:1;letter-spacing:-.01em}
+.stat-box .lbl{margin-top:8px;font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+.section{padding:52px 0;border-top:1px solid var(--line)}
+.sec-num{font-family:var(--hand);font-size:1.5rem;color:var(--blue)}
+h2{margin:4px 0 0;font-family:var(--serif);font-size:clamp(2rem,3.8vw,3rem);font-weight:400;line-height:1.05;letter-spacing:-.015em}
+.lead{max-width:700px;margin:14px 0 0;font-size:1.04rem;color:var(--muted)}
+.lead strong{font-weight:600;color:var(--ink)}
+.callout{position:relative;padding:24px 26px;border:1px solid var(--line);border-radius:18px;background:var(--card);margin-top:26px;box-shadow:0 14px 35px rgba(25,30,38,.045)}
+.callout::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:3px;border-radius:3px;background:var(--blue)}
+.callout .ct{font-family:var(--hand);font-size:1.45rem;color:var(--blue)}
+.callout p{margin:6px 0 0;font-size:1.04rem}
+
+/* loop diagram */
+.loopwrap{display:grid;grid-template-columns:minmax(300px,460px) 1fr;gap:36px;align-items:center;margin-top:30px}
+.loopfig{position:relative}
+.loopfig svg{width:100%;height:auto;display:block}
+.loop-node{cursor:pointer}
+.loop-node circle.ring{fill:var(--card);stroke:var(--line);stroke-width:1.5;transition:stroke .2s,fill .2s}
+.loop-node.active circle.ring,.loop-node:hover circle.ring{stroke:var(--blue);fill:var(--blue-2)}
+.loop-node text{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;fill:var(--ink)}
+.loop-caption{min-height:130px}
+.loop-caption .cap-t{font-family:var(--serif);font-size:1.5rem;line-height:1.15}
+.loop-caption .cap-t em{font-style:italic;color:var(--blue)}
+.loop-caption p{color:var(--muted);margin:10px 0 0;max-width:44ch}
+.loop-caption .hint{margin-top:14px;font-family:var(--mono);font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;color:#9aa1ab}
+#loopPath{stroke-dasharray:1200;stroke-dashoffset:1200;transition:stroke-dashoffset 2.2s ease}
+.drawn #loopPath{stroke-dashoffset:0}
+
+/* company cards */
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin:24px 0 4px;font-size:.85rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+.dot.f{background:var(--green)}
+.dot.p{background:var(--amber)}
+.dot.n{background:var(--paper-2);border:1px solid var(--line)}
+.cogrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px}
+.co{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 24px;cursor:pointer;box-shadow:0 10px 26px rgba(25,30,38,.04);transition:border-color .18s,transform .18s}
+.co:hover{border-color:var(--blue);transform:translateY(-2px)}
+.co .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.co .name{font-family:var(--serif);font-size:clamp(1.4rem,1.9vw,1.8rem);line-height:1.15}
+.co .start{font-family:var(--mono);font-size:.6rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:var(--paper-2);padding:5px 10px;border-radius:999px;white-space:nowrap}
+.co .big{margin-top:14px;display:flex;align-items:baseline;gap:10px}
+.co .big .num{font-family:var(--serif);font-size:clamp(1.8rem,2.6vw,2.4rem);line-height:1;color:var(--ink)}
+.co .big .of{font-size:.9rem;color:var(--muted)}
+.co .dots{display:flex;gap:8px;margin-top:16px;align-items:center}
+.co .dots .dlbl{font-family:var(--mono);font-size:.6rem;letter-spacing:.05em;text-transform:uppercase;color:#9aa1ab;margin-right:2px}
+.co .more{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.co.open .more{max-height:420px}
+.co .moves{margin:16px 0 0;padding:14px 0 0;border-top:1px dashed var(--line);list-style:none}
+.co .moves li{display:flex;gap:12px;padding:5px 0;font-size:.93rem;color:var(--ink)}
+.co .moves .d{font-family:var(--mono);font-size:.62rem;letter-spacing:.03em;color:var(--blue);white-space:nowrap;padding-top:4px;min-width:66px}
+.co .lesson{margin-top:12px;font-family:var(--hand);font-size:1.35rem;color:var(--blue);line-height:1.25}
+.co .toggle-hint{margin-top:12px;font-family:var(--mono);font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;color:#9aa1ab}
+.co.open .toggle-hint .open-t{display:none}
+.co .toggle-hint .close-t{display:none}
+.co.open .toggle-hint .close-t{display:inline}
+
+/* timeline */
+.tl{margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 14px 35px rgba(25,30,38,.045)}
+.tl-row{display:flex;align-items:center;gap:14px;padding:11px 0;border-bottom:1px solid var(--line-soft)}
+.tl-row:last-of-type{border-bottom:none}
+.tl-name{width:150px;flex:0 0 150px;font-family:var(--serif);font-size:1.05rem}
+.tl-track{position:relative;flex:1;height:26px}
+.tl-track::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:var(--line)}
+.tl-dot{position:absolute;top:50%;transform:translate(-50%,-50%);width:13px;height:13px;border-radius:50%;border:2px solid var(--card);cursor:pointer;transition:transform .15s}
+.tl-dot:hover{transform:translate(-50%,-50%) scale(1.45)}
+.tl-dot.sq{border-radius:4px}
+.tl-dot.c-b{background:var(--green)}
+.tl-dot.c-s{background:var(--blue)}
+.tl-dot.c-c{background:var(--amber)}
+.tl-dot.c-i{background:#7c5cbf}
+.tl-axis{display:flex;justify-content:space-between;margin-top:12px;padding-left:164px;font-family:var(--mono);font-size:.6rem;letter-spacing:.05em;text-transform:uppercase;color:#9aa1ab}
+.tl-cap{margin-top:16px;padding:14px 18px;background:var(--paper-2);border-radius:12px;font-size:.95rem;min-height:52px;display:flex;align-items:center}
+.tl-cap b{margin-right:8px}
+.tl-legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px;font-size:.82rem;color:var(--muted)}
+
+/* india */
+.india-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+
+.footer{padding:44px 0 64px;border-top:1px solid var(--line);color:var(--muted);font-size:.92rem;margin-top:30px}
+.footer .tl2{font-family:var(--hand);font-size:1.25rem;color:var(--blue)}
+.footer b{color:var(--ink)}
+.footer .srcs{margin-top:14px;font-size:.86rem;line-height:1.9}
+.footer .srcs a{color:var(--muted)}
+.footer .srcs a:hover{color:var(--blue)}
+
+[data-reveal]{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+[data-reveal].in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  [data-reveal]{opacity:1;transform:none;transition:none}
+  #loopPath{stroke-dashoffset:0;transition:none}
+}
+@media(max-width:900px){
+  .stats{grid-template-columns:1fr 1fr}
+  .cogrid{grid-template-columns:minmax(0,1fr)}
+  .loopwrap{grid-template-columns:1fr}
+  .nav{display:none}
+}
+@media(max-width:600px){
+  .hero{padding:40px 0 20px}
+  h1{font-size:clamp(2.2rem,8vw,3rem)}
+  .india-stats{grid-template-columns:1fr}
+  .tl-name{width:96px;flex:0 0 96px;font-size:.9rem}
+  .tl-axis{padding-left:110px}
+  .co{padding:18px}
+  .co .top{flex-direction:column;align-items:flex-start;gap:8px}
+  .co .start{white-space:normal;line-height:1.5}
+  .co .big{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html"><b>AM</b> The health loop</a>
+    <nav class="nav">
+      <a href="#loop">The loop</a>
+      <a href="#companies">The receipts</a>
+      <a href="#clock">The clock</a>
+      <a href="#india">India</a>
+      <a href="index.html">Home</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero wrap">
+  <span class="kicker">Every body is different</span>
+  <h1>Nobody big sells a <span class="it">health product</span> anymore</h1>
+  <p class="standfirst">Seven companies. Seven different starting points: a ring, a band, a blood panel, a doctor on a video call, a glucose patch, a scientific study. In the last two years, <strong>every one of them spent money on the same idea</strong>: measure the person, not the market. This page has the receipts, with dates.</p>
+  <p class="byline">A two-minute read. Written by Abhijeet Mittal.</p>
+  <div class="stats">
+    <div class="stat-box" data-reveal><div class="num">$<span data-count="875">0</span>M</div><div class="lbl">Oura's latest round</div></div>
+    <div class="stat-box" data-reveal><div class="num"><span data-count="1100">0</span></div><div class="lbl">People in the ZOE study</div></div>
+    <div class="stat-box" data-reveal><div class="num"><span data-count="30">0</span>%</div><div class="lbl">Of food response explained by genes</div></div>
+    <div class="stat-box" data-reveal><div class="num"><span data-count="114">0</span>M</div><div class="lbl">Wearables India bought last year</div></div>
+  </div>
+</section>
+
+<section class="section" id="loop">
+  <div class="wrap">
+    <span class="sec-num">01 / The idea</span>
+    <h2>One loop, five parts</h2>
+    <p class="lead">In 2020, a team led by Tim Spector fed 1,100 people identical meals and published the results in <strong>Nature Medicine</strong>. Same food, completely different blood responses. Even identical twins diverged. Genes explained only 30% of it. If two people with the same DNA respond differently to the same meal, one product for every body is a broken promise. So the biggest health companies stopped betting on products and started building a loop around each customer.</p>
+    <div class="loopwrap">
+      <div class="loopfig" data-reveal id="loopFig">
+        <svg viewBox="0 0 420 420" role="img" aria-label="A circular loop with five stages: sense, test, understand, treat, repeat">
+          <circle id="loopPath" cx="210" cy="210" r="150" fill="none" stroke="#3551c4" stroke-width="2" stroke-linecap="round"/>
+          <text x="210" y="206" text-anchor="middle" style="font-family:var(--serif);font-size:26px;fill:#191e26">You</text>
+          <text x="210" y="230" text-anchor="middle" style="font-family:var(--mono);font-size:10px;letter-spacing:.06em;fill:#5f6772">NOT THE AVERAGE</text>
+          <g class="loop-node" data-i="0" transform="translate(210,60)"><circle class="ring" r="34"/><text y="4" text-anchor="middle">Sense</text></g>
+          <g class="loop-node" data-i="1" transform="translate(352,166)"><circle class="ring" r="34"/><text y="4" text-anchor="middle">Test</text></g>
+          <g class="loop-node" data-i="2" transform="translate(298,338)"><circle class="ring" r="34"/><text y="0" text-anchor="middle">Under-</text><text y="12" text-anchor="middle">stand</text></g>
+          <g class="loop-node" data-i="3" transform="translate(122,338)"><circle class="ring" r="34"/><text y="4" text-anchor="middle">Treat</text></g>
+          <g class="loop-node" data-i="4" transform="translate(68,166)"><circle class="ring" r="34"/><text y="4" text-anchor="middle">Repeat</text></g>
+        </svg>
+      </div>
+      <div class="loop-caption" data-reveal>
+        <div class="cap-t" id="capT">Tap any part of <em>the loop</em></div>
+        <p id="capP">Each stage feeds the next. A company that owns all five knows your body better every month. A company that owns one is a feature waiting to be absorbed.</p>
+        <p class="hint">Click the circles</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="companies">
+  <div class="wrap">
+    <span class="sec-num">02 / The receipts</span>
+    <h2>Seven companies, one playbook</h2>
+    <p class="lead">Click any card for the moves and the dates. The five dots show how much of the loop each company owns today: <strong>sense, test, care, brains, habit</strong>, in that order.</p>
+    <div class="legend">
+      <span><i class="dot f"></i>Owns it</span>
+      <span><i class="dot p"></i>Partial or via a partner</span>
+      <span><i class="dot n"></i>Missing</span>
+    </div>
+    <div class="cogrid" id="cogrid"></div>
+  </div>
+</section>
+
+<section class="section" id="clock">
+  <div class="wrap">
+    <span class="sec-num">03 / The clock</span>
+    <h2>Two years, one direction</h2>
+    <p class="lead">Every marker is a real acquisition or launch. Squares are acquisitions, circles are launches. Notice the shape: five different companies, and the moves all point at the layers they were missing.</p>
+    <div class="tl" data-reveal>
+      <div id="tlRows"></div>
+      <div class="tl-axis"><span>Aug 2024</span><span>Apr 2025</span><span>Dec 2025</span><span>Jul 2026</span></div>
+      <div class="tl-cap" id="tlCap">Hover or tap a marker to see the move.</div>
+      <div class="tl-legend">
+        <span><i class="dot" style="background:var(--blue)"></i>&nbsp;Sensing</span>
+        <span><i class="dot f"></i>&nbsp;Blood and scans</span>
+        <span><i class="dot p"></i>&nbsp;Doctors</span>
+        <span><i class="dot" style="background:#7c5cbf"></i>&nbsp;AI brains</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="india">
+  <div class="wrap">
+    <span class="sec-num">04 / The gap</span>
+    <h2>India still sells the product</h2>
+    <p class="lead">India is the world's second largest wearables market by volume and one of the cheapest by value. The hardware is treated as a gadget, and the supplement shelf competes on ingredient labels. Ultrahuman, from Bangalore, is the one Indian company running the full playbook on this page. One, out of roughly <strong>9,000 registered Indian healthtech startups</strong>.</p>
+    <div class="india-stats">
+      <div class="stat-box" data-reveal><div class="num"><span data-count="114">0</span>M</div><div class="lbl">Wearable devices sold in 2025</div></div>
+      <div class="stat-box" data-reveal><div class="num">Rs <span data-count="2200">0</span></div><div class="lbl">Average smartwatch price</div></div>
+      <div class="stat-box" data-reveal><div class="num"><span data-count="1">0</span> of 9,000</div><div class="lbl">Indian companies building the loop</div></div>
+    </div>
+    <div class="callout" data-reveal>
+      <div class="ct">My prediction</div>
+      <p>Standalone health products in India get squeezed to quick-commerce margins within three years. The profit moves to whoever owns the customer's loop. The next big Indian health company won't launch a product. It will launch a system that learns your body.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="tl2">Where the numbers come from</div>
+    <p>Every figure on this page traces to a public source: <b>Nature Medicine</b> (the PREDICT study), company announcements from WHOOP, Oura, Function Health, Hims &amp; Hers, Ultrahuman, ZOE and Levels, and reporting listed below. Deal prices marked "undisclosed" were never made public, and I have not guessed them.</p>
+    <p class="srcs">
+      <a href="https://www.nature.com/articles/s41591-020-0934-0" target="_blank" rel="noopener">Nature Medicine, PREDICT 1 (2020)</a> ·
+      <a href="https://www.businesswire.com/news/home/20250930178710/en/" target="_blank" rel="noopener">WHOOP Advanced Labs (Sep 2025)</a> ·
+      <a href="https://www.cnbc.com/2026/05/08/whoop-on-demand-clinician-access.html" target="_blank" rel="noopener">CNBC on WHOOP clinicians (May 2026)</a> ·
+      <a href="https://www.fiercehealthcare.com/digital-health/smart-ring-maker-oura-picks-75m-series-d-inks-strategic-partnership-dexcom" target="_blank" rel="noopener">Fierce Healthcare on Oura and Dexcom (Nov 2024)</a> ·
+      <a href="https://www.statnews.com/2025/11/19/function-health-300-million-funding-direct-to-consumer-medical-tests/" target="_blank" rel="noopener">STAT on Function Health (Nov 2025)</a> ·
+      <a href="https://www.cnbc.com/2025/02/19/hims-hers-to-offer-at-home-blood-draws-lab-testing-with-trybe-deal.html" target="_blank" rel="noopener">CNBC on Hims &amp; Hers and Trybe Labs (Feb 2025)</a> ·
+      <a href="https://techcrunch.com/2025/08/15/ultrahuman-acquires-vio-healthtech-to-launch-enhanced-cycle-and-ovulation-tracking/" target="_blank" rel="noopener">TechCrunch on Ultrahuman (Aug 2025)</a> ·
+      <a href="https://www.businesswire.com/news/home/20250625865256/en/" target="_blank" rel="noopener">Levels blood testing (Jun 2025)</a> ·
+      IDC India wearables tracker (2025) · Tracxn (Jan 2026).
+    </p>
+    <p style="margin-top:18px"><b>Abhijeet Mittal</b> · I run health categories at one of India's largest men's health platforms and write about the business of wellness. <a href="index.html" style="color:var(--blue)">More of my work</a>.</p>
+  </div>
+</footer>
+
+<script>
+const CAPS=[
+ ["First, <em>sense</em>.","A ring, a band or a glucose patch watches your body all day: sleep, heart rate, blood sugar. This is the cheapest layer, and the one India already mass-produces as gadgets."],
+ ["Then, <em>test</em>.","Blood panels and scans go deeper than any wearable can. WHOOP, Oura, Hims and Levels all added blood testing between 2025 and 2026. Function started here."],
+ ["Then, <em>understand</em>.","Software reads your numbers together and explains what they mean for you, not for the average person. This is where the AI money went."],
+ ["Then, <em>treat</em>.","A doctor, a coach or a prescription acts on what the data says. WHOOP put clinicians in its app. Hims started here."],
+ ["Then, <em>repeat</em>.","The loop runs again and checks whether the treatment worked on you. This is the part a one-time product can never do."]
+];
+document.querySelectorAll('.loop-node').forEach(n=>{
+  n.addEventListener('click',()=>{
+    document.querySelectorAll('.loop-node').forEach(x=>x.classList.remove('active'));
+    n.classList.add('active');
+    const c=CAPS[+n.dataset.i];
+    document.getElementById('capT').innerHTML=c[0];
+    document.getElementById('capP').textContent=c[1];
+  });
+});
+
+const COS=[
+ {name:"WHOOP",start:"Started with a band",num:"350K",of:"members waitlisted its blood test before launch",dots:"fffff",
+  moves:[["Sep 2025","Advanced Labs with Quest Diagnostics. 65 blood markers read next to your daily data."],["Mar 2026","A blood test built for women's health."],["Apr 2026","$299 specialised panels, 75 to 89 markers each."],["May 2026","Licensed doctors on demand, inside the app."]],
+  lesson:"The band was the entry ticket. The blood and the doctor are the business."},
+ {name:"Oura",start:"Started with a ring",num:"$10.9B",of:"valuation on roughly $1B in yearly sales",dots:"ffpff",
+  moves:[["Sep 2024","Bought Veri, a metabolic health app. Price undisclosed."],["Oct 2024","Bought Sparta Science, a health data platform. Its third acquisition in two years."],["Nov 2024","Took $75M from Dexcom to connect glucose data with the ring."],["Apr 2026","Built its own AI model for women's health."]],
+  lesson:"When a layer was missing, Oura bought it instead of building it."},
+ {name:"Function Health",start:"Started with blood panels",num:"$2.5B",of:"valuation, about 200,000 subscribers at $499 a year",dots:"pfpfp",
+  moves:[["May 2025","Bought Ezra and cut a full-body MRI from $1,500 to $499, in 22 minutes."],["Nov 2025","Raised $298M. Calls the combined product a personal health operating system."]],
+  lesson:"Ran the loop backwards: owned the testing first, then added the scanner."},
+ {name:"Hims & Hers",start:"Started with telehealth",num:"2.5M",of:"subscribers, $2.35B revenue in 2025",dots:"nfffp",
+  moves:[["Feb 2025","Bought Trybe Labs to run at-home blood draws itself. Paid in cash, price undisclosed."],["2025","Feeds the lab data into MedMatch, its own AI for matching treatments."]],
+  lesson:"The care company bought the testing layer. Convergence runs both ways."},
+ {name:"Ultrahuman",start:"Started with a glucose patch, in Bangalore",num:"$100M",of:"yearly revenue run rate it was on track for by end of 2024",dots:"ffpfp",
+  moves:[["Jun 2025","Launched Home, a device that reads your room: air, light, noise, temperature."],["Jul 2025","Took Blood Vision to the US. 100+ blood markers read next to ring data."],["Aug 2025","Bought viO HealthTech for medical-grade ovulation tracking."]],
+  lesson:"The one Indian company on this page."},
+ {name:"ZOE",start:"Started with the science itself",num:"$133M",of:"raised, 100,000+ members, 70% recurring revenue",dots:"pfpff",
+  moves:[["2020","Published the PREDICT study in Nature Medicine. The twin finding on this page is theirs."],["Since","Sells a home kit: gut test, blood fat test, glucose patch. The app scores your food."],["Later","Added Daily30+, a supplement. The product came last, after the testing."]],
+  lesson:"Everyone else added science to a product. ZOE added a product to the science."},
+ {name:"Levels",start:"Started with a glucose app",num:"60K",of:"members, backed by a16z since 2020",dots:"ffpff",
+  moves:[["Jun 2023","Raised a $38M round for glucose tracking software."],["Jun 2025","Added blood panels of 28 to 100+ markers, dietitian coaching and AI insights, in one release."]],
+  lesson:"Even the smallest company here is assembling all five layers."}
+];
+const DOTMAP={f:"Owns it",p:"Partial or via a partner",n:"Missing"};
+const LAYERS=["Sense","Test","Care","Brains","Habit"];
+document.getElementById('cogrid').innerHTML=COS.map((c,i)=>`
+ <article class="co" data-reveal data-i="${i}">
+  <div class="top"><div class="name">${c.name}</div><div class="start">${c.start}</div></div>
+  <div class="big"><div class="num">${c.num}</div><div class="of">${c.of}</div></div>
+  <div class="dots"><span class="dlbl">Loop</span>${[...c.dots].map((d,j)=>`<i class="dot ${d}" title="${LAYERS[j]}: ${DOTMAP[d]}"></i>`).join('')}</div>
+  <div class="more">
+    <ul class="moves">${c.moves.map(m=>`<li><span class="d">${m[0]}</span><span>${m[1]}</span></li>`).join('')}</ul>
+    <div class="lesson">${c.lesson}</div>
+  </div>
+  <div class="toggle-hint"><span class="open-t">Click for the moves ↓</span><span class="close-t">Close ↑</span></div>
+ </article>`).join('');
+document.querySelectorAll('.co').forEach(el=>el.addEventListener('click',()=>el.classList.toggle('open')));
+
+const TL=[
+ {name:"Oura",ev:[[1,"i",1,"Bought Veri, a metabolic health app (Sep 2024)"],[2,"i",1,"Bought Sparta Science, a health data platform (Oct 2024)"],[3,"s",0,"$75M from Dexcom to add glucose (Nov 2024)"],[7,"i",0,"AI advisor for every member (Mar 2025)"],[20,"i",0,"Its own AI model for women's health (Apr 2026)"]]},
+ {name:"Hims & Hers",ev:[[6,"b",1,"Bought Trybe Labs for at-home blood draws (Feb 2025)"]]},
+ {name:"Function Health",ev:[[9,"b",1,"Bought Ezra; full-body MRI cut to $499 (May 2025)"]]},
+ {name:"Ultrahuman",ev:[[10,"s",0,"Launched Home, the room sensor (Jun 2025)"],[11,"b",0,"Blood Vision in the US, 100+ markers (Jul 2025)"],[12,"s",1,"Bought viO HealthTech, ovulation tracking (Aug 2025)"]]},
+ {name:"Levels",ev:[[10,"b",0,"Added blood panels, dietitians and AI insights (Jun 2025)"]]},
+ {name:"WHOOP",ev:[[13,"b",0,"Advanced Labs with Quest, 65 markers (Sep 2025)"],[19,"b",0,"Women's health blood test (Mar 2026)"],[20,"b",0,"$299 specialised panels (Apr 2026)"],[21,"c",0,"Doctors on demand inside the app (May 2026)"]]}
+];
+document.getElementById('tlRows').innerHTML=TL.map(r=>`
+ <div class="tl-row"><div class="tl-name">${r.name}</div><div class="tl-track">
+ ${r.ev.map(e=>`<span class="tl-dot c-${e[1]} ${e[2]?'sq':''}" style="left:${(e[0]/23*100).toFixed(1)}%" data-cap="<b>${r.name}</b>${e[3]}"></span>`).join('')}
+ </div></div>`).join('');
+const cap=document.getElementById('tlCap');
+document.querySelectorAll('.tl-dot').forEach(d=>{
+  const show=()=>{cap.innerHTML=d.dataset.cap};
+  d.addEventListener('mouseenter',show);d.addEventListener('click',show);
+});
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  e.target.classList.add('in');
+  if(e.target.id==='loopFig')e.target.classList.add('drawn');
+  e.target.querySelectorAll('[data-count]').forEach(el=>{
+    if(el.dataset.done)return;el.dataset.done=1;
+    const t=+el.dataset.count,d=1100,s=performance.now();
+    const step=n=>{const p=Math.min((n-s)/d,1);el.textContent=Math.round(t*(1-Math.pow(1-p,3))).toLocaleString('en-IN');if(p<1)requestAnimationFrame(step)};
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){el.textContent=t.toLocaleString('en-IN')}else{requestAnimationFrame(step)}
+  });
+  io.unobserve(e.target);
+}),{threshold:.25});
+document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+document.getElementById('loopFig')&&io.observe(document.getElementById('loopFig'));
+</script>
+</body>
+</html>
